@@ -1,0 +1,61 @@
+.artlist {
+    width: 958px;
+    border: 1px solid #eaeaea;
+}
+.art_box h2 {
+    height: 38px;
+    line-height: 38px;
+    background: url(../../public/image/wzbg.png) repeat-x;
+    padding: 0 10px;
+    color: #8e8e8e;
+    font-size: 14px;
+}
+.artbody {
+    padding: 20px;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.imgbody p {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.pn_news {
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 70px;
+}
+.pn_news ul li {
+    height: 30px;
+    line-height: 30px;
+    border-top-width: 1px;
+    border-top-style: dotted;
+    border-top-color: #cccccc;
+    font-size: 14px;
+}
+
+.artbody img {
+    border: 5px solid #f0f0f0;
+}
+
+.art_box .art ul li {
+    height: 40px;
+    line-height: 40px;
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
+    border-bottom-color: #e6e6e6;
+    background-image: url(//wx1.sinaimg.cn/small/005Z6lBIjw1eod3tp7j7rg300g00g062.gif);
+    background-repeat: no-repeat;
+    background-position: 8px 14px;
+    padding-left: 32px;
+    font-size: 13px;
+}
+
+.art_box .art ul li a {
+    float: left;
+}
+.art_box .art ul li span {
+    float: right;
+    margin-right: 20px;
+}

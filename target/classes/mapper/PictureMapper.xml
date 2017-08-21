@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.mvc.acl.dao.PictureDao">
+
+    <sql id="pictureColumns">
+         picture_id AS pictureId,
+         name,
+         type_code as typeCode,
+         img,
+         resource_id as resourceId,
+         create_date AS  createDate
+    </sql>
+
+    <insert id="savePicture" parameterType="Picture" useGeneratedKeys="true" keyColumn="pictureId">
+        insert into lgw_picture(name,type_code,img,resource_id,create_date)
+        values(#{pictureId},#{name},#{typeCode},#{resourceId},#{createDate});
+
+        <selectKey resultType="int" keyProperty="pictureId" order="AFTER">
+            SELECT  LAST_INSERT_ID() AS pictureId
+        </selectKey>
+    </insert>
+
+    <update id="updatePicture" parameterType="Picture">
+        UPDATE lgw_picture
+        SET  name=#{name},
+        type_code=#{typeCode},
+        img=#{img},
+        resource_id=#{resourceId}
+    </update>
+
+    <select id="findById" resultType="Picture" parameterType="int">
+        SELECT
+        <include refid="pictureColumns"/>
+        FROM lgw_picture
+        WHERE picture_id=#{pictureId}
+    </select>
+
+    <select id="queryPicture" resultType="Picture" parameterType="PictureCondition">
+        SELECT
+        <include refid="pictureColumns"/>
+        FROM  lgw_picture
+        <include refid="queryCondition"/>
+        ORDER BY create_date DESC
+        limit #{condition.offset},#{condition.pageSize}
+    </select>
+
+    <sql id="queryCondition">
+        <where>
+            <if test="condition.name!=null and condition.name!=''">
+                AND name=#{condition.name}
+            </if>
+            <if test="condition.type!=null and condition.type!=''">
+                AND type_code=#{condition.type}
+            </if>
+        </where>
+    </sql>
+
+</mapper>

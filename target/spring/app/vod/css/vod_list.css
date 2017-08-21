@@ -1,0 +1,135 @@
+.pside {
+    float: left;
+    width: 250px;
+}
+
+.pside ul {
+    border: 0px solid #eaeaea;
+    padding: 0 0 20px;
+}
+
+.pside li a{
+    color: #505050;
+    font-size: 14px;
+}
+.toplist .hotcon, .pagelist {
+    float: right;
+    width: 686px;
+    padding-bottom: 14px;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid #eaeaea;
+    background: #fff;
+}
+
+.filter {
+    position: relative;
+    padding: 0 16px 0px;
+    background: #fff;
+}
+.filter .title {
+    height: 38px;
+    line-height: 38px;
+    padding-top: 6px;
+}
+.filter .title b {
+    float: left;
+    font-weight: normal;
+    color: #999;
+    font-size: 16px;
+}
+.movielist {
+    height: 100%;
+    padding: 10px 0 30px;
+}
+
+.pagepre {
+    line-height: 32px;
+    height: 32px;
+}
+.pagepre p {
+    padding-left: 20px;
+    float: left;
+    color: #444;
+}
+.pagepre p span {
+    color: #f00;
+}
+.mlist {
+    margin: 14px 17px 24px;
+    border: dashed #ddd;
+    border-top-width: medium;
+    border-right-width: medium;
+    border-bottom-width: medium;
+    border-left-width: medium;
+    border-width: 1px 0;
+    height: 100%;
+    overflow: hidden;
+    padding: 16px 0 16px 3px;
+}
+.mlist li {
+    float: left;
+    width: 323px;
+    padding: 10px 0 10px 0px;
+}
+.mlist .info {
+    float: left;
+    width: 220px;
+    padding-left: 12px;
+}
+.mlist .info h2 {
+    height: 26px;
+    line-height: 26px;
+    color: #a4a4a4;
+}
+.mlist h2 a, .mlist h2 a:visited {
+    color: #2c89c6;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.p {
+    float: left;
+}
+
+.mlist .info p {
+    color: #5e5e5e;
+    line-height: 26px;
+    height: 26px;
+    overflow: hidden;
+    margin: 0px;
+}
+.mlist .info span {
+    display: block;
+    padding-top: 5px;
+    height: 23px;
+    background: url(//wx1.sinaimg.cn/large/005Z6lBIjw1eod3tz3li7g303000la9u.gif) no-repeat 0 2px;
+}
+.mlist .info span a, .mlist .info span a:visited {
+    display: inline-block;
+    float: left;
+    width: 50px;
+    line-height: 63px;
+    height: 21px;
+    overflow: hidden;
+    margin-right: 8px;
+}
+#pages {
+    height: 33px;
+    padding: 0px;
+    margin: 0px;
+    clear: both;
+    text-align: center;
+}
+#pages b{
+    padding-left: 20%;
+    float: left;
+    display:block;
+    line-height:33px;
+    height: 33px;
+}
+#pages ul{
+    float: left;
+    padding-left: 10px;
+}

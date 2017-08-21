@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.mvc.acl.dao.FilmDao">
+
+    <sql id="filmColumns">
+      film_id as filmId,
+      film_type as filmType,
+      film_name as filmName,
+      title_img as titleImg,
+      content_img as contentImg,
+      http,
+      ed2k,
+      thunder,
+      qqdl,
+      flashget,
+      resource_id as rersourceId,
+      click_amount as clickAmount,
+      create_date as createDate
+    </sql>
+
+    <insert id="saveFilm" parameterType="Film" useGeneratedKeys="true" keyColumn="filmId">
+        INSERT INTO lgw_film(film_type,film_name,title_img,content_img,http,ed2k,thunder,qqdl,
+        flashget,resource_id,click_amount,create_date)
+        VALUES (#{filmType},#{filmName},#{titleImg},#{contentImg},#{http},#{ed2k},#{thunder},
+        #{qqdl},#{flashget},#{resourceId},#{clickAmount},${createDate})
+        <selectKey resultType="int" order="AFTER" keyProperty="filmId">
+            SELECT LAST_INSERT_ID() AS filmId
+        </selectKey>
+    </insert>
+
+    <update id="updateFilm" parameterType="Film">
+        UPDATE lgw_film
+        SET film_type=#{filmType},
+        film_name=#{filmName},
+        title_img=#{titleImg},
+        content_img=#{contentImg},
+        http=#{http},
+        ed2k=#{ed2k},
+        thunder=#{thunder},
+        qqdl=#{qqdl},
+        flashget=#{flashGet},
+        resourceid=#{resourceId},
+        clickamount=#${clickAmount}
+        WHERE film_id=#{filmId}
+    </update>
+
+    <select id="findById" resultType="Film" parameterType="int">
+        SELECT
+        <include refid="filmColumns"/>
+        FROM  lgw_film
+        WHERE film_id=#{filmId}
+    </select>
+
+    <select id="selectFilmTypeOrName" resultType="Film" parameterType="FilmCondition">
+        SELECT
+         <include refid="filmColumns"/>
+        FROM  lgw_film
+        <include refid="queryConditions"/>
+         ORDER BY create_date DESC
+        <if test="filmCondition.filmName!=null and filmCondition.clickFlag=='Y'">
+            ,click_amount DESC
+        </if>
+        limit #{filmCondition.offset},#{filmCondition.pageSize}
+    </select>
+
+    <select id="countByFilm" resultType="int" parameterType="String">
+        SELECT COUNT(1)
+        FROM lgw_film
+        <if test="type!=null and type!=''">
+            WHERE  film_type=#{type}
+        </if>
+    </select>
+
+    <sql id="queryConditions">
+        <where>
+            <if test="filmCondition.filmName!=null and filmCondition.filmName!=''">
+              AND   film_name LIKE '%' || #{filmCondition.filmName} || '%'
+            </if>
+            <if test="filmCondition.filmType!=null and filmCondition.filmType!=''">
+              AND  film_Type=#{filmCondition.filmType}
+            </if>
+        </where>
+    </sql>
+
+</mapper>
