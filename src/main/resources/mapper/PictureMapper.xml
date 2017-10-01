@@ -11,7 +11,8 @@
          type_code as typeCode,
          img,
          resource_id as resourceId,
-         create_date AS  createDate
+         create_date AS  createDate,
+         location_id as locationId
     </sql>
 
     <insert id="savePicture" parameterType="Picture" useGeneratedKeys="true" keyColumn="pictureId">
@@ -35,7 +36,7 @@
         SELECT
         <include refid="pictureColumns"/>
         FROM lgw_picture
-        WHERE picture_id=#{pictureId}
+        WHERE picture_id=#{id}
     </select>
 
     <select id="queryPicture" resultType="Picture" parameterType="PictureCondition">
@@ -46,6 +47,23 @@
         ORDER BY create_date DESC
         limit #{condition.offset},#{condition.pageSize}
     </select>
+    
+    <select id="queryPictureUpAndDown" resultType="Picture" parameterType="PictureCondition">
+        SELECT
+        <include refid="pictureColumns"/>
+        FROM lgw_picture
+        WHERE picture_id=(SELECT MAX(picture_id) FROM lgw_picture WHERE  picture_id &lt; #{condition.id}
+        AND type_code= #{condition.type}
+        ORDER BY create_date DESC LIMIT 1)
+        UNION ALL
+        SELECT
+        <include refid="pictureColumns"/>
+        FROM lgw_picture
+        WHERE picture_id=(SELECT MIN(picture_id) FROM lgw_picture WHERE  picture_id &gt; #{condition.id}
+        AND type_code=#{condition.type}
+        ORDER BY create_date DESC LIMIT 1)
+    </select>
+    
 
     <sql id="queryCondition">
         <where>

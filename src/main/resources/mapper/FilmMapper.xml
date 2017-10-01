@@ -11,20 +11,22 @@
       film_name as filmName,
       title_img as titleImg,
       content_img as contentImg,
+      xfplay,
       http,
       ed2k,
       thunder,
       qqdl,
       flashget,
-      resource_id as rersourceId,
+      title_resource_id as titleResourceId,
+      content_resource_id as contentReourceId,
       click_amount as clickAmount,
       create_date as createDate
     </sql>
 
     <insert id="saveFilm" parameterType="Film" useGeneratedKeys="true" keyColumn="filmId">
-        INSERT INTO lgw_film(film_type,film_name,title_img,content_img,http,ed2k,thunder,qqdl,
+        INSERT INTO lgw_film(film_type,film_name,title_img,content_img,xfplay,http,ed2k,thunder,qqdl,
         flashget,resource_id,click_amount,create_date)
-        VALUES (#{filmType},#{filmName},#{titleImg},#{contentImg},#{http},#{ed2k},#{thunder},
+        VALUES (#{filmType},#{filmName},#{titleImg},#{contentImg},#{xfplay},#{http},#{ed2k},#{thunder},
         #{qqdl},#{flashget},#{resourceId},#{clickAmount},${createDate})
         <selectKey resultType="int" order="AFTER" keyProperty="filmId">
             SELECT LAST_INSERT_ID() AS filmId
@@ -37,6 +39,7 @@
         film_name=#{filmName},
         title_img=#{titleImg},
         content_img=#{contentImg},
+        xfplay=#{xfplay},
         http=#{http},
         ed2k=#{ed2k},
         thunder=#{thunder},
@@ -57,7 +60,9 @@
     <select id="selectFilmTypeOrName" resultType="Film" parameterType="FilmCondition">
         SELECT
          <include refid="filmColumns"/>
-        FROM  lgw_film
+         ,lv.CODE_VALUE as codeValue
+        FROM  lgw_film film
+        LEFT  JOIN lgw_look_value lv ON lv.LOOK_CODE=film.FIlM_TYPE AND lv.LOOK_TYPE='FILM_TYPE'
         <include refid="queryConditions"/>
          ORDER BY create_date DESC
         <if test="filmCondition.filmName!=null and filmCondition.clickFlag=='Y'">
@@ -69,9 +74,7 @@
     <select id="countByFilm" resultType="int" parameterType="String">
         SELECT COUNT(1)
         FROM lgw_film
-        <if test="type!=null and type!=''">
-            WHERE  film_type=#{type}
-        </if>
+        <include refid="queryConditions"/>
     </select>
 
     <sql id="queryConditions">
@@ -81,6 +84,12 @@
             </if>
             <if test="filmCondition.filmType!=null and filmCondition.filmType!=''">
               AND  film_Type=#{filmCondition.filmType}
+            </if>
+            <if test="filmCondition.startDate!=null and filmCondition.startDate!=''">
+                AND  create_date &gt;=#{filmCondition.startDate}
+            </if>
+            <if test="filmCondition.endDate!=null and filmCondition.endDate!=''">
+                AND  create_date &lt;=#{filmCondition.endDate}
             </if>
         </where>
     </sql>
