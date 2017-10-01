@@ -28,6 +28,15 @@ public class Picture {
     //创建时间
     private Date createDate;
 
+    private Integer locationId;
+
+    private String codeValue;
+
+    private Picture upPage;
+    private Picture downPage;
+
+    private String[] imgs;
+
 
 }
 

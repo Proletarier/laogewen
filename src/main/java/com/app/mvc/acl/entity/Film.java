@@ -24,6 +24,8 @@ public class Film {
     private  String titleImg;
     //图片内容地址
     private  String contentImg;
+    //先锋
+    private String  xfplay;
     //http
     private  String  http;
     //ed2k
@@ -34,8 +36,9 @@ public class Film {
     private  String flashGet;
     //迅雷下载地址
     private  String thunder;
-    //文件地址
-    private  Integer resourceId;
+    //文件地址Resource
+    private  Integer titleResourceId;
+    private  Integer contentResourceId;
     //点击数量
     private  Integer clickAmount;
     //创建时间
@@ -44,5 +47,7 @@ public class Film {
     private  int locationId;
 
     private  String[] img;
+
+    private String codeValue;
 
 }

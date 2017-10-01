@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by wenheng on 2017/8/17.
  */
@@ -46,4 +48,12 @@ public class PictureController {
     public JsonData queryPicture(PictureCondition pictureCondition) {
         return JsonData.success(pictureService.queryPicture(pictureCondition));
     }
+
+    @ResponseBody
+    @RequestMapping(value = "static/Picture",method = RequestMethod.GET)
+    public JsonData staticPicture(HttpServletRequest request, Integer id){
+        pictureService.staticPictureHtml(request.getSession().getServletContext().getRealPath("app/picture/"),id);
+        return  JsonData.success(null);
+    }
+
 }

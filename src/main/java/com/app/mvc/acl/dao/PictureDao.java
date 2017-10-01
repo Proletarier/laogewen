@@ -21,4 +21,6 @@ public interface PictureDao {
 
     List<Picture> queryPicture(@Param("condition") PictureCondition pictureCondition);
 
+    List<Picture> queryPictureUpAndDown(@Param("condition") PictureCondition pictureCondition);
+
 }

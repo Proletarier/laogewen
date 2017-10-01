@@ -23,7 +23,8 @@ public class SpiderFilm {
              film.setFilmType(getFindGroup(content,"info.+?<a.+?>(.+?)</a>"));
              film.setFilmName(getFindGroup(content,"info.+?<h1>(.+?)</h1>"));
              film.setTitleImg(getFindGroup(content,"pic.+?src=\"(.+?)\""));
-             film.setHttp(getFindGroup(content,"(xfplay:.+?)\\b\">"));
+             film.setXfplay(getFindGroup(content,"(xfplay:.+?)\\b\">"));
+            // film.setHttp(getFindGroup(content,"(https:.+?)\\b\">"));
              film.setEd2k(getFindGroup(content,"played2k.+?<textarea.+?>(.*?)</textarea>"));
              film.setQqdl(getFindGroup(content,"<a\\s+class=\"d2\".+?(qqdl:.+?)\"{1}\\s+target.+?>"));
              film.setFlashGet(getFindGroup(content,"<a\\s+class=\"d3\".+?(flashget:.+?)\"{1}\\s+target.+?>"));
@@ -90,10 +91,10 @@ public class SpiderFilm {
      @Override
      public String toString(){
          if(film == null) return null;
-         String sql="INSERT INTO lgw_film(film_type,film_name,title_img,content_img,http,ed2k,thunder,qqdl," +
+         String sql="INSERT INTO lgw_film(film_type,film_name,title_img,content_img,xfplay,http,ed2k,thunder,qqdl," +
                  "flashget) values(" +
                  "'"+film.getFilmType()+"','"+film.getFilmName()+"','"+film.getTitleImg()+"'," +
-                 "'"+film.getContentImg()+"','"+film.getHttp()+"','"+film.getEd2k()+"','"+film.getThunder()+"'," +
+                 "'"+film.getContentImg()+"','"+film.getXfplay()+"','"+film.getHttp()+"','"+film.getEd2k()+"','"+film.getThunder()+"'," +
                  "'"+film.getQqdl()+"','"+film.getFlashGet()+"');";
          return sql;
      }

@@ -11,9 +11,15 @@ import lombok.Setter;
 @Setter
 public class PictureCondition extends PageQuery {
 
+    private  Integer id;
+
     private String name;
 
     private String type;
 
     private String clickFlag="N";
+
+    private  String startDate;
+
+    private  String endDate;
 }

@@ -1,9 +1,9 @@
 package com.app.mvc.spider;
 
-import com.app.mvc.spider.bean.SpiderFilm;
+import com.app.mvc.spider.bean.SpiderPicture;
 import com.app.mvc.spider.filter.LinkFilter;
 import com.app.mvc.spider.model.SpiderQueue;
-import com.app.mvc.util.File;
+import com.app.mvc.util.FileUtil;
 import org.apache.commons.httpclient.HttpClient;
 
 import java.io.BufferedReader;
@@ -90,8 +90,8 @@ public class Spider {
         if (obj != null) {
             String content = getsql(obj);
             if (content!=null) {
-                System.out.print(content);
-                File.writeFile("C:\\Users\\wenheng\\Desktop\\film.sql", content);
+                System.out.println(content);
+                FileUtil.writeFile("C:\\Users\\wenheng\\Desktop\\test.sql", content);
             }
         }
     }
@@ -117,14 +117,20 @@ public class Spider {
 
     public static void main(String... args) {
         Spider crawler = new Spider();
-        crawler.crewling(new String[]{"https://8888av.co/list/1.html",
-                "https://8888av.co/list/2.html",
-                "https://8888av.co/list/3.html",
-                "https://8888av.co/list/4.html",
-                "https://8888av.co/list/5.html",
-                "https://8888av.co/list/6.html",
-                "https://8888av.co/list/7.html",
-                "https://8888av.co/list/8.html",}, SpiderFilm.class);
+//        crawler.crewling(new String[]{"https://8888av.co/list/1.html",
+//                "https://8888av.co/list/2.html",
+//                "https://8888av.co/list/3.html",
+//                "https://8888av.co/list/4.html",
+//                "https://8888av.co/list/5.html",
+//                "https://8888av.co/list/6.html",
+//                "https://8888av.co/list/7.html",
+//                "https://8888av.co/list/8.html",}, SpiderFilm.class);
+        crawler.crewling(new String[]{"https://9999av.co/html/tupian/yazhou/index.html",
+                "https://9999av.co/html/tupian/siwa/index.html",
+                "https://9999av.co/html/tupian/oumei/index.html",
+                "https://9999av.co/html/tupian/mingxing/index.html",
+                "https://9999av.co/html/tupian/qingchun/index.html",
+                "https://9999av.co/html/tupian/dongman/index.html",}, SpiderPicture.class);
     }
 
 

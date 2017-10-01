@@ -4,6 +4,9 @@ import com.app.mvc.acl.condition.PictureCondition;
 import com.app.mvc.acl.entity.Picture;
 import com.app.mvc.beans.Page;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by wenheng on 2017/7/2.
  */
@@ -16,5 +19,11 @@ public interface PictureService {
     Picture findById(Integer id);
 
     Page<Picture> queryPicture(PictureCondition pictureCondition);
+
+    Map<String, List<Picture>> searchHome();
+
+    void  staticPictureHtml(String path,Integer id);
+
+
 
 }

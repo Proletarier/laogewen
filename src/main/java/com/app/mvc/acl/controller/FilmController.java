@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,30 @@ public class FilmController {
         Map<String,List<Film>> map=filmService.searchHome();
         return  JsonData.success(map);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "static/IndexHtml",method = RequestMethod.GET)
+    public JsonData createHomeHtml(HttpServletRequest request){
+        filmService.staticIndexHtml("C:\\Users\\wenheng\\Desktop");
+        return  JsonData.success(null);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "static/VodHtml",method = RequestMethod.GET)
+    public JsonData createVodHtml(HttpServletRequest request,Integer id){
+        filmService.staticVodHtml(request.getSession().getServletContext().getRealPath("app/vod/"),id);
+        return  JsonData.success(null);
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 }

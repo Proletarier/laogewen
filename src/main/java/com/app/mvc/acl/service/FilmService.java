@@ -21,4 +21,23 @@ public interface FilmService {
     Page<Film> selectFilmTypeOrName(FilmCondition filmCondition);
 
     Map<String,List<Film>> searchHome();
+
+    void staticIndexHtml(String path);
+
+    void staticVodHtml(String path,Integer id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

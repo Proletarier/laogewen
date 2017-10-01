@@ -1,5 +1,6 @@
 package com.app.mvc.spider.bean;
 
+import com.app.mvc.acl.config.utilConfig;
 import com.app.mvc.acl.entity.Picture;
 import com.app.mvc.spider.Spider;
 import com.google.common.base.Joiner;
@@ -20,8 +21,8 @@ public class SpiderPicture {
         if(getReadUrl(url)){
             picture=new Picture();
             String content= Spider.sendGet(url);
-            picture.setName(getFindGroup(content,""));
-            picture.setTypeCode(getFindGroup(content,""));
+            picture.setName(getFindGroup(content,"<a href=\"/html/tupian/.+?/\">.+</a>(.+?)</h2>"));
+            picture.setTypeCode(getFindGroup(content,"<a href=\"/html/tupian/\\w+?/\">(.+?)</a>"));
             //匹配图片内容
             Pattern pattern=Pattern.compile("<p><img\\ssrc=\"(.+?)\".+?</p>");
             Matcher matcher=pattern.matcher(content);
@@ -32,6 +33,13 @@ public class SpiderPicture {
                 isFind=matcher.find();
             }
             picture.setImg(Joiner.on(";").join(listString));
+           // picture.setTypeCode(utilConfig.PictureType.);
+
+            for (utilConfig.PictureType type : utilConfig.PictureType.values()){
+                 if(type.getValue().equals(picture.getTypeCode()))
+                     picture.setTypeCode(type.name());
+            }
+
         }
     }
 
@@ -46,7 +54,7 @@ public class SpiderPicture {
 
 
     boolean getReadUrl(String url){
-        Pattern pattern=Pattern.compile("vod");
+        Pattern pattern=Pattern.compile("/tupian/.+?/2017");
         Matcher matcher=pattern.matcher(url);
         if(matcher.find()){
             return  true;
@@ -57,7 +65,9 @@ public class SpiderPicture {
 
     @Override
     public String toString(){
-        String sql="";
+        if(picture == null) return null;
+        String sql="INSERT INTO lgw_picture(NAME,TYPE_CODE,IMG) VALUES('"+picture.getName().trim()+"'," +
+                "'"+picture.getTypeCode()+"','"+picture.getImg()+"');";
         return sql;
     }
 }

@@ -21,7 +21,7 @@ public interface FilmDao {
 
     List<Film> selectFilmTypeOrName(@Param("filmCondition") FilmCondition filmCondition);
 
-    int countByFilm(@Param("type") String type);
+    int countByFilm(@Param("filmCondition") FilmCondition filmCondition);
 
 }
 
