@@ -205,6 +205,13 @@
         </dependency>
 
 
+        <!--freemarker-->
+        <dependency>
+        <groupId>freemarker</groupId>
+        <artifactId>freemarker</artifactId>
+        <version>2.3.9</version>
+        </dependency>
+
 
         <!-- jodatime -->
         <dependency>

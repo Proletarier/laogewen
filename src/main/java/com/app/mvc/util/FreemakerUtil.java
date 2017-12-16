@@ -17,6 +17,7 @@ import java.util.Locale;
 public class FreemakerUtil {
 
     public static void  freemakerProcess(StaticTemplateView view){
+        Writer out=null;
         try {
             Configuration conf=new Configuration();
             conf.setLocale(Locale.CHINA);
@@ -28,15 +29,22 @@ public class FreemakerUtil {
             if(!htmlFile.exists()){
                 FileUtil.createFile(htmlFile, htmlFile.getAbsolutePath());
             }
-            Writer out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(htmlFile),"utf-8"));
+             out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(htmlFile),"utf-8"));
             //处理模板
             temp.process(view.getData(),out);
-            out.flush();
-            out.close();
         }catch (IOException e){
             e.printStackTrace();
         }catch (TemplateException e){
             e.printStackTrace();
+        }finally {
+            try {
+                if(out!=null) {
+                    out.flush();
+                    out.close();
+                }
+            }catch (IOException e){
+
+            }
         }
 
     }
