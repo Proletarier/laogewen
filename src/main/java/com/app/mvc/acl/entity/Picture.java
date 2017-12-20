@@ -37,6 +37,8 @@ public class Picture {
 
     private String[] imgs;
 
+    private String resourceMeaning;
+
 
 }
 

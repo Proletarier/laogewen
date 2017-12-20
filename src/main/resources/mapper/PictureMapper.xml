@@ -63,6 +63,12 @@
         AND type_code=#{condition.type}
         ORDER BY create_date DESC LIMIT 1)
     </select>
+
+    <select id="countByPicture" resultType="int" parameterType="String">
+        SELECT COUNT(1)
+        FROM lgw_picture
+        <include refid="queryCondition"/>
+    </select>
     
 
     <sql id="queryCondition">

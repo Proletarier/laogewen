@@ -24,6 +24,8 @@ public interface PictureService {
 
     void  staticPictureHtml(String path,Integer id);
 
+    void  staticPicturePageListHtml(String path,PictureCondition pictureCondition);
 
+    void  staticPicturePageHtml(String path,PictureCondition pictureCondition);
 
 }

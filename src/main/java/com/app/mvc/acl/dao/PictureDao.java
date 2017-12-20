@@ -23,4 +23,6 @@ public interface PictureDao {
 
     List<Picture> queryPictureUpAndDown(@Param("condition") PictureCondition pictureCondition);
 
+    int countByPicture(@Param("condition") PictureCondition pictureCondition);
+
 }
