@@ -12,6 +12,7 @@
     <script src="../public/js/jquery-1.12.0.min.js"></script>
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../main/js/main.js"></script>
+	<script src="js/picture_list.js"></script>
 </head>
 <body>
 <div class="container" id="header">
@@ -123,23 +124,23 @@
                     <ul>
 					<#list (page) as val>
 					  <#if (val.typeCode)??>
-						 <li><a href='/app/picture/${val.typeCode}/${val.createDate?string("yyyy/MMdd")}/${(val.pictureId)?c}.html' target="_blank">${val.name}</a> <span>${val.createDate?string("yyyy-MM-dd")}</span></li>
+						 <li style="display:none;"><a href='/app/picture/${val.typeCode}/${val.createDate?string("yyyy/MMdd")}/${(val.pictureId)?c}.html' target="_blank">${val.name}</a> <span>${val.createDate?string("yyyy-MM-dd")}</span></li>
 					  <#else>
-					    <li><a href="" target="_blank"></a> <span></span></li>
+					     <li style="display:none;"><a href="" target="_blank"></a> <span></span></li>
 					  </#if>
 					</#list>
 				   </ul>
                 </div>
                 <div class="clear"></div>
                 <div id="pages">
-                    页次：${pageNum}/${totalNum} 每页25 总数${count}
+                    <b></b>
 					<#if pageNum!=1>
-					<a href="/app/picture/${type}/index_1.html">首页</a>
-						<a href="/app/picture/${type}/index_${upPageNum}.html">上一页</a>
+					<a id="a1" href="/app/picture/${type}/index_1.html">首页</a>
+						<a id="a2" href="/app/picture/${type}/index_${upPageNum}.html">上一页</a>
 					</#if>
 					<#if pageNum!=totalNum>
-                    <a href="/app/picture/${type}/index_${downPageNum}.html">下一页</a>
-                    <a href="/app/picture/${type}/index_${totalNum}.html">尾页</a>
+                    <a id="a3" href="/app/picture/${type}/index_${downPageNum}.html">下一页</a>
+                    <a id="a4" href="/app/picture/${type}/index_${totalNum}.html">尾页</a>
 					</#if>
                     转到
                     <input name="page" id="page" size="4" class="pagego" type="input">

@@ -150,7 +150,7 @@ public class PictureServiceImpl implements PictureService {
         int count = pictureDao.countByPicture(condition);
         Map<String, Object> map = Maps.newHashMap();
         boolean isTrue = false;
-        if (condition.getPageNum() == 1 || Math.ceil(count / condition.getPageSize()) == condition.getPageNum()) {
+        if (condition.getPageNum() == 1) {
             isTrue = true;
         } else {
             condition.setPageNum(condition.getPageNum() - 1);
@@ -172,7 +172,7 @@ public class PictureServiceImpl implements PictureService {
         map.put("pageNum", condition.getPageNum());
         map.put("upPageNum",  condition.getPageNum()-1);
         map.put("downPageNum", condition.getPageNum()+1);
-        map.put("totalNum", Math.ceil(count / condition.getPageSize()));
+        map.put("totalNum", Math.ceil((double) count / condition.getPageSize()));
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("picture_list.ftl");
