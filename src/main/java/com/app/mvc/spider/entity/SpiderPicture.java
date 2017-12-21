@@ -2,7 +2,7 @@ package com.app.mvc.spider.entity;
 
 import com.app.mvc.acl.config.utilConfig;
 import com.app.mvc.acl.entity.Picture;
-import com.app.mvc.spider.Spider;
+import com.app.mvc.util.HttpUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
@@ -20,7 +20,7 @@ public class SpiderPicture {
     public  SpiderPicture(String url){
         if(getReadUrl(url)){
             picture=new Picture();
-            String content= Spider.sendGet(url);
+            String content= HttpUtil.sendGet(url);
             picture.setName(getFindGroup(content,"<a href=\"/html/tupian/.+?/\">.+</a>(.+?)</h2>"));
             picture.setTypeCode(getFindGroup(content,"<a href=\"/html/tupian/\\w+?/\">(.+?)</a>"));
             //匹配图片内容

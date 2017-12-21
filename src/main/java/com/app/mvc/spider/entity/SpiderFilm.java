@@ -1,7 +1,7 @@
 package com.app.mvc.spider.entity;
 
 import com.app.mvc.acl.entity.Film;
-import com.app.mvc.spider.Spider;
+import com.app.mvc.util.HttpUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
@@ -19,7 +19,7 @@ public class SpiderFilm {
      public SpiderFilm(String url){
          if(getReadUrl(url)){
              film=new Film();
-             String content= Spider.sendGet(url);
+             String content= HttpUtil.sendGet(url);
              film.setFilmType(getFindGroup(content,"info.+?<a.+?>(.+?)</a>"));
              film.setFilmName(getFindGroup(content,"info.+?<h1>(.+?)</h1>"));
              film.setTitleImg(getFindGroup(content,"pic.+?src=\"(.+?)\""));
