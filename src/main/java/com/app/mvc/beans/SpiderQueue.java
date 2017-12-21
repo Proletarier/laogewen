@@ -1,5 +1,6 @@
-package com.app.mvc.spider.model;
+package com.app.mvc.beans;
 
+import com.app.mvc.beans.Queue;
 import com.google.common.collect.Sets;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ import java.util.Set;
  */
 public class SpiderQueue {
     //已访问过的url队列
-    private  Set<Object> visitedUrl= Sets.newHashSet();
+    private  Set<String> visitedUrl= Sets.newHashSet();
     //待访问url集合
     private Queue unVisitedUrl=new Queue();
 
@@ -25,15 +26,15 @@ public class SpiderQueue {
     }
 
 
-    public Set<Object> getVisitedUrl() {
+    public Set<String> getVisitedUrl() {
         return visitedUrl;
     }
 
-    public Object unVisitedUrl(){
+    public Queue unVisitedUrl(){
         return unVisitedUrl;
     }
 
-    public  Object unVisitedUrlDeQueue(){
+    public  String unVisitedUrlDeQueue(){
         return  unVisitedUrl.deQueue();
     }
 

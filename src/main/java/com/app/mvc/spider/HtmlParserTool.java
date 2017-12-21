@@ -1,6 +1,6 @@
 package com.app.mvc.spider;
 
-import com.app.mvc.spider.filter.LinkFilter;
+import com.app.mvc.interceptor.LinkFilter;
 import com.google.common.collect.Sets;
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
@@ -18,7 +18,7 @@ import java.util.Set;
  * Created by wenheng on 2017/7/16.
  */
 public class HtmlParserTool {
-    public static Set<String> extracLinks(String url, LinkFilter filter) {
+    public static Set<String> extracLinks(String url, LinkFilter filter ,String... validate) {
         Set<String> links = Sets.newHashSet();
         try {
             URL realurl = new URL(url);
@@ -47,11 +47,7 @@ public class HtmlParserTool {
                 if (tag instanceof LinkTag) {
                     LinkTag linkTag = (LinkTag) tag;
                     String linkurl = linkTag.getLink();
-                    if (filter.accept(linkurl, "https://9999av.co/html/tupian/yazhou", "https://9999av.co/html/tupian/siwa",
-                            "https://9999av.co/html/tupian/oumei",
-                            "https://9999av.co/html/tupian/mingxing",
-                            "https://9999av.co/html/tupian/qingchun",
-                            "https://9999av.co/html/tupian/dongman")) {
+                    if (filter.accept(linkurl, validate)) {
                         links.add(linkurl);
                     }
                 } else {
@@ -63,11 +59,7 @@ public class HtmlParserTool {
                         end = fram.indexOf(">");
                     }
                     String frameUrl = fram.substring(5, end - 1);
-                    if (filter.accept(frameUrl, "https://9999av.co/html/tupian/yazhou", "https://9999av.co/html/tupian/siwa",
-                            "https://9999av.co/html/tupian/oumei",
-                            "https://9999av.co/html/tupian/mingxing",
-                            "https://9999av.co/html/tupian/qingchun",
-                            "https://9999av.co/html/tupian/dongman")) {
+                    if (filter.accept(frameUrl, validate)) {
                         links.add(frameUrl);
                     }
                 }

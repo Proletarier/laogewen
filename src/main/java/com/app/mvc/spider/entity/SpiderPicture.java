@@ -1,4 +1,4 @@
-package com.app.mvc.spider.bean;
+package com.app.mvc.spider.entity;
 
 import com.app.mvc.acl.config.utilConfig;
 import com.app.mvc.acl.entity.Picture;

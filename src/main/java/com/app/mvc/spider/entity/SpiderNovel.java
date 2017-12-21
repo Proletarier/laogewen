@@ -1,4 +1,4 @@
-package com.app.mvc.spider.bean;
+package com.app.mvc.spider.entity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,4 +1,4 @@
-package com.app.mvc.spider.filter;
+package com.app.mvc.interceptor;
 
 /**
  * Created by wenheng on 2017/7/16.

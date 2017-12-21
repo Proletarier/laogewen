@@ -1,4 +1,4 @@
-package com.app.mvc.spider.bean;
+package com.app.mvc.spider.entity;
 
 import com.app.mvc.acl.entity.Film;
 import com.app.mvc.spider.Spider;

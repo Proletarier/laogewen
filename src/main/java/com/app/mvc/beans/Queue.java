@@ -1,4 +1,4 @@
-package com.app.mvc.spider.model;
+package com.app.mvc.beans;
 
 import com.google.common.collect.Lists;
 
@@ -9,17 +9,17 @@ import java.util.LinkedList;
  */
 public class Queue {
 
-    private LinkedList<Object> queue= Lists.newLinkedList();
+    private LinkedList<String> queue= Lists.newLinkedList();
 
-    public  void enQueue(Object obj){
+    public  void enQueue(String obj){
         queue.add(obj);
     }
 
-    public  Object deQueue(){
+    public  String deQueue(){
         return queue.removeFirst();
     }
 
-    public boolean contians(Object t){
+    public boolean contians(String t){
         return queue.contains(t);
     }
 

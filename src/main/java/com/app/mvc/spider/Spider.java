@@ -1,8 +1,8 @@
 package com.app.mvc.spider;
 
-import com.app.mvc.spider.bean.SpiderPicture;
-import com.app.mvc.spider.filter.LinkFilter;
-import com.app.mvc.spider.model.SpiderQueue;
+import com.app.mvc.spider.entity.SpiderPicture;
+import com.app.mvc.interceptor.LinkFilter;
+import com.app.mvc.beans.SpiderQueue;
 import com.app.mvc.util.FileUtil;
 import org.apache.commons.httpclient.HttpClient;
 
@@ -26,37 +26,26 @@ public class Spider {
         }
     }
 
-    public synchronized <T> void crewling(String[] seeds, Class<T> c) {
-        LinkFilter filter = new LinkFilter() {
-            @Override
-            public boolean accept(String url, String...filters) {
+    public synchronized <T> void crewling(String[] seeds, Class<T> c, LinkFilter filter, String... validate) {
 
-                for (String filter : filters) {
-                    if (url.startsWith(filter))
-                         return true;
-                }
-                return  false;
-            }
-
-        };
         SpiderQueue spiderQueue = new SpiderQueue();
         initCreawlerWithSeds(seeds, spiderQueue);
         while (!spiderQueue.unVisitedUrisEmpty()
                 && spiderQueue.getVisitedUrlNum() <= 1000) {
-            String visitUrl = (String) spiderQueue.unVisitedUrlDeQueue();
+            String visitUrl =  spiderQueue.unVisitedUrlDeQueue();
             if (visitUrl == null) {
                 continue;
             }
             saveSpider(visitUrl, c);
             spiderQueue.addVisitedUrl(visitUrl);
-            Set<String> links = HtmlParserTool.extracLinks(visitUrl, filter);
+            Set<String> links = HtmlParserTool.extracLinks(visitUrl, filter, validate);
             for (String link : links) {
                 spiderQueue.addUnVisitedUrl(link);
             }
         }
     }
 
-   public static String sendGet(String url) {
+    public static String sendGet(String url) {
         String result = "";
         BufferedReader in = null;
         try {
@@ -86,37 +75,35 @@ public class Spider {
     }
 
     <T> void saveSpider(String url, Class<T> c) {
-        Object obj = toEntity(url, c);
-        if (obj != null) {
-            String content = getsql(obj);
-            if (content!=null) {
-                System.out.println(content);
-                FileUtil.writeFile("C:\\Users\\wenheng\\Desktop\\test.sql", content);
+        try {
+            Object obj = c.getDeclaredConstructor(String.class).newInstance(url);
+            if (obj != null) {
+                String content = (String) obj.getClass().getMethod("ToString").invoke(obj);
+                if (content != null) {
+                    FileUtil.writeFile("C:\\Users\\wenheng\\Desktop\\test.sql", content);
+                }
             }
-        }
-    }
-
-    <T> Object toEntity(String url, Class<T> obj) {
-        try {
-            Constructor c1 = obj.getDeclaredConstructor(String.class);
-            return c1.newInstance(url);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
 
-    String getsql(Object obj) {
-        try {
-            return (String) obj.getClass().getMethod("toString").invoke(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public static void main(String... args) {
         Spider crawler = new Spider();
+
+        LinkFilter filter = new LinkFilter() {
+            @Override
+            public boolean accept(String url, String... filters) {
+
+                for (String filter : filters) {
+                    if (url.startsWith(filter))
+                        return true;
+                }
+                return false;
+            }
+
+        };
 //        crawler.crewling(new String[]{"https://8888av.co/list/1.html",
 //                "https://8888av.co/list/2.html",
 //                "https://8888av.co/list/3.html",
@@ -125,12 +112,7 @@ public class Spider {
 //                "https://8888av.co/list/6.html",
 //                "https://8888av.co/list/7.html",
 //                "https://8888av.co/list/8.html",}, SpiderFilm.class);
-        crawler.crewling(new String[]{"https://9999av.co/html/tupian/yazhou/index.html",
-                "https://9999av.co/html/tupian/siwa/index.html",
-                "https://9999av.co/html/tupian/oumei/index.html",
-                "https://9999av.co/html/tupian/mingxing/index.html",
-                "https://9999av.co/html/tupian/qingchun/index.html",
-                "https://9999av.co/html/tupian/dongman/index.html",}, SpiderPicture.class);
+        crawler.crewling(new String[]{"https://333av.vip/html/tupian/yazhou/index.html"}, SpiderPicture.class, filter);
     }
 
 
