@@ -14,7 +14,7 @@ public class SpiderQueue {
     private Queue unVisitedUrl=new Queue();
 
     public void  addVisitedUrl(String url){
-        visitedUrl.add(url.trim());
+        visitedUrl.add(url);
     }
 
     public void  removeVisitedUrl(String url){
@@ -40,7 +40,7 @@ public class SpiderQueue {
 
     public void addUnVisitedUrl(String url){
         if(url!=null && !url.trim().equals("") &&
-                !visitedUrl.contains(url.trim())){
+                !visitedUrl.contains(url) && !unVisitedUrl.contians(url)){
             System.out.println(url);
             unVisitedUrl.enQueue(url);
         }
