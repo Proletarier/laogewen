@@ -5,6 +5,8 @@ import com.app.mvc.acl.entity.Picture;
 import com.app.mvc.util.HttpUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -15,6 +17,8 @@ import java.util.regex.Pattern;
  */
 public class SpiderPicture {
 
+    @Getter
+    @Setter
     private Picture picture;
 
     public  SpiderPicture(String url){
@@ -70,4 +74,5 @@ public class SpiderPicture {
                 "'"+picture.getTypeCode()+"','"+picture.getImg()+"');";
         return sql;
     }
+
 }
