@@ -20,22 +20,22 @@ public class SpiderNovel {
     @Setter
     private Novel novel;
 
-    private SpiderNovel(String url) {
+    public SpiderNovel(String url) {
         if (getReadUrl(url)) {
             novel = new Novel();
             String content = HttpUtil.sendGet(url);
-            novel.setTitle(getFindGroup("content", "<a href=\"/html/article/\\w+?/\">(.+?)</a>"));
-            novel.setTypeCode(getFindGroup("content", "<a href=\"/html/article/\\w+?/\">(.+?)</a>"));
-
-            for (utilConfig.NovelType type : utilConfig.NovelType.values()){
-                if(type.getValue().equals(novel.getTypeCode()))
+            novel.setTitle(getFindGroup(content, "<a href=\"/html/article/.+?/\">.+</a>(.+?)</h2>"));
+            novel.setTypeCode(getFindGroup(content, "<a href=\"/html/article/\\w+?/\">(.+?)</a>"));
+            for (utilConfig.NovelType type : utilConfig.NovelType.values()) {
+                if (type.getValue().equals(novel.getTypeCode()))
                     novel.setTypeCode(type.name());
             }
+            proessNovelPage(url, content);
         }
     }
 
     boolean getReadUrl(String url) {
-        Pattern pattern = Pattern.compile("/tupian/.+?/2017");
+        Pattern pattern = Pattern.compile("/article/.+?/2017");
         Matcher matcher = pattern.matcher(url);
         if (matcher.find()) {
             return true;
@@ -53,16 +53,23 @@ public class SpiderNovel {
         return null;
     }
 
-    void proessPage(String url, String content) {
-        Integer num = Integer.valueOf(getFindGroup(content, "<a.?title=\"Page\">.+?<b>(.+?)</b>.?</a>"));
+    void proessNovelPage(String url, String content) {
+        String numSize = getFindGroup(content, "<a.?title=\"Page\">.+?<b>.+</b>.+?<b>(.+?)</b>.?</a>");
+        Integer num;
+        if (numSize != null) {
+            num = Integer.valueOf(numSize);
+        } else {
+            num = 1;
+        }
         for (int i = 1; i <= num; i++) {
             if (i > 1) {
-                url = url.substring(0, url.lastIndexOf(".") - 1) + "_" + i + ".html";
-                content = HttpUtil.sendGet(url);
+                String newUrl = url.substring(0, url.lastIndexOf(".")) + "_" + i + ".html";
+                content = HttpUtil.sendGet(newUrl);
             }
             NovelPage novelPage = new NovelPage();
             novelPage.setPage(i);
-            novelPage.setContent(getFindGroup(content, "(.+?)\\s+?<div id=\"pages\">"));
+            novelPage.setContent(getFindGroup(content, "imgbody\">\\s*<p>.+?</p>(.+)\\s*<div.+id=\"pages\">"));
+            System.out.println(novelPage.getContent());
             novel.getNovelPages().add(novelPage);
         }
 
@@ -70,7 +77,8 @@ public class SpiderNovel {
 
     @Override
     public String toString() {
-        String sql = "";
+        if (novel == null) return null;
+        String sql = novel.getTitle() + novel.getNovelPages().size();
         return sql;
     }
 }

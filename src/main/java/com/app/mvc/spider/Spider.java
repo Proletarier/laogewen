@@ -2,7 +2,7 @@ package com.app.mvc.spider;
 
 import com.app.mvc.beans.SpiderQueue;
 import com.app.mvc.interceptor.LinkFilter;
-import com.app.mvc.spider.entity.SpiderPicture;
+import com.app.mvc.spider.entity.SpiderNovel;
 import com.app.mvc.util.FileUtil;
 import org.apache.commons.httpclient.HttpClient;
 
@@ -47,7 +47,6 @@ public class Spider {
             if (obj != null) {
                 String content = (String) obj.getClass().getMethod("toString").invoke(obj);
                 if (content != null) {
-                  //  System.out.println(content);
                     FileUtil.writeFile("C:\\Users\\wenheng\\Desktop\\test.sql", content);
                 }
             }
@@ -80,7 +79,7 @@ public class Spider {
 //                "https://8888av.co/list/6.html",
 //                "https://8888av.co/list/7.html",
 //                "https://8888av.co/list/8.html",}, SpiderFilm.class);
-        crawler.crewling(new String[]{"https://333av.vip/html/tupian/toupai/index.html"}, SpiderPicture.class, filter,"https://333av.vip/html/tupian/toupai/");
+        crawler.crewling(new String[]{"https://333av.vip/html/article/jiqing/index.html"}, SpiderNovel.class, filter,"https://333av.vip/html/article/jiqing/");
     }
 
 

@@ -73,3 +73,34 @@
     float: right;
     margin-right: 20px;
 }
+
+.article-body #pages {
+    height: 40px;
+    padding-top: 5px;
+}
+#pages {
+    height: 24px;
+    padding: 0px;
+    padding-top: 0px;
+    padding-top: 0px;
+    clear: both;
+    text-align: center;
+}
+
+#pages a, #pages a:visited, #pages a:hover, #pages span, .pages a, .pages a:visited, .pages span {
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #333;
+    margin: 0 3px;
+    background: #FFFFFF;
+    border: 1px solid #dedede;
+    padding: 0 8px;
+}
+
+#pages a:hover, #pages a.curr, #pages a.curr:visited, .pages a:hover {
+    border: 1px solid #0196da;
+    background: #0196da;
+    color: #fff;
+}

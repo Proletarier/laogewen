@@ -41,7 +41,6 @@ public class SpiderQueue {
     public void addUnVisitedUrl(String url){
         if(url!=null && !url.trim().equals("") &&
                 !visitedUrl.contains(url) && !unVisitedUrl.contians(url)){
-            System.out.println(url);
             unVisitedUrl.enQueue(url);
         }
     }

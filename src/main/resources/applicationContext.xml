@@ -6,7 +6,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:property-placeholder location="classpath*:jdbc.properties"/>
 
@@ -23,6 +26,15 @@
         <property name="maxWait" value="60000"/>
         <property name="filters" value="stat,wall"/>
     </bean>
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="/WEB-INF/ehcache.xml"/>
+    </bean>
+    <bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+    <bean id="ehCacheEventListener" class="com.app.mvc.cache.EHCacheEventListener"></bean>
+
 
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
