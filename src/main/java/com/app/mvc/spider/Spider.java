@@ -1,10 +1,12 @@
 package com.app.mvc.spider;
 
 import com.app.mvc.beans.SpiderQueue;
+import com.app.mvc.cache.EhCacheCacheImpl;
 import com.app.mvc.interceptor.LinkFilter;
 import com.app.mvc.spider.entity.SpiderNovel;
 import com.app.mvc.util.FileUtil;
 import org.apache.commons.httpclient.HttpClient;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
 
@@ -12,7 +14,6 @@ import java.util.Set;
  * Created by wenheng on 2017/7/16.
  */
 public class Spider {
-    public HttpClient httpClient = new HttpClient();
 
 
     private void initCreawlerWithSeds(String[] seeds, SpiderQueue spiderQueue) {
@@ -25,13 +26,12 @@ public class Spider {
 
         SpiderQueue spiderQueue = new SpiderQueue();
         initCreawlerWithSeds(seeds, spiderQueue);
-        while (!spiderQueue.unVisitedUrisEmpty()
-                && spiderQueue.getVisitedUrlNum() <= 1000) {
-            String visitUrl =  spiderQueue.unVisitedUrlDeQueue();
+        while (!spiderQueue.unVisitedUrisEmpty()) {
+            String visitUrl = spiderQueue.unVisitedUrlDeQueue();
             if (visitUrl == null) {
                 continue;
             }
-            saveSpider(visitUrl, c);
+            saveSpider(visitUrl, spiderQueue, c);
             spiderQueue.addVisitedUrl(visitUrl);
             Set<String> links = HtmlParserTool.extracLinks(visitUrl, filter, validate);
             for (String link : links) {
@@ -41,14 +41,13 @@ public class Spider {
     }
 
 
-    <T> void saveSpider(String url, Class<T> c) {
+    <T> void saveSpider(String url, SpiderQueue spiderQueue, Class<T> c) {
         try {
             Object obj = c.getDeclaredConstructor(String.class).newInstance(url);
             if (obj != null) {
-                String content = (String) obj.getClass().getMethod("toString").invoke(obj);
-                if (content != null) {
-                    FileUtil.writeFile("C:\\Users\\wenheng\\Desktop\\test.sql", content);
-                }
+                //(String) obj.getClass().getMethod("toString").invoke(obj);
+                spiderQueue.addVisitedUrl(url);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,6 +67,7 @@ public class Spider {
                         return true;
                 }
                 return false;
+
             }
 
         };
@@ -79,7 +79,7 @@ public class Spider {
 //                "https://8888av.co/list/6.html",
 //                "https://8888av.co/list/7.html",
 //                "https://8888av.co/list/8.html",}, SpiderFilm.class);
-        crawler.crewling(new String[]{"https://333av.vip/html/article/jiqing/index.html"}, SpiderNovel.class, filter,"https://333av.vip/html/article/jiqing/");
+        crawler.crewling(new String[]{"https://333av.vip/html/article/jiqing/index.html"}, SpiderNovel.class, filter, "https://333av.vip/html/article/jiqing/");
     }
 
 
