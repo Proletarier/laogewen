@@ -28,8 +28,12 @@ public class Spider {
             if (visitUrl == null) {
                 continue;
             }
-            Object object = saveSpider(c, spiderQueue, visitUrl);
-            spiderQueue.addVisitedUrl(visitUrl);
+            Object object = saveSpider(c, visitUrl);
+            if(object!=null){
+                spiderQueue.addVisitedUrl(visitUrl);
+            }else {
+                spiderQueue.addEntranceUrl(visitUrl);
+            }
             Set<String> links = HtmlParserTool.extracLinks(visitUrl, filter, validate);
             for (String link : links) {
                 spiderQueue.addUnVisitedUrl(link);
@@ -38,7 +42,7 @@ public class Spider {
     }
 
 
-    <T> Object saveSpider(Class<T> c, SpiderQueue spiderQueue, String url) {
+    <T> Object saveSpider(Class<T> c , String url) {
         try {
             Object obj = c.getDeclaredConstructor(String.class).newInstance(url);
             if (obj != null) {
