@@ -2,19 +2,19 @@ package com.app.mvc.beans;
 
 import com.app.mvc.config.RegexConfig;
 import com.google.common.base.CharMatcher;
-import com.google.common.collect.Sets;
-import com.google.common.hash.BloomFilter;
-import com.google.common.hash.Funnels;
+import com.google.common.collect.Lists;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.net.URL;
-import java.util.Set;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
  * Created by wenheng on 2017/7/16.
  */
 public class SpiderQueue extends SpiderBloom {
+
+    //已访问url集合
+    private List<String> entranceUrl = Lists.newLinkedList();
 
     //待访问url集合
     private Queue unVisitedUrl = new Queue();
@@ -29,7 +29,7 @@ public class SpiderQueue extends SpiderBloom {
 
     public void addUnVisitedUrl(String url) {
         if (url != null && !url.trim().equals("") &&
-                !mightContain(url) && !unVisitedUrl.contians(url)) {
+                !mightContain(url) && !unVisitedUrl.contians(url) && !containsUrl(url)) {
             unVisitedUrl.enQueue(url);
         }
     }
@@ -37,6 +37,15 @@ public class SpiderQueue extends SpiderBloom {
     public boolean unVisitedUrisEmpty() {
         return unVisitedUrl.empty();
     }
+
+    public void addEntranceUrl(String url) {
+        entranceUrl.add(url);
+    }
+
+    public boolean containsUrl(String url) {
+        return entranceUrl.contains(url);
+    }
+
 
     public void addVisitedUrl(String url) {
         super.addVisitedUrl(processingUrl(url));
@@ -46,7 +55,7 @@ public class SpiderQueue extends SpiderBloom {
         return super.mightContain(processingUrl(url));
     }
 
-    String processingUrl(String url) {
+    private String processingUrl(String url) {
         Pattern pattern = Pattern.compile(RegexConfig.URL_REGEX);
         String newUrl = CharMatcher.ANY.anyOf(url).removeFrom(pattern.matcher(url).group());
         return DigestUtils.md5Hex(newUrl);
