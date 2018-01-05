@@ -2,7 +2,7 @@ package com.app.mvc.acl.controller;
 
 import com.app.mvc.acl.condition.PictureCondition;
 import com.app.mvc.acl.config.FileConfig;
-import com.app.mvc.acl.entity.Picture;
+import com.app.mvc.acl.po.Picture;
 import com.app.mvc.acl.service.PictureService;
 import com.app.mvc.beans.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,23 +47,10 @@ public class PictureController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "search",method = RequestMethod.GET)
+    @RequestMapping(value = "search", method = RequestMethod.GET)
     public JsonData queryPicture(PictureCondition pictureCondition) {
         return JsonData.success(pictureService.queryPicture(pictureCondition));
     }
 
-    @ResponseBody
-    @RequestMapping(value = "static/Picture",method = RequestMethod.GET)
-    public JsonData staticPicture(HttpServletRequest request, Integer id){
-        pictureService.staticPictureHtml(request.getSession().getServletContext().getRealPath("app/picture/"),id);
-        return  JsonData.success(null);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "static/PicturePageHtml",method = RequestMethod.GET)
-    public JsonData staticPicturePageHtml(HttpServletRequest request, PictureCondition pictureCondition){
-        pictureService.staticPicturePageHtml(FileConfig.picturePageFile,pictureCondition);
-        return  JsonData.success(null);
-    }
 
 }

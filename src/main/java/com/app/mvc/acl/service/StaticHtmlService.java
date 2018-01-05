@@ -1,14 +1,18 @@
-package com.app.mvc.acl.service.impl;
+package com.app.mvc.acl.service;
 
+import com.app.mvc.acl.condition.FilmCondition;
 import com.app.mvc.acl.condition.PictureCondition;
 import com.app.mvc.acl.config.FileConfig;
+import com.app.mvc.acl.config.FilmType;
 import com.app.mvc.acl.config.utilConfig;
+import com.app.mvc.acl.dao.FilmDao;
 import com.app.mvc.acl.dao.PictureDao;
-import com.app.mvc.acl.entity.Picture;
-import com.app.mvc.acl.service.PictureService;
+import com.app.mvc.acl.po.Film;
+import com.app.mvc.acl.po.Picture;
 import com.app.mvc.beans.Page;
 import com.app.mvc.beans.StaticTemplateView;
 import com.app.mvc.exception.ServiceException;
+import com.app.mvc.util.DateUtil;
 import com.app.mvc.util.FreemakerUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -18,64 +22,121 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by wenheng on 2017/7/2.
+ * Created by Administrator on 2018/1/5.
  */
-
 @Slf4j
 @Service
-public class PictureServiceImpl implements PictureService {
+public class StaticHtmlService {
+
+    @Autowired
+    private FilmDao filmDao;
 
     @Autowired
     private PictureDao pictureDao;
 
-
-    public void savePicture(Picture picture) {
-        try {
-            pictureDao.savePicture(picture);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw ServiceException.create("PICTURE.ADD.FALL");
-        }
+    /**
+     * 静态首页
+     * @param path
+     */
+    public void staticIndexHtml(String path) {
+        Map<String, Object> map = Maps.newHashMap();
+        FilmCondition filmCondition = new FilmCondition();
+        filmCondition.setStartDate(DateUtil.format(new Date(), "yyyy-MM-dd"));
+        filmCondition.setEndDate(DateUtil.format(new Date(), "yyyy-MM-dd"));
+        map.putAll(this.searchFilmHome());
+        map.putAll(this.searcPriturehHome());
+        map.put(FilmType.GXSL.name(), filmDao.countByFilm(filmCondition));
+        map.put("count",filmDao.countByFilm(new FilmCondition()));
+        StaticTemplateView view = new StaticTemplateView();
+        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+        view.setFltName("index.ftl");
+        view.setDestPath(path + File.separator + "app" + File.separator + "main");
+        view.setDestName("index.html");
+        view.setData(map);
+        FreemakerUtil.freemakerProcess(view);
     }
 
-    public void updatePicture(Picture picture) {
-        try {
-            pictureDao.updatePicture(picture);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw ServiceException.create("PICTURE.UPDATE.FAIL");
-        }
+    /**
+     * 静态化电影详情页
+     * @param path
+     * @param id
+     */
+    public void staticVodHtml(String path,Integer id) {
+        Map<String, Object> map = Maps.newHashMap();
+        Film film=filmDao.findById(id);
+        film.setCodeValue(FilmType.valueOf(film.getFilmType()).getValue());
+        film.setImg(film.getContentImg().split(";"));
+        map.put("film",film);
+        StaticTemplateView view = new StaticTemplateView();
+        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+        view.setFltName("film.ftl");
+        view.setDestPath(path + File.separator + "app" + File.separator + "vod");
+        view.setDestName(id+".html");
+        view.setData(map);
+        FreemakerUtil.freemakerProcess(view);
     }
 
-    public Picture findById(Integer id) {
-        Picture picture = null;
+
+
+
+    public Map<String, List<Film>> searchFilmHome() {
+        FilmCondition condition = null;
+        List<Film> films = null;
+        Map<String, List<Film>> map = Maps.newHashMap();
         try {
-            picture = pictureDao.findById(id);
+            //今日更新
+            condition = new FilmCondition();
+            condition.setPageSize(14);
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(FilmType.JRGX.toString(), films);
+            //本周热播
+            condition.setPageSize(12);
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(FilmType.BZRB.toString(), films);
+            //猜您喜欢
+            condition.setPageSize(8);
+            condition.setClickFlag("Y");
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(FilmType.CNXH.toString(), films);
+            //亚洲色情
+            condition.setFilmType(FilmType.YZQS.toString());
+            condition.setPageSize(6);
+            condition.setClickFlag("N");
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(FilmType.YZQS.toString(), films);
+            //制服丝袜
+            condition.setFilmType(FilmType.ZFSW.toString());
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(FilmType.ZFSW.toString(), films);
+            //欧美性爱
+            condition.setFilmType(FilmType.OMXA.toString());
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(FilmType.OMXA.toString(), films);
+            //网友自拍
+            condition.setFilmType(FilmType.WYZP.toString());
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(FilmType.WYZP.toString(), films);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw ServiceException.create("PICTURE.FIND.IS.FALL");
+            throw ServiceException.create("FILM.SEARCH.FAIL");
         }
-        return picture;
+        return map;
     }
 
-    public Page<Picture> queryPicture(PictureCondition pictureCondition) {
-        Page<Picture> page = null;
-        try {
-            List<Picture> list = pictureDao.queryPicture(pictureCondition);
-            page = Page.<Picture>builder().data(list).build();
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw ServiceException.create("PICTURE.SEARCH.FAIL");
-        }
-        return page;
-    }
 
-    @Override
-    public Map<String, List<Picture>> searchHome() {
+    public Map<String, List<Picture>> searcPriturehHome() {
         PictureCondition condition = null;
         List<Picture> pictures = null;
         Map<String, List<Picture>> map = Maps.newHashMap();
@@ -105,7 +166,11 @@ public class PictureServiceImpl implements PictureService {
         return map;
     }
 
-    @Override
+    /**
+     * 静态化图片页面
+     * @param path
+     * @param id
+     */
     public void staticPictureHtml(String path, Integer id) {
         Picture picture = pictureDao.findById(id);
         Map<String, Object> map = Maps.newHashMap();
@@ -138,12 +203,13 @@ public class PictureServiceImpl implements PictureService {
 
     }
 
-    @Override
-    public void staticPicturePageListHtml(String path, PictureCondition condition) {
 
-    }
 
-    @Override
+    /**
+     * 图片分页静态化
+     * @param path
+     * @param condition
+     */
     public void staticPicturePageHtml(String path, PictureCondition condition) {
         if (condition.getType() == null)
             throw ServiceException.create("PICTURE.THE.ENTITY.IS.NOT.FOUND");
@@ -155,15 +221,15 @@ public class PictureServiceImpl implements PictureService {
         } else {
             condition.setPageNum(condition.getPageNum() - 1);
         }
-        Page<Picture> page = this.queryPicture(condition);
+        List<Picture> list = pictureDao.queryPicture(condition);
         List<Picture> pictures = Lists.newArrayList();
         if (isTrue) {
             pictures.addAll(Arrays.asList(new Picture[condition.getPageSize()]));
-            pictures.addAll(page.getData());
+            pictures.addAll(list);
         } else {
-            pictures.addAll(page.getData());
+            pictures.addAll(list);
             condition.setPageNum(condition.getPageNum() + 1);
-            pictures.addAll(this.queryPicture(condition).getData());
+            pictures.addAll(pictureDao.queryPicture(condition));
         }
 
         map.put("page", pictures);
@@ -181,4 +247,6 @@ public class PictureServiceImpl implements PictureService {
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);
     }
+
+
 }

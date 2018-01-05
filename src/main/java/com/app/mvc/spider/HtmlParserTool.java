@@ -1,6 +1,6 @@
 package com.app.mvc.spider;
 
-import com.app.mvc.interceptor.LinkFilter;
+import com.app.mvc.common.LinkFilter;
 import com.google.common.collect.Sets;
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;

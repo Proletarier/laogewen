@@ -1,8 +1,8 @@
 package com.app.mvc.spider.entity;
 
 import com.app.mvc.acl.config.utilConfig;
-import com.app.mvc.acl.entity.Novel;
-import com.app.mvc.acl.entity.NovelPage;
+import com.app.mvc.acl.po.Novel;
+import com.app.mvc.acl.po.NovelPage;
 import com.app.mvc.util.HttpUtil;
 import lombok.Getter;
 import lombok.Setter;

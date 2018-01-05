@@ -1,8 +1,8 @@
 package com.app.mvc.acl.dao;
 
 import com.app.mvc.acl.condition.PictureCondition;
-import com.app.mvc.acl.entity.Picture;
-import com.app.mvc.cmmon.DBRepository;
+import com.app.mvc.acl.po.Picture;
+import com.app.mvc.common.DBRepository;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

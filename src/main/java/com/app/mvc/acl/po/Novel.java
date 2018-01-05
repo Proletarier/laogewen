@@ -1,4 +1,4 @@
-package com.app.mvc.acl.entity;
+package com.app.mvc.acl.po;
 
 import com.google.common.collect.Lists;
 import lombok.*;

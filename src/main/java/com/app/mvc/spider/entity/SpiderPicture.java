@@ -1,7 +1,7 @@
 package com.app.mvc.spider.entity;
 
 import com.app.mvc.acl.config.utilConfig;
-import com.app.mvc.acl.entity.Picture;
+import com.app.mvc.acl.po.Picture;
 import com.app.mvc.util.HttpUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;

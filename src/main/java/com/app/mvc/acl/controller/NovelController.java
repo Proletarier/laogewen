@@ -1,7 +1,7 @@
 package com.app.mvc.acl.controller;
 
 import com.app.mvc.acl.condition.NovelCondition;
-import com.app.mvc.acl.entity.Novel;
+import com.app.mvc.acl.po.Novel;
 import com.app.mvc.acl.service.NovelService;
 import com.app.mvc.beans.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;

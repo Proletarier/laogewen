@@ -1,4 +1,4 @@
-package com.app.mvc.cmmon;
+package com.app.mvc.common;
 
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;

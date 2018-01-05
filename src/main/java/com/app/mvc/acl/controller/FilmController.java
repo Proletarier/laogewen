@@ -1,7 +1,7 @@
 package com.app.mvc.acl.controller;
 
 import com.app.mvc.acl.condition.FilmCondition;
-import com.app.mvc.acl.entity.Film;
+import com.app.mvc.acl.po.Film;
 import com.app.mvc.acl.service.FilmService;
 import com.app.mvc.beans.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,37 +53,6 @@ public class FilmController {
     public JsonData selectFilmTypeOrName(FilmCondition filmCondition){
         return  JsonData.success(filmService.selectFilmTypeOrName(filmCondition));
     }
-
-    @ResponseBody
-    @RequestMapping(value = "/search/home",method = RequestMethod.GET)
-    public JsonData searchHome(){
-        Map<String,List<Film>> map=filmService.searchHome();
-        return  JsonData.success(map);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "static/IndexHtml",method = RequestMethod.GET)
-    public JsonData createHomeHtml(HttpServletRequest request){
-        filmService.staticIndexHtml("C:\\Users\\wenheng\\Desktop");
-        return  JsonData.success(null);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "static/VodHtml",method = RequestMethod.GET)
-    public JsonData createVodHtml(HttpServletRequest request,Integer id){
-        filmService.staticVodHtml(request.getSession().getServletContext().getRealPath("app/vod/"),id);
-        return  JsonData.success(null);
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 }
