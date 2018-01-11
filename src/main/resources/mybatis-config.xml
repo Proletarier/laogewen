@@ -18,9 +18,9 @@
     </settings>
 
     <typeAliases>
-        <typeAlias alias="Film" type="com.app.mvc.acl.entity.Film"/>
-        <typeAlias alias="Novel" type="com.app.mvc.acl.entity.Novel"/>
-        <typeAlias alias="Picture" type="com.app.mvc.acl.entity.Picture"/>
+        <typeAlias alias="Film" type="com.app.mvc.acl.po.Film"/>
+        <typeAlias alias="Novel" type="com.app.mvc.acl.po.Novel"/>
+        <typeAlias alias="Picture" type="com.app.mvc.acl.po.Picture"/>
         <typeAlias alias="FilmCondition" type="com.app.mvc.acl.condition.FilmCondition"/>
         <typeAlias alias="PictureCondition" type="com.app.mvc.acl.condition.PictureCondition"/>
         <typeAlias alias="NovelCondition" type="com.app.mvc.acl.condition.NovelCondition"/>

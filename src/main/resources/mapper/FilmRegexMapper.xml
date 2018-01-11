@@ -1,14 +1,23 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.mvc.acl.dao.FilmRegexDao">
 
-<taglib xmlns="http://java.sun.com/xml/ns/javaee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
-        version="2.1">
+    <sql id="FilmRegexColumns">
+       film_regex_id AS filmRegexId,
+       title_regex as titleRegex,
+       type_regex as typeRegex,
+       title_img_regex AS titleImgRegex,
+       content_img_regex AS contentImgRegex,
+       xfplay_regex as xfplayRegex,
+       http_regex as httpRegex,
+       ed2k_regex AS ed2kRegex,
+       qqdl_regex AS qqdlRegex,
+       flashget_regex AS flashgetRegex,
+        description,
+       create_date AS createDate
+    </sql>
 
-    <tlib-version>1.0</tlib-version>
-    <short-name>myshortname</short-name>
-    <uri>http://mycompany.com</uri>
 
-    <!-- Invoke 'Generate' action to add tags or functions -->
-
-</taglib>
+</mapper>

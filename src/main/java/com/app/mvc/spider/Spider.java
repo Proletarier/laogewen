@@ -2,7 +2,8 @@ package com.app.mvc.spider;
 
 import com.app.mvc.beans.SpiderQueue;
 import com.app.mvc.cache.EhCacheCacheImpl;
-import com.app.mvc.interceptor.LinkFilter;
+import com.app.mvc.common.LinkFilter;
+import com.app.mvc.common.LinkFilter;
 import com.app.mvc.spider.entity.SpiderNovel;
 import com.app.mvc.util.FileUtil;
 import org.apache.commons.httpclient.HttpClient;

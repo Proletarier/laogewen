@@ -38,7 +38,7 @@
 
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="annotationClass" value="com.app.mvc.cmmon.DBRepository"/>
+        <property name="annotationClass" value="com.app.mvc.common.DBRepository"/>
         <property name="basePackage" value="com.app.mvc"/>
     </bean>
 
