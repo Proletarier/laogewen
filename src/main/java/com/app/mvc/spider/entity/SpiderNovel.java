@@ -1,6 +1,6 @@
 package com.app.mvc.spider.entity;
 
-import com.app.mvc.acl.config.utilConfig;
+import com.app.mvc.acl.config.UtilConfig;
 import com.app.mvc.acl.po.Novel;
 import com.app.mvc.acl.po.NovelPage;
 import com.app.mvc.util.HttpUtil;
@@ -26,7 +26,7 @@ public class SpiderNovel {
             String content = HttpUtil.sendGet(url);
             novel.setTitle(getFindGroup(content, "<a href=\"/html/article/.+?/\">.+</a>(.+?)</h2>"));
             novel.setTypeCode(getFindGroup(content, "<a href=\"/html/article/\\w+?/\">(.+?)</a>"));
-            for (utilConfig.NovelType type : utilConfig.NovelType.values()) {
+            for (UtilConfig.NovelType type : UtilConfig.NovelType.values()) {
                 if (type.getValue().equals(novel.getTypeCode()))
                     novel.setTypeCode(type.name());
             }

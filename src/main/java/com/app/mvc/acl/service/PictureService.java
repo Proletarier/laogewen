@@ -1,24 +1,15 @@
 package com.app.mvc.acl.service;
 
 import com.app.mvc.acl.condition.PictureCondition;
-import com.app.mvc.acl.config.FileConfig;
-import com.app.mvc.acl.config.utilConfig;
 import com.app.mvc.acl.dao.PictureDao;
 import com.app.mvc.acl.po.Picture;
 import com.app.mvc.beans.Page;
-import com.app.mvc.beans.StaticTemplateView;
 import com.app.mvc.exception.ServiceException;
-import com.app.mvc.util.FreemakerUtil;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wenheng on 2017/7/2.

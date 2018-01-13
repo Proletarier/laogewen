@@ -1,23 +1,15 @@
 package com.app.mvc.acl.service;
 
 import com.app.mvc.acl.condition.FilmCondition;
-import com.app.mvc.acl.config.FilmType;
 import com.app.mvc.acl.dao.FilmDao;
 import com.app.mvc.acl.po.Film;
 import com.app.mvc.beans.Page;
-import com.app.mvc.beans.StaticTemplateView;
 import com.app.mvc.exception.ServiceException;
-import com.app.mvc.util.DateUtil;
-import com.app.mvc.util.FreemakerUtil;
-import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wenheng on 2017/7/2.

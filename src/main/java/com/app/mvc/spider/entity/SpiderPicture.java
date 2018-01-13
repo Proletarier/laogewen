@@ -1,6 +1,6 @@
 package com.app.mvc.spider.entity;
 
-import com.app.mvc.acl.config.utilConfig;
+import com.app.mvc.acl.config.UtilConfig;
 import com.app.mvc.acl.po.Picture;
 import com.app.mvc.util.HttpUtil;
 import com.google.common.base.Joiner;
@@ -37,9 +37,9 @@ public class SpiderPicture {
                 isFind=matcher.find();
             }
             picture.setImg(Joiner.on(";").join(listString));
-           // picture.setTypeCode(utilConfig.PictureType.);
+           // picture.setTypeCode(UtilConfig.PictureType.);
 
-            for (utilConfig.PictureType type : utilConfig.PictureType.values()){
+            for (UtilConfig.PictureType type : UtilConfig.PictureType.values()){
                  if(type.getValue().equals(picture.getTypeCode()))
                      picture.setTypeCode(type.name());
             }

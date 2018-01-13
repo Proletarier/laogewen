@@ -1,15 +1,28 @@
 package com.app.mvc.acl.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by wenheng on 2017/8/7.
  */
-public class utilConfig {
+public class UtilConfig {
 
-    public static Map<String, String> filmTypeMap= new HashMap<String, String>();
+    //缓存KEY
+    public static String CACHE_FILM_KEY = "FilmKey";
 
+    public static String CACHE_PICTURE_KEY = "PictureKey";
+
+    public static String CACH_NOVEL_KEY = "NovelKey";
+
+    //文件
+    public static String vodPageFile = "";
+
+    public static String vodFile = "";
+
+    public static String picturePageFile = "C:\\Users\\wenheng\\Desktop";
+
+    public static String pictureFile = "";
+
+
+    //枚举
     public enum FilmType {
 
         YZQS("亚洲情色"),

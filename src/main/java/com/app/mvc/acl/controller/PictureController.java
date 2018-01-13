@@ -1,7 +1,6 @@
 package com.app.mvc.acl.controller;
 
 import com.app.mvc.acl.condition.PictureCondition;
-import com.app.mvc.acl.config.FileConfig;
 import com.app.mvc.acl.po.Picture;
 import com.app.mvc.acl.service.PictureService;
 import com.app.mvc.beans.JsonData;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by wenheng on 2017/8/17.

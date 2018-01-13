@@ -1,7 +1,6 @@
 package com.app.mvc.acl.interceptor;
 
-import com.app.mvc.acl.service.FilmService;
-import com.app.mvc.acl.service.PictureService;
+import com.app.mvc.acl.service.StaticHtmlService;
 import com.app.mvc.util.DirectoryFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -14,13 +13,10 @@ import java.io.File;
 /**
  * Created by wenheng on 2017/8/28.
  */
-public class FilmInterceptor implements HandlerInterceptor {
+public class HtmlInterceptor implements HandlerInterceptor {
 
     @Autowired
-    FilmService filmService;
-
-    @Autowired
-    PictureService pictureService;
+    StaticHtmlService staticHtmlService;
 
 
     @Override
@@ -34,7 +30,7 @@ public class FilmInterceptor implements HandlerInterceptor {
             String[] indexFileList = file.list(new DirectoryFilter(filName));
             if (indexFileList.length <= 0) {
                 String id = filName.substring(0, filName.indexOf("."));
-                filmService.staticVodHtml(request.getSession().getServletContext().getRealPath(""), Integer.valueOf(id));
+                staticHtmlService.staticVodHtml(request.getSession().getServletContext().getRealPath(""), Integer.valueOf(id));
             }
         } else if (requestUrl.contains("picture") && requestUrl.contains("html") && !requestUrl.contains("list")) {
             String filName = requestUrl.substring(requestUrl.lastIndexOf("/") + 1);
@@ -42,7 +38,7 @@ public class FilmInterceptor implements HandlerInterceptor {
             File file = new File(dirPath);
             if (!file.exists()) {
                 String id = filName.substring(0, filName.indexOf("."));
-                pictureService.staticPictureHtml(request.getSession().getServletContext().getRealPath(""), Integer.valueOf(id));
+                staticHtmlService.staticPictureHtml(request.getSession().getServletContext().getRealPath(""), Integer.valueOf(id));
             }
 
         }

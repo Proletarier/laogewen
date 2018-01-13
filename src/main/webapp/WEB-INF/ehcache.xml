@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ehcache>
     <diskStore path="java.io.tmpdir"/>
-    <defaultCache memoryStoreEvictionPolicy="LRU" diskExpiryThreadIntervalSeconds="120" maxElementsOnDisk="10000000"
-                  timeToIdleSeconds="300" eternal="false" maxElementsInMemory="10000"/>
+
+    <defaultCache memoryStoreEvictionPolicy="LRU"
+                  diskExpiryThreadIntervalSeconds="120"
+                  maxElementsOnDisk="0"
+                  timeToIdleSeconds="300"
+                  eternal="true"
+                  maxElementsInMemory="10000"/>
 
     <cache name="spiderCache"
            memoryStoreEvictionPolicy="LRU"
            diskExpiryThreadIntervalSeconds="120"
            maxElementsOnDisk="10000000"
-           eternal="false"
-           timeToIdleSeconds="300"
+           eternal="true"
            overflowToDisk="true"
            maxElementsInMemory="10000">
     </cache>

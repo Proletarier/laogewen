@@ -1,18 +1,19 @@
 package com.app.mvc.spider;
 
 import com.app.mvc.beans.SpiderQueue;
-import com.app.mvc.cache.EhCacheCacheImpl;
-import com.app.mvc.interceptor.LinkFilter;
+import com.app.mvc.common.LinkFilter;
 import com.app.mvc.spider.entity.SpiderNovel;
-import com.app.mvc.util.FileUtil;
-import org.apache.commons.httpclient.HttpClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.sf.ehcache.hibernate.management.impl.BeanUtils;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by wenheng on 2017/7/16.
  */
+@Component
 public class Spider {
 
 
@@ -22,7 +23,7 @@ public class Spider {
         }
     }
 
-    public synchronized <T> void crewling(String[] seeds, Class<T> c, LinkFilter filter, String... validate) {
+    public synchronized <T> void crewling(List<T> lists, Class<T> c, LinkFilter filter, String[] seeds, String[] validate) {
 
         SpiderQueue spiderQueue = new SpiderQueue();
         initCreawlerWithSeds(seeds, spiderQueue);
@@ -31,8 +32,13 @@ public class Spider {
             if (visitUrl == null) {
                 continue;
             }
-            saveSpider(visitUrl, spiderQueue, c);
-            spiderQueue.addVisitedUrl(visitUrl);
+            Object object = saveSpider(c, visitUrl);
+            if(object!=null){
+                lists.add((T)object);
+                spiderQueue.addVisitedUrl(visitUrl);
+            }else {
+                spiderQueue.addEntranceUrl(visitUrl);
+            }
             Set<String> links = HtmlParserTool.extracLinks(visitUrl, filter, validate);
             for (String link : links) {
                 spiderQueue.addUnVisitedUrl(link);
@@ -41,36 +47,24 @@ public class Spider {
     }
 
 
-    <T> void saveSpider(String url, SpiderQueue spiderQueue, Class<T> c) {
+    <T> Object saveSpider(Class<T> c , String url) {
         try {
             Object obj = c.getDeclaredConstructor(String.class).newInstance(url);
             if (obj != null) {
-                //(String) obj.getClass().getMethod("toString").invoke(obj);
-                spiderQueue.addVisitedUrl(url);
-
+                return BeanUtils.getBeanProperty(obj, obj.getClass().getDeclaredFields()[0].getName());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 
     public static void main(String... args) {
         Spider crawler = new Spider();
+        List<SpiderNovel> novelList=new ArrayList<>();
 
-        LinkFilter filter = new LinkFilter() {
-            @Override
-            public boolean accept(String url, String... filters) {
 
-                for (String filter : filters) {
-                    if (url.startsWith(filter))
-                        return true;
-                }
-                return false;
-
-            }
-
-        };
 //        crawler.crewling(new String[]{"https://8888av.co/list/1.html",
 //                "https://8888av.co/list/2.html",
 //                "https://8888av.co/list/3.html",
@@ -79,7 +73,8 @@ public class Spider {
 //                "https://8888av.co/list/6.html",
 //                "https://8888av.co/list/7.html",
 //                "https://8888av.co/list/8.html",}, SpiderFilm.class);
-        crawler.crewling(new String[]{"https://333av.vip/html/article/jiqing/index.html"}, SpiderNovel.class, filter, "https://333av.vip/html/article/jiqing/");
+         // crawler.crewling(novelList,SpiderNovel.class,filter,new String[]{"https://333av.vip/html/article/jiqing/index.html"},new String[]{"https://333av.vip/html/article/jiqing/"});
+
     }
 
 

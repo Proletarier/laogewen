@@ -2,14 +2,11 @@ package com.app.mvc.acl.service;
 
 import com.app.mvc.acl.condition.FilmCondition;
 import com.app.mvc.acl.condition.PictureCondition;
-import com.app.mvc.acl.config.FileConfig;
-import com.app.mvc.acl.config.FilmType;
-import com.app.mvc.acl.config.utilConfig;
+import com.app.mvc.acl.config.UtilConfig;
 import com.app.mvc.acl.dao.FilmDao;
 import com.app.mvc.acl.dao.PictureDao;
 import com.app.mvc.acl.po.Film;
 import com.app.mvc.acl.po.Picture;
-import com.app.mvc.beans.Page;
 import com.app.mvc.beans.StaticTemplateView;
 import com.app.mvc.exception.ServiceException;
 import com.app.mvc.util.DateUtil;
@@ -50,7 +47,7 @@ public class StaticHtmlService {
         filmCondition.setEndDate(DateUtil.format(new Date(), "yyyy-MM-dd"));
         map.putAll(this.searchFilmHome());
         map.putAll(this.searcPriturehHome());
-        map.put(FilmType.GXSL.name(), filmDao.countByFilm(filmCondition));
+        map.put(UtilConfig.FilmType.GXSL.name(), filmDao.countByFilm(filmCondition));
         map.put("count",filmDao.countByFilm(new FilmCondition()));
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
@@ -69,7 +66,7 @@ public class StaticHtmlService {
     public void staticVodHtml(String path,Integer id) {
         Map<String, Object> map = Maps.newHashMap();
         Film film=filmDao.findById(id);
-        film.setCodeValue(FilmType.valueOf(film.getFilmType()).getValue());
+        film.setCodeValue(UtilConfig.FilmType.valueOf(film.getFilmType()).getValue());
         film.setImg(film.getContentImg().split(";"));
         map.put("film",film);
         StaticTemplateView view = new StaticTemplateView();
@@ -94,40 +91,40 @@ public class StaticHtmlService {
             condition.setPageSize(14);
             films = filmDao.selectFilmTypeOrName(condition);
             if (films != null)
-                map.put(FilmType.JRGX.toString(), films);
+                map.put(UtilConfig.FilmType.JRGX.toString(), films);
             //本周热播
             condition.setPageSize(12);
             films = filmDao.selectFilmTypeOrName(condition);
             if (films != null)
-                map.put(FilmType.BZRB.toString(), films);
+                map.put(UtilConfig.FilmType.BZRB.toString(), films);
             //猜您喜欢
             condition.setPageSize(8);
             condition.setClickFlag("Y");
             films = filmDao.selectFilmTypeOrName(condition);
             if (films != null)
-                map.put(FilmType.CNXH.toString(), films);
+                map.put(UtilConfig.FilmType.CNXH.toString(), films);
             //亚洲色情
-            condition.setFilmType(FilmType.YZQS.toString());
+            condition.setFilmType(UtilConfig.FilmType.YZQS.toString());
             condition.setPageSize(6);
             condition.setClickFlag("N");
             films = filmDao.selectFilmTypeOrName(condition);
             if (films != null)
-                map.put(FilmType.YZQS.toString(), films);
+                map.put(UtilConfig.FilmType.YZQS.toString(), films);
             //制服丝袜
-            condition.setFilmType(FilmType.ZFSW.toString());
+            condition.setFilmType(UtilConfig.FilmType.ZFSW.toString());
             films = filmDao.selectFilmTypeOrName(condition);
             if (films != null)
-                map.put(FilmType.ZFSW.toString(), films);
+                map.put(UtilConfig.FilmType.ZFSW.toString(), films);
             //欧美性爱
-            condition.setFilmType(FilmType.OMXA.toString());
+            condition.setFilmType(UtilConfig.FilmType.OMXA.toString());
             films = filmDao.selectFilmTypeOrName(condition);
             if (films != null)
-                map.put(FilmType.OMXA.toString(), films);
+                map.put(UtilConfig.FilmType.OMXA.toString(), films);
             //网友自拍
-            condition.setFilmType(FilmType.WYZP.toString());
+            condition.setFilmType(UtilConfig.FilmType.WYZP.toString());
             films = filmDao.selectFilmTypeOrName(condition);
             if (films != null)
-                map.put(FilmType.WYZP.toString(), films);
+                map.put(UtilConfig.FilmType.WYZP.toString(), films);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw ServiceException.create("FILM.SEARCH.FAIL");
@@ -143,19 +140,19 @@ public class StaticHtmlService {
         try {
             condition = new PictureCondition();
             condition.setPageSize(7);
-            condition.setType(utilConfig.PictureType.YZST.name());
+            condition.setType(UtilConfig.PictureType.YZST.name());
             pictures = pictureDao.queryPicture(condition);
             if (pictures != null)
-                map.put(utilConfig.PictureType.YZST.name(), pictures);
-            condition.setType(utilConfig.PictureType.SWMT.name());
+                map.put(UtilConfig.PictureType.YZST.name(), pictures);
+            condition.setType(UtilConfig.PictureType.SWMT.name());
             pictures = pictureDao.queryPicture(condition);
             if (pictures != null)
-                map.put(utilConfig.PictureType.SWMT.name(), pictures);
-            condition.setType(utilConfig.PictureType.OMXA.name());
+                map.put(UtilConfig.PictureType.SWMT.name(), pictures);
+            condition.setType(UtilConfig.PictureType.OMXA.name());
             pictures = pictureDao.queryPicture(condition);
             if (pictures != null)
                 map.put("OMST", pictures);
-            condition.setType(utilConfig.PictureType.TPZP.name());
+            condition.setType(UtilConfig.PictureType.TPZP.name());
             pictures = pictureDao.queryPicture(condition);
             if (pictures != null)
                 map.put("ZPST", pictures);
@@ -190,7 +187,7 @@ public class StaticHtmlService {
                 }
             }
         }
-        picture.setCodeValue(utilConfig.PictureType.valueOf(picture.getTypeCode()).getValue());
+        picture.setCodeValue(UtilConfig.PictureType.valueOf(picture.getTypeCode()).getValue());
         picture.setImgs(picture.getImg().split(";"));
         map.put("picture", picture);
         StaticTemplateView view = new StaticTemplateView();
@@ -242,7 +239,7 @@ public class StaticHtmlService {
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("picture_list.ftl");
-        view.setDestPath(FileConfig.picturePageFile+File.separator +"app" + File.separator + "picture" + File.separator + condition.getType());
+        view.setDestPath(UtilConfig.picturePageFile+File.separator +"app" + File.separator + "picture" + File.separator + condition.getType());
         view.setDestName("index_" + condition.getPageNum() + ".html");
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);

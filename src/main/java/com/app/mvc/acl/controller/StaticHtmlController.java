@@ -1,7 +1,7 @@
 package com.app.mvc.acl.controller;
 
 import com.app.mvc.acl.condition.PictureCondition;
-import com.app.mvc.acl.config.FileConfig;
+import com.app.mvc.acl.config.UtilConfig;
 import com.app.mvc.acl.service.StaticHtmlService;
 import com.app.mvc.beans.JsonData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class StaticHtmlController {
     @ResponseBody
     @RequestMapping(value = "picturePageHtml",method = RequestMethod.GET)
     public JsonData staticPicturePageHtml(HttpServletRequest request, PictureCondition pictureCondition){
-        staticHtmlService.staticPicturePageHtml(FileConfig.picturePageFile,pictureCondition);
+        staticHtmlService.staticPicturePageHtml(UtilConfig.picturePageFile,pictureCondition);
         return  JsonData.success(null);
     }
 

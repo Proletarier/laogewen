@@ -3,7 +3,6 @@ package com.app.mvc.beans;
 import com.app.mvc.cache.EhCacheCacheImpl;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.nio.charset.Charset;
 
@@ -12,14 +11,15 @@ import java.nio.charset.Charset;
  */
 public class SpiderBloom {
 
+    EhCacheCacheImpl ehCacheCache;
 
-    @Autowired
-    private static EhCacheCacheImpl ehCacheCache;
+    BloomFilter<CharSequence> bloomFilter;
 
-    private static BloomFilter<CharSequence> bloomFilter;
+    SpiderBloom() {
+        initBloomFilter();
+    }
 
-
-    static {
+    void initBloomFilter() {
         Object object = ehCacheCache.get("Bloom");
         if (object == null) {
             bloomFilter = BloomFilter.create(Funnels.stringFunnel(Charset.forName("utf-8")), 10000, 0.0001);

@@ -1,6 +1,6 @@
 package com.app.mvc.spider.entity;
 
-import com.app.mvc.acl.config.utilConfig;
+import com.app.mvc.acl.config.UtilConfig;
 import com.app.mvc.acl.po.Film;
 import com.app.mvc.util.HttpUtil;
 import com.google.common.base.Joiner;
@@ -42,7 +42,7 @@ public class SpiderFilm {
             film.setImg(listString.toArray(new String[listString.size()]));
             film.setContentImg(Joiner.on(";").join(film.getImg()));
 
-            for (utilConfig.FilmType type : utilConfig.FilmType.values()) {
+            for (UtilConfig.FilmType type : UtilConfig.FilmType.values()) {
                 if (type.getValue().equals(film.getFilmType()))
                     film.setFilmType(type.name());
             }

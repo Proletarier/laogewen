@@ -30,15 +30,18 @@
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation" value="/WEB-INF/ehcache.xml"/>
     </bean>
+    <bean id="ehCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheManager" ref="cacheManager"/>
+        <property name="cacheName" value="spiderCache"/>
+    </bean>
     <bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
     <bean id="ehCacheEventListener" class="com.app.mvc.cache.EHCacheEventListener"></bean>
 
 
-
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="annotationClass" value="com.app.mvc.cmmon.DBRepository"/>
+        <property name="annotationClass" value="com.app.mvc.common.DBRepository"/>
         <property name="basePackage" value="com.app.mvc"/>
     </bean>
 
@@ -47,15 +50,15 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations">
-             <list>
-                 <value>classpath*:mapper/*.xml</value>
-             </list>
+            <list>
+                <value>classpath*:mapper/*.xml</value>
+            </list>
         </property>
     </bean>
 
     <!-- 事务 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-       <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" order="200"/>
@@ -65,7 +68,6 @@
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-
         <property name="basenames">
             <list>
                 <value>message.film_msg</value>
@@ -76,7 +78,7 @@
     </bean>
 
     <!-- druid -->
-    <bean id="stat-filter"  class="com.alibaba.druid.filter.stat.StatFilter">
+    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
         <property name="slowSqlMillis" value="3000"/>
         <property name="logSlowSql" value="true"/>
         <property name="mergeSql" value="true"/>
