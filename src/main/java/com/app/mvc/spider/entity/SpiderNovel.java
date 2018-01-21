@@ -4,8 +4,6 @@ import com.app.mvc.acl.config.UtilConfig;
 import com.app.mvc.acl.po.Novel;
 import com.app.mvc.acl.po.NovelPage;
 import com.app.mvc.util.HttpUtil;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,8 +14,7 @@ import java.util.regex.Pattern;
 
 public class SpiderNovel {
 
-    @Getter
-    @Setter
+
     private Novel novel;
 
     public SpiderNovel(String url) {
@@ -37,11 +34,13 @@ public class SpiderNovel {
     boolean getReadUrl(String url) {
         Pattern pattern = Pattern.compile("/article/.+?/2017");
         Matcher matcher = pattern.matcher(url);
-        if (matcher.find()) {
-            return true;
-        } else {
+        if (!matcher.find()) {
             return false;
         }
+        if (url.lastIndexOf("_")>=0){
+            return  false;
+        }
+        return true;
     }
 
     String getFindGroup(String content, String regex) {
@@ -80,5 +79,9 @@ public class SpiderNovel {
         if (novel == null) return null;
         String sql = novel.getTitle() + novel.getNovelPages().size();
         return sql;
+    }
+
+    public Novel getNovel() {
+        return novel;
     }
 }

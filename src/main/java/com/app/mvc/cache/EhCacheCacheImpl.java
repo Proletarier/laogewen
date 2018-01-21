@@ -60,4 +60,9 @@ public class EhCacheCacheImpl implements Cache {
             log.info("移除缓存失败:key=" + key);
         }
     }
+
+    @Override
+    public  void flush(){
+        cache.flush();
+    }
 }

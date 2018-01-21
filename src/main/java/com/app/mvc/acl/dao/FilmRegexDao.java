@@ -1,20 +1,15 @@
 package com.app.mvc.acl.dao;
 
-import com.app.mvc.common.DBRepository;
-
-/**
- * Created by wenheng on 2018/1/6.
- */
-@DBRepository
-public interface FilmRegexDao {
+import com.app.mvc.acl.condition.FilmRegexCondition;
 import com.app.mvc.acl.po.FilmRegex;
 import com.app.mvc.common.DBRepository;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * Created by Administrator on 2018/1/11.
- */
+import java.util.List;
 
+/**
+ * Created by wenheng on 2018/1/6.
+ */
 @DBRepository
 public interface FilmRegexDao {
 
@@ -24,5 +19,5 @@ public interface FilmRegexDao {
 
     FilmRegex findById(@Param("filmRegexId") Integer id);
 
-
+    List<FilmRegex> searchFilmRegexs(@Param("filmCondition") FilmRegexCondition condition);
 }

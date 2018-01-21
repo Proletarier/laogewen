@@ -3,6 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<mapper namespace="com.app.mvc.acl.dao.FilmRegexDao">
+
     <sql id="FilmRegexColumns">
        film_regex_id AS filmRegexId,
        title_regex as titleRegex,
@@ -18,7 +20,4 @@
        create_date AS createDate
     </sql>
 
-
-</mapper>
-<mapper namespace="com.app.mvc.acl.dao.FilmRegexDao">
 </mapper>

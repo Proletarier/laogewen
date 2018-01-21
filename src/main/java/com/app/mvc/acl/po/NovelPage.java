@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NovelPage {
+public class NovelPage implements java.io.Serializable {
 
     private  Integer novelPageId;
     private  Integer novelId;

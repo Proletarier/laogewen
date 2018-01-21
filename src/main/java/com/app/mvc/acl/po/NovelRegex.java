@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NovelRegex {
+public class NovelRegex implements java.io.Serializable{
 
     private Integer novelRegexId;
 

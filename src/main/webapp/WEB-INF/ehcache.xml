@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ehcache>
-    <diskStore path="java.io.tmpdir"/>
+    <diskStore path="C:/Users/wenheng/Desktop/ehcache"/>
 
     <defaultCache memoryStoreEvictionPolicy="LRU"
                   diskExpiryThreadIntervalSeconds="120"
@@ -12,10 +12,13 @@
     <cache name="spiderCache"
            memoryStoreEvictionPolicy="LRU"
            diskExpiryThreadIntervalSeconds="120"
-           maxElementsOnDisk="10000000"
+           diskPersistent="true"
            eternal="true"
            overflowToDisk="true"
-           maxElementsInMemory="10000">
+           maxElementsInMemory="0"
+           maxElementsOnDisk="0">
+
+        <bootstrapCacheLoaderFactory class="net.sf.ehcache.store.DiskStoreBootstrapCacheLoaderFactory"/>
     </cache>
 
 </ehcache>

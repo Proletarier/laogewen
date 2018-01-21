@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PictureRegex {
+public class PictureRegex implements java.io.Serializable {
 
     private Integer pictureRegexId;
 

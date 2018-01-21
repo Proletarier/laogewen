@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Film {
+public class Film  implements java.io.Serializable{
 
     private  Integer filmID;
     //电影类型

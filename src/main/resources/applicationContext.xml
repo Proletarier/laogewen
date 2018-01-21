@@ -13,6 +13,8 @@
 
     <context:property-placeholder location="classpath*:jdbc.properties"/>
 
+    <bean id="applicationContextHelper" class="com.app.mvc.common.applicationContextHelper"></bean>
+
 
     <!--DataSource -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">

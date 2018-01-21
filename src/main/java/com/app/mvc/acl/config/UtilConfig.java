@@ -39,6 +39,7 @@ public class UtilConfig {
         GXSL("更新数量");
 
         private String value;
+
         private FilmType(String value){
             this.value=value;
         }

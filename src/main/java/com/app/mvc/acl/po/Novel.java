@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Novel {
+public class Novel implements java.io.Serializable {
 
     private  Integer novelId;
     //小说类型

@@ -41,10 +41,12 @@ public class SpiderService {
         Object object = cacheCache.get(key);
         if (object == null) {
             list = Lists.newArrayList();
-            cacheCache.put(key, list);
         } else {
             list = (List<T>) object;
         }
+        seeds=new  String[]{"https://444av.vip/html/article/jiqing/"};
+        validate=new  String[]{"https://444av.vip/html/article/jiqing/","https://444av.vip/html/article/wuxia/","https://444av.vip/html/article/mingxing/","https://444av.vip/html/article/jiating/"};
         spider.crewling(list, t, filter, seeds, validate);
+        cacheCache.put(key, list);
     }
 }

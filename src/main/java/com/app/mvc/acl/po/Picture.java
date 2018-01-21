@@ -14,7 +14,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Picture {
+public class Picture implements java.io.Serializable{
 
     private  Integer pictureId;
     //图片名称

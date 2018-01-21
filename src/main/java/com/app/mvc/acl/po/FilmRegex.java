@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FilmRegex {
+public class FilmRegex implements java.io.Serializable{
 
     private Integer filmRegexId;
 

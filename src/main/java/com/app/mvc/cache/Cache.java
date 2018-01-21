@@ -24,4 +24,6 @@ public interface Cache {
 
     void remove(String key);
 
+    void flush();
+
 }

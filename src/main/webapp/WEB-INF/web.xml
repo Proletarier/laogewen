@@ -8,10 +8,20 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
+  <listener>
+    <listener-class>net.sf.ehcache.constructs.web.ShutdownListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>com.app.mvc.acl.interceptor.WebInitialization</listener-class>
+  </listener>
+
+
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath*:applicationContext.xml</param-value>
   </context-param>
+
 
     <filter>
     <filter-name>characterEncodingFilter</filter-name>
