@@ -287,7 +287,7 @@
     </dependencies>
 
     <build>
-        <finalName>spring</finalName>
+        <finalName>laogewen</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
