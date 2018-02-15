@@ -33,4 +33,11 @@ public class Novel implements java.io.Serializable {
 
     private List<NovelPage> novelPages= Lists.newArrayList();
 
+
+
+    //上一页
+    private Novel upPage;
+    //下一页
+    private Novel downPage;
+
 }

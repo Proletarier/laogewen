@@ -18,7 +18,9 @@ public interface NovelPageDao {
 
     void  updateNovelPage(NovelPage novelPage);
 
-    NovelRegex findNovelPage(@Param("novelPageId") Integer novelPageId);
+    NovelRegex findById(@Param("novelPageId") Integer novelPageId);
+
+    List<NovelPage> findByNovelId(@Param("novelId") Integer novelId);
 
     List<NovelPage> searchNovelPage(@Param("condition") NovelCondition condition);
 

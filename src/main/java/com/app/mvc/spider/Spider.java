@@ -24,7 +24,7 @@ public class Spider {
     public synchronized <T> void crewling(List<T> lists, Class<T> c, LinkFilter filter, String[] seeds, String[] validate) {
         SpiderQueue spiderQueue = new SpiderQueue();
         initCreawlerWithSeds(seeds, spiderQueue);
-        while (!spiderQueue.unVisitedUrisEmpty() && lists.size() <= 30000) {
+        while (!spiderQueue.unVisitedUrisEmpty() && lists.size() <= 100) {
             String visitUrl = spiderQueue.unVisitedUrlDeQueue();
             if (visitUrl == null) {
                 continue;

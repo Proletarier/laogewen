@@ -15,4 +15,6 @@ public class NovelCondition extends PageQuery {
     private String title;
 
     private String type;
+
+    private Integer novelId;
 }

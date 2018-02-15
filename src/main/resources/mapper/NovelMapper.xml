@@ -47,6 +47,22 @@
         limit #{condition.offset},#{condition.pageSize}
     </select>
 
+    <select id="queryNovelUpAndDown" resultType="Novel" parameterType="NovelCondition">
+        SELECT
+        <include refid="novelColumns"/>
+        FROM lgw_novel
+        WHERE novel_id=(SELECT MAX(novel_id) FROM lgw_novel WHERE  novel_id &lt; #{condition.novelId}
+        AND type_code= #{condition.type}
+        ORDER BY create_date DESC LIMIT 1)
+        UNION ALL
+        SELECT
+        <include refid="novelColumns"/>
+        FROM lgw_novel
+        WHERE novel_id=(SELECT MIN(novel_id) FROM lgw_novel WHERE  novel_id &gt; #{condition.novelId}
+        AND type_code=#{condition.type}
+        ORDER BY create_date DESC LIMIT 1)
+    </select>
+
 
     <sql id="queryCondition">
         <where>

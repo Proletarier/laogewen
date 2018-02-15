@@ -52,6 +52,12 @@ public class StaticHtmlController {
         return  JsonData.success(null);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "novel",method = RequestMethod.GET)
+    public JsonData staticNovelHtml(HttpServletRequest request,Integer id){
+        return  JsonData.success(null);
+    }
+
 
 
 }

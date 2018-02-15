@@ -2,6 +2,8 @@ package com.app.mvc.acl.po;
 
 import lombok.*;
 
+import java.util.Date;
+
 /**
  * Created by wenheng on 2018/1/1.
  */
@@ -17,5 +19,6 @@ public class NovelPage implements java.io.Serializable {
     private  Integer novelId;
     private  Integer page;
     private  String  content;
+    private  Date    createDate;
 
 }

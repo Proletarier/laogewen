@@ -1,11 +1,16 @@
 package com.app.mvc.acl.service;
 
 import com.app.mvc.acl.condition.FilmCondition;
+import com.app.mvc.acl.condition.NovelCondition;
 import com.app.mvc.acl.condition.PictureCondition;
 import com.app.mvc.acl.config.UtilConfig;
 import com.app.mvc.acl.dao.FilmDao;
+import com.app.mvc.acl.dao.NovelDao;
+import com.app.mvc.acl.dao.NovelPageDao;
 import com.app.mvc.acl.dao.PictureDao;
 import com.app.mvc.acl.po.Film;
+import com.app.mvc.acl.po.Novel;
+import com.app.mvc.acl.po.NovelPage;
 import com.app.mvc.acl.po.Picture;
 import com.app.mvc.beans.StaticTemplateView;
 import com.app.mvc.exception.ServiceException;
@@ -36,8 +41,15 @@ public class StaticHtmlService {
     @Autowired
     private PictureDao pictureDao;
 
+    @Autowired
+    private NovelDao novelDao;
+
+    @Autowired
+    private NovelPageDao novelPageDao;
+
     /**
      * 静态首页
+     *
      * @param path
      */
     public void staticIndexHtml(String path) {
@@ -48,7 +60,7 @@ public class StaticHtmlService {
         map.putAll(this.searchFilmHome());
         map.putAll(this.searcPriturehHome());
         map.put(UtilConfig.FilmType.GXSL.name(), filmDao.countByFilm(filmCondition));
-        map.put("count",filmDao.countByFilm(new FilmCondition()));
+        map.put("count", filmDao.countByFilm(new FilmCondition()));
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("index.ftl");
@@ -60,25 +72,168 @@ public class StaticHtmlService {
 
     /**
      * 静态化电影详情页
+     *
      * @param path
      * @param id
      */
-    public void staticVodHtml(String path,Integer id) {
+    public void staticVodHtml(String path, Integer id) {
         Map<String, Object> map = Maps.newHashMap();
-        Film film=filmDao.findById(id);
+        Film film = filmDao.findById(id);
         film.setCodeValue(UtilConfig.FilmType.valueOf(film.getFilmType()).getValue());
         film.setImg(film.getContentImg().split(";"));
-        map.put("film",film);
+        map.put("film", film);
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("film.ftl");
         view.setDestPath(path + File.separator + "app" + File.separator + "vod");
-        view.setDestName(id+".html");
+        view.setDestName(id + ".html");
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);
     }
 
+    /**
+     * 静态化电影分页
+     *
+     * @param path
+     * @param condition
+     */
+    public void staticFilmPage(String path, FilmCondition condition) {
 
+    }
+
+
+    /**
+     * 静态化图片页面
+     *
+     * @param path
+     * @param id
+     */
+    public void staticPictureHtml(String path, Integer id) {
+        Picture picture = pictureDao.findById(id);
+        Map<String, Object> map = Maps.newHashMap();
+        if (picture == null) {
+            throw ServiceException.create("PICTURE.THE.ENTITY.IS.NOT.FOUND");
+        }
+        PictureCondition condition = new PictureCondition();
+        condition.setId(id);
+        condition.setType(picture.getTypeCode());
+        List<Picture> list = pictureDao.queryPictureUpAndDown(condition);
+        if (list != null && list.size() > 0) {
+            for (Picture pic : list) {
+                if (pic.getPictureId() > picture.getPictureId()) {
+                    picture.setDownPage(pic);
+                } else if (pic.getPictureId() < picture.getPictureId()) {
+                    picture.setUpPage(pic);
+                }
+            }
+        }
+        picture.setCodeValue(UtilConfig.PictureType.valueOf(picture.getTypeCode()).getValue());
+        picture.setImgs(picture.getImg().split(";"));
+        map.put("picture", picture);
+        StaticTemplateView view = new StaticTemplateView();
+        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+        view.setFltName("picture.ftl");
+        view.setDestPath(path + File.separator + "app" + File.separator + "picture" + File.separator + picture.getTypeCode());
+        view.setDestName(id + ".html");
+        view.setData(map);
+        FreemakerUtil.freemakerProcess(view);
+
+    }
+
+
+    /**
+     * 图片分页静态化
+     *
+     * @param path
+     * @param condition
+     */
+    public void staticPicturePageHtml(String path, PictureCondition condition) {
+        if (condition.getType() == null)
+            throw ServiceException.create("PICTURE.THE.ENTITY.IS.NOT.FOUND");
+        int count = pictureDao.countByPicture(condition);
+        Map<String, Object> map = Maps.newHashMap();
+        boolean isTrue = false;
+        if (condition.getPageNum() == 1) {
+            isTrue = true;
+        } else {
+            condition.setPageNum(condition.getPageNum() - 1);
+        }
+        List<Picture> list = pictureDao.queryPicture(condition);
+        List<Picture> pictures = Lists.newArrayList();
+        if (isTrue) {
+            pictures.addAll(Arrays.asList(new Picture[condition.getPageSize()]));
+            pictures.addAll(list);
+        } else {
+            pictures.addAll(list);
+            condition.setPageNum(condition.getPageNum() + 1);
+            pictures.addAll(pictureDao.queryPicture(condition));
+        }
+
+        map.put("page", pictures);
+        map.put("type", condition.getType());
+        map.put("count", count);
+        map.put("pageNum", condition.getPageNum());
+        map.put("upPageNum", condition.getPageNum() - 1);
+        map.put("downPageNum", condition.getPageNum() + 1);
+        map.put("totalNum", Math.ceil((double) count / condition.getPageSize()));
+        StaticTemplateView view = new StaticTemplateView();
+        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+        view.setFltName("picture_list.ftl");
+        view.setDestPath(UtilConfig.picturePageFile + File.separator + "app" + File.separator + "picture" + File.separator + condition.getType());
+        view.setDestName("index_" + condition.getPageNum() + ".html");
+        view.setData(map);
+        FreemakerUtil.freemakerProcess(view);
+    }
+
+    /**
+     * 静态化小说
+     *
+     * @param path
+     * @param id
+     */
+    public void staticNovelHtml(String path, Integer id) {
+        Novel novel = novelDao.findById(id);
+        Map<String, Object> map = Maps.newHashMap();
+        if (novel == null) {
+            throw ServiceException.create("NOVEL.THE.ENTITY.IS.NOT.FOUND");
+        }
+        NovelCondition condition = new NovelCondition();
+        condition.setNovelId(id);
+        List<Novel> novelList = novelDao.searchNovelUpAndDown(condition);
+        List<NovelPage> novelPages = novelPageDao.findByNovelId(id);
+        if (novelList != null && novelList.size() > 0) {
+            for (Novel nov : novelList) {
+                if (nov.getNovelId() > nov.getNovelId()) {
+                    novel.setDownPage(nov);
+                } else if (nov.getNovelId() < nov.getNovelId()) {
+                    novel.setUpPage(nov);
+                }
+            }
+        }
+
+        for (NovelPage novelPage : novelPages) {
+            map.put("novel",novel);
+            map.put("novelPage",novelPage);
+            map.put("totalNum",novelPages.size());
+            StaticTemplateView view = new StaticTemplateView();
+            view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+            view.setFltName("novel.ftl");
+            view.setDestPath(path + File.separator + "app" + File.separator + "novel" + File.separator + novel.getTypeCode());
+            view.setDestName(id + ".html");
+            view.setData(map);
+            FreemakerUtil.freemakerProcess(view);
+        }
+    }
+
+    /**
+     * 静态化小说分页
+     *
+     * @param path
+     * @param condition
+     */
+    public void staticNovelPageHtml(String path, NovelCondition condition) {
+
+    }
 
 
     public Map<String, List<Film>> searchFilmHome() {
@@ -162,92 +317,6 @@ public class StaticHtmlService {
 
         return map;
     }
-
-    /**
-     * 静态化图片页面
-     * @param path
-     * @param id
-     */
-    public void staticPictureHtml(String path, Integer id) {
-        Picture picture = pictureDao.findById(id);
-        Map<String, Object> map = Maps.newHashMap();
-        if (picture == null) {
-            throw ServiceException.create("PICTURE.THE.ENTITY.IS.NOT.FOUND");
-        }
-        PictureCondition condition = new PictureCondition();
-        condition.setId(id);
-        condition.setType(picture.getTypeCode());
-        List<Picture> list = pictureDao.queryPictureUpAndDown(condition);
-        if (list != null && list.size() > 0) {
-            for (Picture pic : list) {
-                if (pic.getPictureId() > picture.getPictureId()) {
-                    picture.setDownPage(pic);
-                } else if (pic.getPictureId() < picture.getPictureId()) {
-                    picture.setUpPage(pic);
-                }
-            }
-        }
-        picture.setCodeValue(UtilConfig.PictureType.valueOf(picture.getTypeCode()).getValue());
-        picture.setImgs(picture.getImg().split(";"));
-        map.put("picture", picture);
-        StaticTemplateView view = new StaticTemplateView();
-        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
-        view.setFltName("picture.ftl");
-        view.setDestPath(path + File.separator + "app" + File.separator + "picture" + File.separator + picture.getTypeCode());
-        view.setDestName(id + ".html");
-        view.setData(map);
-        FreemakerUtil.freemakerProcess(view);
-
-    }
-
-
-
-    /**
-     * 图片分页静态化
-     * @param path
-     * @param condition
-     */
-    public void staticPicturePageHtml(String path, PictureCondition condition) {
-        if (condition.getType() == null)
-            throw ServiceException.create("PICTURE.THE.ENTITY.IS.NOT.FOUND");
-        int count = pictureDao.countByPicture(condition);
-        Map<String, Object> map = Maps.newHashMap();
-        boolean isTrue = false;
-        if (condition.getPageNum() == 1) {
-            isTrue = true;
-        } else {
-            condition.setPageNum(condition.getPageNum() - 1);
-        }
-        List<Picture> list = pictureDao.queryPicture(condition);
-        List<Picture> pictures = Lists.newArrayList();
-        if (isTrue) {
-            pictures.addAll(Arrays.asList(new Picture[condition.getPageSize()]));
-            pictures.addAll(list);
-        } else {
-            pictures.addAll(list);
-            condition.setPageNum(condition.getPageNum() + 1);
-            pictures.addAll(pictureDao.queryPicture(condition));
-        }
-
-        map.put("page", pictures);
-        map.put("type", condition.getType());
-        map.put("count", count);
-        map.put("pageNum", condition.getPageNum());
-        map.put("upPageNum",  condition.getPageNum()-1);
-        map.put("downPageNum", condition.getPageNum()+1);
-        map.put("totalNum", Math.ceil((double) count / condition.getPageSize()));
-        StaticTemplateView view = new StaticTemplateView();
-        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
-        view.setFltName("picture_list.ftl");
-        view.setDestPath(UtilConfig.picturePageFile+File.separator +"app" + File.separator + "picture" + File.separator + condition.getType());
-        view.setDestName("index_" + condition.getPageNum() + ".html");
-        view.setData(map);
-        FreemakerUtil.freemakerProcess(view);
-    }
-
-
-
-
 
 
 }

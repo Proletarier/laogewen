@@ -18,7 +18,8 @@
            maxElementsInMemory="0"
            maxElementsOnDisk="0">
 
-        <bootstrapCacheLoaderFactory class="net.sf.ehcache.store.DiskStoreBootstrapCacheLoaderFactory"/>
+        <bootstrapCacheLoaderFactory class="net.sf.ehcache.store.DiskStoreBootstrapCacheLoaderFactory"
+                                     properties="bootstrapAsynchronously=true"/>
     </cache>
 
 </ehcache>

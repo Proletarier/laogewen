@@ -4,5 +4,43 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.mvc.acl.dao.NovelPageDao">
 
+    <sql id="novelPageColumns">
+        NOVEL_PAGE_ID AS  novelPageId,
+        NOVEL_ID AS novelId,
+        PAGE,
+        CONTENT,
+        CREATE_DATE AS  createDate
+    </sql>
+
+    <insert id="saveNovelPage" parameterType="NovelPage" useGeneratedKeys="true" keyColumn="novelPageId">
+        INSERT INTO lgw_novel_page(novel_id,page,content,create_date)
+        VALUES (#{novelId},#{page},#{content},#{createDate})
+        <selectKey resultType="int" order="AFTER" keyProperty="novelPageId">
+            SELECT LAST_INSERT_ID() AS novelPageId
+        </selectKey>
+    </insert>
+
+    <update id="updateNovelPage">
+        UPDATE lgw_novel_page
+        SET NOVEL_ID=#{novelId},
+        PAGE=#{page},
+        CONTENT=#{content}
+        WHERE NOVEL_PAGE_ID=#{novelPageId}
+    </update>
+
+    <select id="findById"  parameterType="int" resultType="NovelPage">
+        SELECT
+        <include refid="novelPageColumns"/>
+        FROM lgw_novel_page
+        WHERE NOVEL_PAGE_ID=#{novelPageId}
+    </select>
+
+    <select id="findByNovelId"  parameterType="int" resultType="NovelPage">
+        SELECT
+        <include refid="novelPageColumns"/>
+        FROM lgw_novel_page
+        WHERE NOVEL_ID=#{novelId}
+    </select>
+
 
 </mapper>

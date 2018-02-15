@@ -20,4 +20,8 @@
        create_date AS createDate
     </sql>
 
+    <insert id="saveFilmRegex">
+
+    </insert>
+
 </mapper>

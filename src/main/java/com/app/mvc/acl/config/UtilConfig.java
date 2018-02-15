@@ -67,8 +67,8 @@ public class UtilConfig {
 
     public enum NovelType{
 
-        JQWX("激情文学"),
-        LLWX("乱伦文学"),
+        JQWX("激情小说"),
+        LLWX("家庭乱伦"),
         MXXY("明星校园"),
         WXGD("武侠古典"),
         HSXH("黄色笑话"),

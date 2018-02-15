@@ -20,6 +20,7 @@
     <typeAliases>
         <typeAlias alias="Film" type="com.app.mvc.acl.po.Film"/>
         <typeAlias alias="Novel" type="com.app.mvc.acl.po.Novel"/>
+        <typeAlias alias="NovelPage" type="com.app.mvc.acl.po.NovelPage"/>
         <typeAlias alias="Picture" type="com.app.mvc.acl.po.Picture"/>
         <typeAlias alias="FilmCondition" type="com.app.mvc.acl.condition.FilmCondition"/>
         <typeAlias alias="PictureCondition" type="com.app.mvc.acl.condition.PictureCondition"/>

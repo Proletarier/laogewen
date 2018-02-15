@@ -23,7 +23,14 @@ public class SpiderController {
     @ResponseBody
     @RequestMapping(value = "novel",method = RequestMethod.GET)
     public JsonData spiderNovel(String[] seeds, String[] validate){
-        spiderService.captureDate(UtilConfig.CACHE_FILM_KEY, SpiderNovel.class,seeds, validate);
+        spiderService.captureDate(UtilConfig.CACH_NOVEL_KEY, SpiderNovel.class,seeds, validate);
+        return JsonData.success(null);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "saveNovel",method = RequestMethod.PUT)
+    public  JsonData flushNovel(){
+        spiderService.flushNovelToDatabase();
         return JsonData.success(null);
     }
 

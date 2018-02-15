@@ -21,5 +21,5 @@ public interface NovelDao  {
 
     List<Novel> selectNovelTitleOrType(@Param("condition") NovelCondition condition);
 
-
+    List<Novel> searchNovelUpAndDown(@Param("condition") NovelCondition pictureCondition);
 }
