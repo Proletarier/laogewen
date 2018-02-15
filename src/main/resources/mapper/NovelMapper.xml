@@ -38,7 +38,7 @@
         WHERE novel_id=#{novelId}
     </select>
 
-    <select id="selectNovelTitleOrType" resultType="Novel"  parameterType="NovelCondition">
+    <select id="searchNovel" resultType="Novel"  parameterType="NovelCondition">
          SELECT
          <include refid="novelColumns"/>
          FROM  lgw_novel
@@ -47,7 +47,7 @@
         limit #{condition.offset},#{condition.pageSize}
     </select>
 
-    <select id="queryNovelUpAndDown" resultType="Novel" parameterType="NovelCondition">
+    <select id="searchNovelUpAndDown" resultType="Novel" parameterType="NovelCondition">
         SELECT
         <include refid="novelColumns"/>
         FROM lgw_novel
@@ -63,6 +63,11 @@
         ORDER BY create_date DESC LIMIT 1)
     </select>
 
+    <select id="countByNovel" resultType="int" parameterType="String">
+        SELECT COUNT(1)
+        FROM lgw_novel
+        <include refid="queryCondition"/>
+    </select>
 
     <sql id="queryCondition">
         <where>

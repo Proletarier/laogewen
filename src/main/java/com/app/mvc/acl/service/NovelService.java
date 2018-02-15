@@ -68,7 +68,7 @@ public class NovelService {
     public Page<Novel> selectNovelTitleOrType(NovelCondition condition) {
         Page<Novel> page=null;
         try {
-            List<Novel> list=novelDao.selectNovelTitleOrType(condition);
+            List<Novel> list=novelDao.searchNovel(condition);
             page=Page.<Novel>builder().data(list).build();
         }catch (Exception e){
             log.error(e.getMessage());

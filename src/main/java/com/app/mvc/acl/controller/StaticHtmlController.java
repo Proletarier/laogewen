@@ -1,5 +1,6 @@
 package com.app.mvc.acl.controller;
 
+import com.app.mvc.acl.condition.NovelCondition;
 import com.app.mvc.acl.condition.PictureCondition;
 import com.app.mvc.acl.config.UtilConfig;
 import com.app.mvc.acl.service.StaticHtmlService;
@@ -55,8 +56,18 @@ public class StaticHtmlController {
     @ResponseBody
     @RequestMapping(value = "novel",method = RequestMethod.GET)
     public JsonData staticNovelHtml(HttpServletRequest request,Integer id){
+        staticHtmlService.staticNovelHtml(UtilConfig.picturePageFile,id);
         return  JsonData.success(null);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "novelPageHtml",method = RequestMethod.GET)
+    public JsonData staticNovelPageHtml(HttpServletRequest request, NovelCondition condition){
+        staticHtmlService.staticNovelPageHtml(UtilConfig.picturePageFile,condition);
+        return  JsonData.success(null);
+    }
+
+
 
 
 

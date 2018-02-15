@@ -19,7 +19,9 @@ public interface NovelDao  {
 
     Novel findById(@Param("novelId") int novelId);
 
-    List<Novel> selectNovelTitleOrType(@Param("condition") NovelCondition condition);
+    List<Novel> searchNovel(@Param("condition") NovelCondition condition);
 
-    List<Novel> searchNovelUpAndDown(@Param("condition") NovelCondition pictureCondition);
+    List<Novel> searchNovelUpAndDown(@Param("condition") NovelCondition condition);
+
+    int countByNovel(@Param("condition") NovelCondition condition);
 }

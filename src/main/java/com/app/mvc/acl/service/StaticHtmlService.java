@@ -176,6 +176,7 @@ public class StaticHtmlService {
         map.put("upPageNum", condition.getPageNum() - 1);
         map.put("downPageNum", condition.getPageNum() + 1);
         map.put("totalNum", Math.ceil((double) count / condition.getPageSize()));
+        map.put("typeCodeMeaning", UtilConfig.PictureType.valueOf(condition.getType()).getValue());
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("picture_list.ftl");
@@ -193,6 +194,7 @@ public class StaticHtmlService {
      */
     public void staticNovelHtml(String path, Integer id) {
         Novel novel = novelDao.findById(id);
+        novel.setTypeCodeMeaning(UtilConfig.NovelType.valueOf(novel.getTypeCode()).getValue());
         Map<String, Object> map = Maps.newHashMap();
         if (novel == null) {
             throw ServiceException.create("NOVEL.THE.ENTITY.IS.NOT.FOUND");
@@ -210,16 +212,21 @@ public class StaticHtmlService {
                 }
             }
         }
-
         for (NovelPage novelPage : novelPages) {
             map.put("novel",novel);
             map.put("novelPage",novelPage);
             map.put("totalNum",novelPages.size());
+            if(novelPage.getPage()==1){
+                map.put("upPageNum", "");
+            }else{
+                map.put("upPageNum", novelPage.getPage() - 1);
+            }
+            map.put("downPageNum", novelPage.getPage() + 1);
             StaticTemplateView view = new StaticTemplateView();
             view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
             view.setFltName("novel.ftl");
             view.setDestPath(path + File.separator + "app" + File.separator + "novel" + File.separator + novel.getTypeCode());
-            view.setDestName(id + ".html");
+            view.setDestName(id+(novelPage.getPage()==1?"":"_"+novelPage.getPage()) + ".html");
             view.setData(map);
             FreemakerUtil.freemakerProcess(view);
         }
@@ -232,7 +239,42 @@ public class StaticHtmlService {
      * @param condition
      */
     public void staticNovelPageHtml(String path, NovelCondition condition) {
+        if (condition.getType() == null)
+            throw ServiceException.create("PICTURE.THE.ENTITY.IS.NOT.FOUND");
+        int count = novelDao.countByNovel(condition);
+        Map<String, Object> map = Maps.newHashMap();
+        boolean isTrue = false;
+        if (condition.getPageNum() == 1) {
+            isTrue = true;
+        } else {
+            condition.setPageNum(condition.getPageNum() - 1);
+        }
+        List<Novel> list = novelDao.searchNovel(condition);
+        List<Novel> novelList = Lists.newArrayList();
+        if (isTrue) {
+            novelList.addAll(Arrays.asList(new Novel[condition.getPageSize()]));
+            novelList.addAll(list);
+        } else {
+            novelList.addAll(list);
+            condition.setPageNum(condition.getPageNum() + 1);
+            novelList.addAll(novelDao.searchNovel(condition));
+        }
 
+        map.put("page", novelList);
+        map.put("type", condition.getType());
+        map.put("count", count);
+        map.put("pageNum", condition.getPageNum());
+        map.put("upPageNum", condition.getPageNum() - 1);
+        map.put("downPageNum", condition.getPageNum() + 1);
+        map.put("totalNum", Math.ceil((double) count / condition.getPageSize()));
+        map.put("typeCodeMeaning", UtilConfig.NovelType.valueOf(condition.getType()).getValue());
+        StaticTemplateView view = new StaticTemplateView();
+        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+        view.setFltName("novel_list.ftl");
+        view.setDestPath(UtilConfig.picturePageFile + File.separator + "app" + File.separator + "novel" + File.separator + condition.getType());
+        view.setDestName("index_" + condition.getPageNum() + ".html");
+        view.setData(map);
+        FreemakerUtil.freemakerProcess(view);
     }
 
 
