@@ -17,7 +17,7 @@
 <div class="container" id="header">
     <div class="head">
         <script>
-            $(".head").load("../public/head.html");
+            $(".head").load("/app/public/head.html");
         </script>       
     </div>
     <!-- 广告位 -->
@@ -25,7 +25,7 @@
     <div class="clear"></div>
     <div class="newnav">
         <script>
-            $(".newnav").load("../public/menu.html");
+            $(".newnav").load("/app/public/menu.html");
         </script>      
     </div>
     <div class="banner">

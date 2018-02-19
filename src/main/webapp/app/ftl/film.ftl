@@ -6,18 +6,18 @@
     <meta name="kryword" content="三五瓶，逼两拳，老哥还会军体拳">
     <meta name="description" content="戒撸是不可能戒撸的，这辈子是不可能戒撸的，找小姐又不会，只有靠撸管才能维持的了生活。
     来老哥稳就像回家一样，里面个个都是人才，说话又好听，超喜欢在里面的。">
-    <link href="../public/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../main/css/main.css" rel="stylesheet">
-    <link href="css/vod_details.css" rel="stylesheet"/>
-    <script src="../public/js/jquery-1.12.0.min.js"></script>
-    <script src="../public/js/bootstrap.min.js"></script>
-    <script src="../main/js/main.js"></script>
+    <link href="/app/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/app/main/css/main.css" rel="stylesheet">
+    <link href="/app/vod/css/vod_details.css" rel="stylesheet"/>
+    <script src="/app/public/js/jquery-1.12.0.min.js"></script>
+    <script src="/app/public/js/bootstrap.min.js"></script>
+    <script src="/app/main/js/main.js"></script>
 </head>
 <body>
 <div class="container" id="header">
     <div class="head">
         <script>
-            $(".head").load("../public/head.html");
+            $(".head").load("/app/public/head.html");
         </script>
     </div>
     <!-- 广告位 -->
@@ -25,7 +25,7 @@
     <div class="clear"></div>
     <div class="newnav">
         <script>
-            $(".newnav").load("../public/menu.html");
+            $(".newnav").load("/app/public/menu.html");
         </script>
     </div>
     <div class="banner"></div>
@@ -170,8 +170,8 @@
                     </p>
                 </div>
                 <div class="play-list">
-                    <a href="play/xfplay.html?filmName=${film.filmName}&filmType=${film.filmType}&xfplay=${film.xfplay}" target="_blank">第1集</a>
-                    <a href="play/xfplay.html?filmName=${film.filmName}&filmType=${film.filmType}&xfplay=${film.xfplay}">
+                    <a href="/app/vod/play/xfplay.html?filmName=${film.filmName}&filmType=${film.filmType}&xfplay=${film.xfplay}" target="_blank">第1集</a>
+                    <a href="/app/vod/play/xfplay.html?filmName=${film.filmName}&filmType=${film.filmType}&xfplay=${film.xfplay}">
                         第1集手机播放
                     </a>
                     <a href="" rel="nofollow" target="_blank">帮助</a>

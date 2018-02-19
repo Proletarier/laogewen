@@ -2,6 +2,7 @@ package com.app.mvc.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -234,5 +235,21 @@ public class DateUtil {
         }
         return "";
     }
+
+    public static String getYMD(Date date,int num){
+        Calendar cld = Calendar.getInstance();
+        cld.setTime(date);
+        if(Calendar.MONTH==num){
+            return (cld.get(Calendar.MONTH)+1)+"";
+        }
+        if(Calendar.YEAR==num){
+            return cld.get(Calendar.YEAR)+"";
+        }
+        if(Calendar.DAY_OF_MONTH==num){
+            return cld.get(Calendar.DAY_OF_MONTH)+"";
+        }
+        return "";
+    }
+
 
 }

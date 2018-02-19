@@ -1,6 +1,7 @@
 package com.app.mvc.acl.service;
 
 import com.app.mvc.acl.condition.FilmCondition;
+import com.app.mvc.acl.condition.LookValueCondition;
 import com.app.mvc.acl.condition.NovelCondition;
 import com.app.mvc.acl.condition.PictureCondition;
 import com.app.mvc.acl.config.UtilConfig;
@@ -8,10 +9,7 @@ import com.app.mvc.acl.dao.FilmDao;
 import com.app.mvc.acl.dao.NovelDao;
 import com.app.mvc.acl.dao.NovelPageDao;
 import com.app.mvc.acl.dao.PictureDao;
-import com.app.mvc.acl.po.Film;
-import com.app.mvc.acl.po.Novel;
-import com.app.mvc.acl.po.NovelPage;
-import com.app.mvc.acl.po.Picture;
+import com.app.mvc.acl.po.*;
 import com.app.mvc.beans.StaticTemplateView;
 import com.app.mvc.exception.ServiceException;
 import com.app.mvc.util.DateUtil;
@@ -23,10 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2018/1/5.
@@ -46,6 +41,9 @@ public class StaticHtmlService {
 
     @Autowired
     private NovelPageDao novelPageDao;
+
+    @Autowired
+    private LookValueService lookValueService;
 
     /**
      * 静态首页
@@ -81,11 +79,12 @@ public class StaticHtmlService {
         Film film = filmDao.findById(id);
         film.setCodeValue(UtilConfig.FilmType.valueOf(film.getFilmType()).getValue());
         film.setImg(film.getContentImg().split(";"));
+        String filmPath=film.getFilmType()+ File.separator+DateUtil.format(film.getCreateDate(),"yyyy-MM-dd").split("-")[0]+File.separator+DateUtil.format(film.getCreateDate(),"yyyy-MM-dd").split("-")[1]+DateUtil.format(film.getCreateDate(),"yyyy-MM-dd").split("-")[2];
         map.put("film", film);
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("film.ftl");
-        view.setDestPath(path + File.separator + "app" + File.separator + "vod");
+        view.setDestPath(path + File.separator + "app" + File.separator + "vod"+File.separator+filmPath);
         view.setDestName(id + ".html");
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);
@@ -246,12 +245,12 @@ public class StaticHtmlService {
             }
         }
         for (NovelPage novelPage : novelPages) {
-            map.put("novel",novel);
-            map.put("novelPage",novelPage);
-            map.put("totalNum",novelPages.size());
-            if(novelPage.getPage()==1){
+            map.put("novel", novel);
+            map.put("novelPage", novelPage);
+            map.put("totalNum", novelPages.size());
+            if (novelPage.getPage() == 1) {
                 map.put("upPageNum", "");
-            }else{
+            } else {
                 map.put("upPageNum", novelPage.getPage() - 1);
             }
             map.put("downPageNum", novelPage.getPage() + 1);
@@ -259,7 +258,7 @@ public class StaticHtmlService {
             view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
             view.setFltName("novel.ftl");
             view.setDestPath(path + File.separator + "app" + File.separator + "novel" + File.separator + novel.getTypeCode());
-            view.setDestName(id+(novelPage.getPage()==1?"":"_"+novelPage.getPage()) + ".html");
+            view.setDestName(id + (novelPage.getPage() == 1 ? "" : "_" + novelPage.getPage()) + ".html");
             view.setData(map);
             FreemakerUtil.freemakerProcess(view);
         }
@@ -308,6 +307,75 @@ public class StaticHtmlService {
         view.setDestName("index_" + condition.getPageNum() + ".html");
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);
+    }
+
+
+    /**
+     * 一键打包
+     *
+     * @param path
+     */
+    public void staticAll(String path) {
+        FilmCondition filmCondition = new FilmCondition();
+        filmCondition.setPageSize(999999);
+        //电影
+        List<Film> filmList = filmDao.selectFilmTypeOrName(filmCondition);
+        for (Film film : filmList) {
+            this.staticVodHtml(path, film.getFilmID());
+        }
+        LookValueCondition lookValueCondition = new LookValueCondition();
+        lookValueCondition.setLookType("FILM_TYPE");
+        List<LookValue> valueList = lookValueService.searchLookValueList(lookValueCondition);
+        for (LookValue lookValue : valueList){
+             FilmCondition condition=new FilmCondition();
+             condition.setFilmType(lookValue.getLookCode());
+             int count=filmDao.countByFilm(condition);
+             int totalNum=(int) Math.ceil((double) count / condition.getPageSize());
+             for (int i=1;i<=totalNum;i++){
+                 condition.setPageNum(i);
+                 this.staticVodPageHtml(path,condition);
+             }
+        }
+        //图片
+        PictureCondition pictureCondition=new PictureCondition();
+        pictureCondition.setPageSize(999999);
+        List<Picture> pictureList=pictureDao.queryPicture(pictureCondition);
+        for (Picture picture : pictureList){
+            this.staticPictureHtml(path,picture.getPictureId());
+        }
+        lookValueCondition.setLookType("PICTURE_TYPE");
+        valueList = lookValueService.searchLookValueList(lookValueCondition);
+        for (LookValue lookValue : valueList){
+            PictureCondition condition=new PictureCondition();
+            condition.setType(lookValue.getLookCode());
+            condition.setPageSize(25);
+            int count=pictureDao.countByPicture(condition);
+            int totalNum=(int) Math.ceil((double) count / condition.getPageSize());
+            for (int i=1;i<=totalNum;i++){
+                condition.setPageNum(i);
+                this.staticPicturePageHtml(path,condition);
+            }
+        }
+        //小说
+        NovelCondition novelCondition=new NovelCondition();
+        pictureCondition.setPageSize(999999);
+        List<Novel> novelList=novelDao.searchNovel(novelCondition);
+        for (Novel novel : novelList){
+            this.staticNovelHtml(path,novel.getNovelId());
+        }
+        lookValueCondition.setLookType("NOVEL_TYPE");
+        valueList = lookValueService.searchLookValueList(lookValueCondition);
+        for (LookValue lookValue : valueList){
+            NovelCondition condition=new NovelCondition();
+            condition.setType(lookValue.getLookCode());
+            condition.setPageSize(25);
+            int count=novelDao.countByNovel(condition);
+            int totalNum=(int) Math.ceil((double) count / condition.getPageSize());
+            for (int i=1;i<=totalNum;i++){
+                condition.setPageNum(i);
+                this.staticNovelPageHtml(path,condition);
+            }
+        }
     }
 
 

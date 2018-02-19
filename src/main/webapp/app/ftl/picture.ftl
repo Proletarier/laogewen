@@ -8,7 +8,7 @@
     来老哥稳就像回家一样，里面个个都是人才，说话又好听，超喜欢在里面的。">
     <link href="/app/public/css/bootstrap.min.css" rel="stylesheet">
     <link href="/app/main/css/main.css" rel="stylesheet">
-    <link href="../css/picture_details.css" rel="stylesheet"/>
+    <link href="/app/picture/css/picture_details.css" rel="stylesheet"/>
     <script src="/app/public/js/jquery-1.12.0.min.js"></script>
     <script src="/app/public/js/bootstrap.min.js"></script>
     <script src="/app/main/js/main.js"></script>
@@ -17,14 +17,14 @@
 <div class="container" id="header">
     <div class="head">
         <script>
-            $(".head").load("../public/head.html");
+            $(".head").load("/app/public/head.html");
         </script>          
     </div>
     <div class="banner"></div>
     <div class="clear"></div>
     <div class="newnav">
         <script>
-            $(".newnav").load("../public/menu.html");
+            $(".newnav").load("/app/public/menu.html");
         </script>        
     </div>
     <div class="banner"></div>

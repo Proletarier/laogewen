@@ -77,6 +77,14 @@ public class StaticHtmlController {
 
 
 
+    @ResponseBody
+    @RequestMapping(value = "staticAll",method = RequestMethod.GET)
+    public JsonData staticAll(HttpServletRequest request){
+        staticHtmlService.staticAll(UtilConfig.picturePageFile);
+        return  JsonData.success(null);
+    }
+
+
 
 
 }

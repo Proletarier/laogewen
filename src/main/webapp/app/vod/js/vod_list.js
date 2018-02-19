@@ -4,6 +4,8 @@
 
 var page='<li><a href="#" onclick=""></a></li>';
 var totalSize=5;
+var startShow= 14;
+var pageSize = 14;
 
 function $initPage(size,total,type) {
     var obj="";
@@ -37,4 +39,16 @@ function  $getPage(size,total) {
         startNum=size-(Math.floor(totalSize/2));
 
     return startNum;
+}
+
+function $initPageList() {
+    var i=0;
+    var n=0;
+    $(".pagelist .movielist ul li").each(function () {
+        if (i>=startShow && n<pageSize){
+            $(this).attr("style","block");
+            n++;
+        }
+        i++;
+    });
 }

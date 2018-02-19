@@ -6,13 +6,13 @@
     <meta name="kryword" content="三五瓶，逼两拳，老哥还会军体拳">
     <meta name="description" content="戒撸是不可能戒撸的，这辈子是不可能戒撸的，找小姐又不会，只有靠撸管才能维持的了生活。
     来老哥稳就像回家一样，里面个个都是人才，说话又好听，超喜欢在里面的。">
-    <link href="../public/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../main/css/main.css" rel="stylesheet">
-    <link href="css/vod_list.css" rel="stylesheet">
-    <script src="../public/js/jquery-1.12.0.min.js"></script>
-    <script src="../public/js/bootstrap.min.js"></script>
-    <script src="../main/js/main.js"></script>
-    <script src="js/vod_list.js"></script>
+    <link href="/app/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/app/main/css/main.css" rel="stylesheet">
+    <link href="/app/vod/css/vod_list.css" rel="stylesheet">
+    <script src="/app/public/js/jquery-1.12.0.min.js"></script>
+    <script src="/app/public/js/bootstrap.min.js"></script>
+    <script src="/app/main/js/main.js"></script>
+    <script src="/app/vod/js/vod_list.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
 		     var loc = window.location.href;
@@ -27,7 +27,7 @@
 <div class="container" id="header">
     <div class="head">
        <script>
-            $(".head").load("../public/head.html");
+            $(".head").load("/app/public/head.html");
         </script>       
     </div>
     <!-- 广告位 -->
@@ -35,7 +35,7 @@
     <div class="clear"></div>
     <div class="newnav">
          <script>
-            $(".newnav").load("../public/menu.html");
+            $(".newnav").load("/app/public/menu.html");
         </script>     
     </div>
     <div class="banner"></div>
@@ -74,18 +74,18 @@
 			    <#list (page) as val>
 				 <#if (val.filmType)??>
                     <li style="display:none;">
-                        <a class="p" title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html.html" target="_blank">
+                        <a class="p" title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html" target="_blank">
                             <img src="${val.titleImg}" alt="">
                         </a>
                         <div class="info">
                             <h2>
-                                <a href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html.html" title="${val.filmName}" target="_blank">${val.filmName}</a>
+                                <a href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html" title="${val.filmName}" target="_blank">${val.filmName}</a>
                             </h2>
                             <p><i>更新：${val.createDate?string("yyyy-MM-dd")}</i></p>
                             <p><i>类型：${typeCodeMeaning}</i></p>
                             <p><i>撸量：${val.clickAmount}</i></p>
                             <span>
-                                <a href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html.html" target="_blank">观看</a>
+                                <a href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html" target="_blank">观看</a>
                                 <a href="" target="_blank">下载</a>
                             </span>
                         </div>
