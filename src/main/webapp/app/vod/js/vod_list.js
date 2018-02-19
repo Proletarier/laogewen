@@ -5,11 +5,11 @@
 var page='<li><a href="#" onclick=""></a></li>';
 var totalSize=5;
 
-function $initPage(size,total) {
+function $initPage(size,total,type) {
     var obj="";
     var startNum=$getPage(size,total);
     if(size>1){
-        obj='<li><a href="#" onclick="clickPage('+(size*1-1)+')">上一页</a></li>';
+        obj='<li><a href="/app/vod/'+type+'/index_'+(size*1-1)+'.html">上一页</a></li>';
     }
     for(var i=0;i<totalSize;i++){
         if(size==startNum){
@@ -17,16 +17,16 @@ function $initPage(size,total) {
             startNum++;
             continue
         }
-        obj+='<li><a href="#" onclick="clickPage('+startNum+')">'+startNum+'</a></li>';
+        obj+='<li><a href="/app/vod/'+type+'/index_'+startNum+'.html">'+startNum+'</a></li>';
         startNum++;
     }
     if(size<total){
-        obj+='<li><a href="#" onclick="clickPage('+(size*1+1)+')">下一页</a></li>';
+        obj+='<li><a href="/app/vod/'+type+'/index_'+(size*1+1)+'.html">下一页</a></li>';
     }
     return obj;
 }
-
 function  $getPage(size,total) {
+
 
     var startNum;
     if(size<Math.ceil(totalSize/2))

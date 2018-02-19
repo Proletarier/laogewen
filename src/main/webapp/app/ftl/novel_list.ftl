@@ -16,101 +16,16 @@
 <body>
 <div class="container" id="header">
     <div class="head">
-        <div class="top">
-            <span title="人活着若没有梦想，那和咸鱼又有什么分别呢？">老哥稳，老哥们的修車厂</span>
-            <p><a href="">老哥求片留言</a>-<a href="">手机看片方法</a>-<a href="">高速观影指南</a></p>
-        </div>
-        <div class="logo">
-            <a title="老哥稳 - 看片从这里开始" href="#"></a>
-        </div>
-        <p class="plus">
-            <a class="ph" href="#">排行榜</a>
-            <a class="dq" href="#">搜索中心</a>
-        </p>
-        <div id="search">
-            <div class="input-group col-lg-12">
-                <input type="text" placeholder="输入影片关键字搜索" class="form-control">
-                <div class="input-group-btn " style="padding-right: 3px">
-                    <button type="button" class="btn btn-default dropdown-toggle "
-                            data-toggle="dropdown"><span class="type">电影</span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu  pull-right ">
-                        <li value="1">
-                            <a>电影</a>
-                        </li>
-                        <li value="2">
-                            <a>图片</a>
-                        </li>
-                        <li value="3">
-                            <a>小说</a>
-                        </li>
-                    </ul>
-                </div>
-                <button type="button" class="btn btn-default btn-1g pull-left">
-                    <span class="glyphicon glyphicon-search"></span> 搜索
-                </button>
-            </div>
-            <p>三五瓶 - 逼两拳
-                <font color="#FF0000">通知：遇到本网站无法访问!请在网址前面加HTTPS://</font></p>
-        </div>
-        <div class="history">
-            <a class="gk" rel="nofollow" href="#" target="_blank">网站公告</a>
-        </div>
+        <script>
+            $(".head").load("../public/head.html");
+        </script>        
     </div>
     <div class="banner"></div>
     <div class="clear"></div>
     <div class="newnav">
-        <div class="navmenu dy">
-            <ul class="nav nav-pills ">
-                <li class="homea"><a class="sdy">电影</a></li>
-                <li><a href="#">电影首页</a></li>
-                <li><a href="#">亚洲情色</a></li>
-                <li><a href="#">制服丝袜</a></li>
-                <li><a href="#">欧美性爱</a></li>
-                <li><a href="#">网友自拍</a></li>
-                <li><a href="#">经典三级</a></li>
-                <li><a href="#">乱伦虐待</a></li>
-                <li><a href="#">另类变态</a></li>
-                <li><a href="#">成人动漫</a></li>
-            </ul>
-        </div>
-        <div class="navmenu tp">
-            <ul class="nav nav-pills">
-                <li class="homea"><a class="stp">图片</a></li>
-                <li><a href="#">图片首页</a></li>
-                <li><a href="#">偷拍自拍</a></li>
-                <li><a href="#">亚洲色图</a></li>
-                <li><a href="#">丝袜美腿</a></li>
-                <li><a href="#">欧美性爱</a></li>
-                <li><a href="#">激情明星</a></li>
-                <li><a href="#">青春唯美</a></li>
-                <li><a href="#">成人动漫</a></li>
-            </ul>
-        </div>
-        <div class="navmenu xs">
-            <ul class="nav nav-pills">
-                <li class="homea"><a class="sxs">小说</a></li>
-                <li><a href="#">小说首页</a></li>
-                <li><a href="#">激情文学</a></li>
-                <li><a href="#">乱伦文学</a></li>
-                <li><a href="#">明星校园</a></li>
-                <li><a href="#">武侠古典</a></li>
-                <li><a href="#">黄色笑话</a></li>
-                <li><a href="#">性爱技巧</a></li>
-            </ul>
-        </div>
-        <div class="navmenu zx">
-            <ul class="nav nav-pills">
-                <li class="homea"><a class="szx">在线</a></li>
-                <li><a href="#">在线视频</a></li>
-                <li><a href="#">亚洲情色</a></li>
-                <li><a href="#">制服丝袜</a></li>
-                <li><a href="#">欧美性爱</a></li>
-                <li><a href="#">网友自拍</a></li>
-                <li><a href="#">成人动漫</a></li>
-            </ul>
-        </div>
+        <script>
+            $(".newnav").load("../public/menu.html");
+        </script>       
     </div>
     <div class="banner"></div>
     <div id="main">

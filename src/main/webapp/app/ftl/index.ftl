@@ -16,103 +16,17 @@
 <body>
 <div class="container" id="header">
     <div class="head">
-        <div class="top">
-            <span title="人活着若没有梦想，那和咸鱼又有什么分别呢？">老哥稳如坟头草</span>
-            <p><a href="">老哥求片留言</a>-<a href="/app/help/mobile.html">手机看片方法</a>-<a href="/app/help/help.html">高速观影指南</a>
-            </p>
-        </div>
-        <div class="logo">
-            <a title="老哥稳 - 看片从这里开始" href="#"></a>
-        </div>
-        <p class="plus">
-            <a class="ph" href="#">排行榜</a>
-            <a class="dq" href="#">搜索中心</a>
-        </p>
-        <div id="search">
-            <div class="input-group col-lg-12">
-                <input type="text" placeholder="输入影片关键字搜索" class="form-control">
-                <div class="input-group-btn " style="padding-right: 3px">
-                    <button type="button" class="btn btn-default dropdown-toggle "
-                            data-toggle="dropdown"><span class="type">电影</span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu  pull-right ">
-                        <li value="1">
-                            <a>电影</a>
-                        </li>
-                        <li value="2">
-                            <a>图片</a>
-                        </li>
-                        <li value="3">
-                            <a>小说</a>
-                        </li>
-                    </ul>
-                </div>
-                <button type="button" class="btn btn-default btn-1g pull-left">
-                    <span class="glyphicon glyphicon-search"></span> 搜索
-                </button>
-            </div>
-            <p>三五瓶 - 逼两拳
-                <font color="#FF0000">通知：遇到本网站无法访问!请在网址前面加HTTPS://</font></p>
-        </div>
-        <div class="history">
-            <a class="gk" rel="nofollow" href="/app/help/notice.html" target="_blank">网站公告</a>
-        </div>
+        <script>
+            $(".head").load("../public/head.html");
+        </script>       
     </div>
     <!-- 广告位 -->
     <div class="banner"></div>
     <div class="clear"></div>
     <div class="newnav">
-        <div class="navmenu dy">
-            <ul class="nav nav-pills ">
-                <li class="homea"><a class="sdy">电影</a></li>
-                <li><a href="/" target="_blank">电影首页</a></li>
-                <li><a href="/app/vod/vod_list.html?type=YZQS" target="_blank">亚洲情色</a></li>
-                <li><a href="/app/vod/vod_list.html?type=ZFSW" target="_blank">制服丝袜</a></li>
-                <li><a href="/app/vod/vod_list.html?type=OMXA" target="_blank">欧美性爱</a></li>
-                <li><a href="/app/vod/vod_list.html?type=WYZP" target="_blank">网友自拍</a></li>
-                <li><a href="/app/vod/vod_list.html?type=JDSJ" target="_blank">经典三级</a></li>
-                <li><a href="/app/vod/vod_list.html?type=LLND" target="_blank">乱伦虐待</a></li>
-                <li><a href="/app/vod/vod_list.html?type=LLBT" target="_blank">另类变态</a></li>
-                <li><a href="/app/vod/vod_list.html?type=CRDM" target="_blank">成人动漫</a></li>
-            </ul>
-        </div>
-        <div class="navmenu tp">
-            <ul class="nav nav-pills">
-                <li class="homea"><a class="stp">图片</a></li>
-                <li><a href="#">图片首页</a></li>
-                <li><a href="#">偷拍自拍</a></li>
-                <li><a href="#">亚洲色图</a></li>
-                <li><a href="#">丝袜美腿</a></li>
-                <li><a href="#">欧美性爱</a></li>
-                <li><a href="#">激情明星</a></li>
-                <li><a href="#">青春唯美</a></li>
-                <li><a href="#">成人动漫</a></li>
-            </ul>
-        </div>
-        <div class="navmenu xs">
-            <ul class="nav nav-pills">
-                <li class="homea"><a class="sxs">小说</a></li>
-                <li><a href="#">小说首页</a></li>
-                <li><a href="#">激情文学</a></li>
-                <li><a href="#">乱伦文学</a></li>
-                <li><a href="#">明星校园</a></li>
-                <li><a href="#">武侠古典</a></li>
-                <li><a href="#">黄色笑话</a></li>
-                <li><a href="#">性爱技巧</a></li>
-            </ul>
-        </div>
-        <div class="navmenu zx">
-            <ul class="nav nav-pills">
-                <li class="homea"><a class="szx">在线</a></li>
-                <li><a href="#">在线视频</a></li>
-                <li><a href="#">亚洲情色</a></li>
-                <li><a href="#">制服丝袜</a></li>
-                <li><a href="#">欧美性爱</a></li>
-                <li><a href="#">网友自拍</a></li>
-                <li><a href="#">成人动漫</a></li>
-            </ul>
-        </div>
+        <script>
+            $(".newnav").load("../public/menu.html");
+        </script>      
     </div>
     <div class="banner">
     </div>
@@ -212,7 +126,7 @@
                     <ul class="txt-list">
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e585875ea7e.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e585875ea7e.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">最新heyzo0908君岛ア</a>
@@ -220,7 +134,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e5858b202b2.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2018-01-16/5a5cf09189660.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">最新heyzo0920若松玲</a>
@@ -228,7 +142,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e5857f8c54e.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e58583c2905.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">最新heyzo0889大空美</a>
@@ -236,7 +150,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e5857b9016a.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e5857f8c54e.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">最新heyzo0894荒木ま</a>
@@ -244,7 +158,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e585792ef93.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e5857b9016a.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">最新一本道:音羽レオ</a>
@@ -252,7 +166,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e5854304217.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e585792ef93.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">最新heyzo0888百田ま</a>
@@ -260,7 +174,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e58577dead4.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e5854304217.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">妖艶なる我が家のMAI</a>
@@ -268,7 +182,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e585787eae0.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e58577dead4.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">最新东京热Tokyo-H</a>
@@ -276,7 +190,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e5857886c07.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e585787eae0.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">最新加勒比061615-</a>
@@ -284,7 +198,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e5857899b74.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e5857886c07.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">最新东京热Tokyo-H</a>
@@ -292,7 +206,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e585419488e.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e5857899b74.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">最新加勒比062415-</a>
@@ -300,7 +214,7 @@
                         </li>
                         <li>
                             <a title="" href="#" target="_blank">
-                                <img class="img-rounded" src="../img/56e58583c2905.jpg" alt="">
+                                <img class="img-rounded" src="//i3.1100lu.xyz/vod/2016-03-13/56e5857899b74.jpg" alt="">
                             </a>
                             <p>
                                 <a title="" href="" target="_blank">野外で室内で激しく贫</a>
@@ -415,34 +329,12 @@
                     </dl>
                     <dlv class="bd">
                         <ul class="dis">
+						<#list YZST as val>
                             <li>
-                                <i class="n">1</i>
-                                <a href="../picture/picture_details.html" title="" target="_blank">这幺嫩的鲍鱼也只有我捨得拿出</a>
+                                <i class="n">${val_index+1}</i>
+                                <a href="/app/picture/${val.typeCode}/${val.pictureId}.html" title="${val.name}" target="_blank">${val.name}</a>
                             </li>
-                            <li>
-                                <i class="n">2</i>
-                                <a href="#" title="" target="_blank">塞翁失马，焉知祸福</a>
-                            </li>
-                            <li>
-                                <i class="n">3</i>
-                                <a href="#" title="" target="_blank">MM与神仙的暴强对话</a>
-                            </li>
-                            <li>
-                                <i class="n">4</i>
-                                <a href="#" title="" target="_blank">永远都是成人的世界</a>
-                            </li>
-                            <li>
-                                <i class="n">5</i>
-                                <a href="#" title="" target="_blank">经典段子，看了讲给老婆听哦</a>
-                            </li>
-                            <li>
-                                <i class="n">6</i>
-                                <a href="#" title="" target="_blank">【淫荡少妇之白洁 第十七章</a>
-                            </li>
-                            <li>
-                                <i class="n">7</i>
-                                <a href="#" title="" target="_blank">被邻居的男孩偷上了</a>
-                            </li>
+						</#list>
                         </ul>
                     </dlv>
                 </div>
@@ -485,34 +377,12 @@
                     </dl>
                     <dlv class="bd">
                         <ul class="dis">
+ 					    <#list SWMT as val>
                             <li>
-                                <i class="n">1</i>
-                                <a href="#" title="" target="_blank">我压住你妈快去抢糖</a>
+                                <i class="n">${val_index+1}</i>
+                                <a href="/app/picture/${val.typeCode}/${val.pictureId}.html" title="${val.name}" target="_blank">${val.name}</a>
                             </li>
-                            <li>
-                                <i class="n">2</i>
-                                <a href="#" title="" target="_blank">塞翁失马，焉知祸福</a>
-                            </li>
-                            <li>
-                                <i class="n">3</i>
-                                <a href="#" title="" target="_blank">MM与神仙的暴强对话</a>
-                            </li>
-                            <li>
-                                <i class="n">4</i>
-                                <a href="#" title="" target="_blank">永远都是成人的世界</a>
-                            </li>
-                            <li>
-                                <i class="n">5</i>
-                                <a href="#" title="" target="_blank">经典段子，看了讲给老婆听哦</a>
-                            </li>
-                            <li>
-                                <i class="n">6</i>
-                                <a href="#" title="" target="_blank">【淫荡少妇之白洁 第十七章</a>
-                            </li>
-                            <li>
-                                <i class="n">7</i>
-                                <a href="#" title="" target="_blank">被邻居的男孩偷上了</a>
-                            </li>
+						</#list>
                         </ul>
                     </dlv>
                 </div>
@@ -555,34 +425,12 @@
                     </dl>
                     <dlv class="bd">
                         <ul class="dis">
+					    <#list OMST as val>
                             <li>
-                                <i class="n">1</i>
-                                <a href="#" title="" target="_blank">我压住你妈快去抢糖</a>
+                                <i class="n">${val_index+1}</i>
+                                <a href="/app/picture/${val.typeCode}/${val.pictureId}.html" title="${val.name}" target="_blank">${val.name}</a>
                             </li>
-                            <li>
-                                <i class="n">2</i>
-                                <a href="#" title="" target="_blank">塞翁失马，焉知祸福</a>
-                            </li>
-                            <li>
-                                <i class="n">3</i>
-                                <a href="#" title="" target="_blank">MM与神仙的暴强对话</a>
-                            </li>
-                            <li>
-                                <i class="n">4</i>
-                                <a href="#" title="" target="_blank">永远都是成人的世界</a>
-                            </li>
-                            <li>
-                                <i class="n">5</i>
-                                <a href="#" title="" target="_blank">经典段子，看了讲给老婆听哦</a>
-                            </li>
-                            <li>
-                                <i class="n">6</i>
-                                <a href="#" title="" target="_blank">【淫荡少妇之白洁 第十七章</a>
-                            </li>
-                            <li>
-                                <i class="n">7</i>
-                                <a href="#" title="" target="_blank">被邻居的男孩偷上了</a>
-                            </li>
+						</#list>
                         </ul>
                     </dlv>
                 </div>
@@ -625,34 +473,12 @@
                     </dl>
                     <dlv class="bd">
                         <ul class="dis">
+ 					    <#list ZPST as val>
                             <li>
-                                <i class="n">1</i>
-                                <a href="#" title="" target="_blank">我压住你妈快去抢糖</a>
+                                <i class="n">${val_index+1}</i>
+                                <a href="/app/picture/${val.typeCode}/${val.pictureId}.html" title="${val.name}" target="_blank">${val.name}</a>
                             </li>
-                            <li>
-                                <i class="n">2</i>
-                                <a href="#" title="" target="_blank">塞翁失马，焉知祸福</a>
-                            </li>
-                            <li>
-                                <i class="n">3</i>
-                                <a href="#" title="" target="_blank">MM与神仙的暴强对话</a>
-                            </li>
-                            <li>
-                                <i class="n">4</i>
-                                <a href="#" title="" target="_blank">永远都是成人的世界</a>
-                            </li>
-                            <li>
-                                <i class="n">5</i>
-                                <a href="#" title="" target="_blank">经典段子，看了讲给老婆听哦</a>
-                            </li>
-                            <li>
-                                <i class="n">6</i>
-                                <a href="#" title="" target="_blank">【淫荡少妇之白洁 第十七章</a>
-                            </li>
-                            <li>
-                                <i class="n">7</i>
-                                <a href="#" title="" target="_blank">被邻居的男孩偷上了</a>
-                            </li>
+						</#list>
                         </ul>
                     </dlv>
                 </div>

@@ -8,6 +8,7 @@ var startShow=25;
 
 function $initPageList(count) {
     var i=0;
+    var n=0;
     var loc = window.location.href;
     var totalNum = Math.ceil(count / pageSize);
     var pageNum = loc.substring(loc.lastIndexOf("/") + 1).replace(/[^0-9]/ig, "");
@@ -24,8 +25,9 @@ function $initPageList(count) {
         $("#pages #a4").attr("href",url+(totalNum)+".html");
     }
     $(".art_box .art ul li").each(function () {
-         if (i>=startShow){
+         if (i>=startShow && n<pageSize){
              $(this).attr("style","block");
+             n++;
          }
         i++;
     });

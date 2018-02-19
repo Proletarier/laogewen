@@ -1,5 +1,6 @@
 package com.app.mvc.acl.controller;
 
+import com.app.mvc.acl.condition.FilmCondition;
 import com.app.mvc.acl.condition.NovelCondition;
 import com.app.mvc.acl.condition.PictureCondition;
 import com.app.mvc.acl.config.UtilConfig;
@@ -25,16 +26,23 @@ public class StaticHtmlController {
 
 
     @ResponseBody
-    @RequestMapping(value = "home/IndexHtml",method = RequestMethod.GET)
-    public JsonData createHomeHtml(HttpServletRequest request){
+    @RequestMapping(value = "home",method = RequestMethod.GET)
+    public JsonData staticHomeHtml(HttpServletRequest request){
         staticHtmlService.staticIndexHtml("C:\\Users\\wenheng\\Desktop");
         return  JsonData.success(null);
     }
 
     @ResponseBody
     @RequestMapping(value = "film",method = RequestMethod.GET)
-    public JsonData createVodHtml(HttpServletRequest request,Integer id){
+    public JsonData staticVodHtml(HttpServletRequest request,Integer id){
         staticHtmlService.staticVodHtml(request.getSession().getServletContext().getRealPath("app/vod/"),id);
+        return  JsonData.success(null);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "filmPage",method = RequestMethod.GET)
+    public JsonData staticVodPageHtml(FilmCondition condition){
+        staticHtmlService.staticVodPageHtml(UtilConfig.picturePageFile,condition);
         return  JsonData.success(null);
     }
 
@@ -47,7 +55,7 @@ public class StaticHtmlController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "picturePageHtml",method = RequestMethod.GET)
+    @RequestMapping(value = "picturePage",method = RequestMethod.GET)
     public JsonData staticPicturePageHtml(HttpServletRequest request, PictureCondition pictureCondition){
         staticHtmlService.staticPicturePageHtml(UtilConfig.picturePageFile,pictureCondition);
         return  JsonData.success(null);
@@ -61,7 +69,7 @@ public class StaticHtmlController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "novelPageHtml",method = RequestMethod.GET)
+    @RequestMapping(value = "novelPage",method = RequestMethod.GET)
     public JsonData staticNovelPageHtml(HttpServletRequest request, NovelCondition condition){
         staticHtmlService.staticNovelPageHtml(UtilConfig.picturePageFile,condition);
         return  JsonData.success(null);

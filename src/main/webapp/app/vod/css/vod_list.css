@@ -81,6 +81,7 @@
     height: 26px;
     line-height: 26px;
     color: #a4a4a4;
+    overflow:hidden;
 }
 .mlist h2 a, .mlist h2 a:visited {
     color: #2c89c6;

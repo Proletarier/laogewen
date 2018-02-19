@@ -97,8 +97,41 @@ public class StaticHtmlService {
      * @param path
      * @param condition
      */
-    public void staticFilmPage(String path, FilmCondition condition) {
+    public void staticVodPageHtml(String path, FilmCondition condition) {
+        if (condition.getFilmType() == null)
+            throw ServiceException.create("FILM.THE.ENTITY.IS.NOT.FOUND");
+        int count = filmDao.countByFilm(condition);
+        Map<String, Object> map = Maps.newHashMap();
+        boolean isTrue = false;
+        if (condition.getPageNum() == 1) {
+            isTrue = true;
+        } else {
+            condition.setPageNum(condition.getPageNum() - 1);
+        }
+        List<Film> list = filmDao.selectFilmTypeOrName(condition);
+        List<Film> filmList = Lists.newArrayList();
+        if (isTrue) {
+            filmList.addAll(Arrays.asList(new Film[condition.getPageSize()]));
+            filmList.addAll(list);
+        } else {
+            filmList.addAll(list);
+            condition.setPageNum(condition.getPageNum() + 1);
+            filmList.addAll(filmDao.selectFilmTypeOrName(condition));
+        }
 
+        map.put("page", filmList);
+        map.put("type", condition.getFilmType());
+        map.put("count", count);
+        map.put("pageNum", condition.getPageNum());
+        map.put("totalNum", Math.ceil((double) count / condition.getPageSize()));
+        map.put("typeCodeMeaning", UtilConfig.FilmType.valueOf(condition.getFilmType()).getValue());
+        StaticTemplateView view = new StaticTemplateView();
+        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+        view.setFltName("film_list.ftl");
+        view.setDestPath(UtilConfig.picturePageFile + File.separator + "app" + File.separator + "vod" + File.separator + condition.getFilmType());
+        view.setDestName("index_" + condition.getPageNum() + ".html");
+        view.setData(map);
+        FreemakerUtil.freemakerProcess(view);
     }
 
 
