@@ -65,7 +65,7 @@
         LEFT  JOIN lgw_look_value lv ON lv.LOOK_CODE=film.FIlM_TYPE AND lv.LOOK_TYPE='FILM_TYPE'
         <include refid="queryConditions"/>
          ORDER BY create_date DESC
-        <if test="filmCondition.filmName!=null and filmCondition.clickFlag=='Y'">
+        <if test="filmCondition.clickFlag=='Y'.toString()">
             ,click_amount DESC
         </if>
         limit #{filmCondition.offset},#{filmCondition.pageSize}

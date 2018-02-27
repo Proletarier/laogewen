@@ -6,12 +6,13 @@
     <meta name="kryword" content="三五瓶，逼两拳，老哥还会军体拳">
     <meta name="description" content="戒撸是不可能戒撸的，这辈子是不可能戒撸的，找小姐又不会，只有靠撸管才能维持的了生活。
     来老哥稳就像回家一样，里面个个都是人才，说话又好听，超喜欢在里面的。">
-    <link href="app/public/css/bootstrap.min.css" rel="stylesheet">
-    <link href="app/main/css/main.css" rel="stylesheet">
-    <link href="app/novel/css/read.css" rel="stylesheet"/>
+    <link href="/app/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/app/main/css/main.css" rel="stylesheet">
+    <link href="/app/novel/css/read.css" rel="stylesheet"/>
     <script src="/app/public/js/jquery-1.12.0.min.js"></script>
     <script src="/app/public/js/bootstrap.min.js"></script>
     <script src="/app/main/js/main.js"></script>
+
 </head>
 <body>
 <div class="container" id="header">
@@ -40,22 +41,30 @@
 			 ${novelPage.content}
 			 <div id="pages">
 			 <#if novelPage.page!=1>
-			  <a href="/app/novel/${novel.typeCode}/${novel.novelId}.html">首页</a>&nbsp;
-			  <a href="/app/novel/${novel.typeCode}/${novelPage.novelId}_${upPageNum}.html">上一页</a>&nbsp;
+			  <a href="/app/novel/${novel.typeCode}/${novel.createDate?string("yyyy/MMdd")}/${novel.novelId}.html">首页</a>&nbsp;
+			  <#if novelPage.page==2>
+			   <a href="/app/novel/${novel.typeCode}/${novel.createDate?string("yyyy/MMdd")}/${novelPage.novelId}.html">上一页</a>&nbsp;
+			   <#else>
+			   <a href="/app/novel/${novel.typeCode}/${novel.createDate?string("yyyy/MMdd")}/${novelPage.novelId}_${upPageNum}.html">上一页</a>&nbsp;
+			  </#if>
 			 </#if>
 			  <#if novelPage.page!=totalNum>
-			  <a href="/app/novel/${novel.typeCode}/${novelPage.novelId}_${downPageNum}.html">下一页</a>&nbsp;
-			  <a href="/app/novel/${novel.typeCode}/${novel.novelId}_${totalNum}.html">尾页</a>
+			  <a href="/app/novel/${novel.typeCode}/${novel.createDate?string("yyyy/MMdd")}/${novelPage.novelId}_${downPageNum}.html">下一页</a>&nbsp;
+			  <a href="/app/novel/${novel.typeCode}/${novel.createDate?string("yyyy/MMdd")}/${novel.novelId}_${totalNum}.html">尾页</a>
 			 </#if>
 			  </div>
             </div>
             <!-- 文章内容end -->
             <div class="pn_news">
                 <ul>
-                    <li><em>按←键进入上一撸：<a id="pre" href="/html/novel/${novel.typeCode}/${novel.upPage.novelId}.html">${novel.upPage.title}/a></em>
+				 <#if (novel.upPage)??>
+                    <li><em>按←键进入上一撸：<a id="pre" href="/html/novel/${novel.createDate?string("yyyy/MMdd")}/${novel.typeCode}/${novel.upPage.novelId}.html">${novel.upPage.title}/a></em>
+				    </li>
+				 </#if>
+				 <#if (novel.downPage)??>
+                    <li><em>按→键进入下一撸：<a id="next" href="/html/novel/${novel.createDate?string("yyyy/MMdd")}/${novel.typeCode}/${novel.downPage.novelId}.html">${novel.downPage.title}</a></em>
                     </li>
-                    <li><em>按→键进入下一撸：<a id="next" href="/html/novel/${novel.typeCode}/${novel.downPage.novelId}.html">${novel.downPage.title}</a></em>
-                    </li>
+				 </#if>
                 </ul>
             </div>
         </div>

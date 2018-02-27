@@ -13,6 +13,11 @@
     <script src="/app/public/js/bootstrap.min.js"></script>
     <script src="/app/main/js/main.js"></script>
 	<script src="/app/picture/js/picture_list.js"></script>
+	<script>
+        $(document).ready(function () {
+            $initPageList(${count},"${type}");
+        });
+	</script>
 </head>
 <body>
 <div class="container" id="header">
@@ -59,7 +64,7 @@
 					</#if>
                     转到
                     <input name="page" id="page" size="4" class="pagego" type="input">
-                    <input value="跳 转" onclick="window.location='/app/picture/toupai/index_<{page}>.html'.replace('<{page}>', document.getElementById('page').value);" class="pagebtn" type="button">
+                    <input value="跳 转" onclick="window.location='/app/picture/${type}/index_<{page}>.html'.replace('<{page}>', document.getElementById('page').value);" class="pagebtn" type="button">
                 </div>
             </div>
         </div>

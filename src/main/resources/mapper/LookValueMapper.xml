@@ -42,7 +42,7 @@
     <sql id="queryConditions">
         <where>
             <if test="condition.lookType!=null and condition.lookType!=''">
-                AND   LOOK_TYPE LIKE '%' || #{condition.lookType} || '%'
+                AND   LOOK_TYPE LIKE  CONCAT('%',#{condition.lookType},'%')
             </if>
             <if test="condition.lookCode!=null and condition.lookCode!=''">
                 AND   LOOK_CODE=#{condition.lookCode}

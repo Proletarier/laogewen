@@ -40,6 +40,14 @@ public class StaticHtmlController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "filmHome",method = RequestMethod.GET)
+    public JsonData staticVodHome(HttpServletRequest request){
+        staticHtmlService.staticVodHome("C:\\Users\\wenheng\\Desktop");
+        return  JsonData.success(null);
+    }
+
+
+    @ResponseBody
     @RequestMapping(value = "filmPage",method = RequestMethod.GET)
     public JsonData staticVodPageHtml(FilmCondition condition){
         staticHtmlService.staticVodPageHtml(UtilConfig.picturePageFile,condition);
@@ -51,6 +59,13 @@ public class StaticHtmlController {
     @RequestMapping(value = "picture",method = RequestMethod.GET)
     public JsonData staticPicture(HttpServletRequest request, Integer id){
         staticHtmlService.staticPictureHtml(request.getSession().getServletContext().getRealPath("app/picture/"),id);
+        return  JsonData.success(null);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "pictureHome",method = RequestMethod.GET)
+    public JsonData staticPictureHomeHtml(HttpServletRequest request, Integer id){
+        staticHtmlService.staticPictureHomeHtml("C:\\Users\\wenheng\\Desktop");
         return  JsonData.success(null);
     }
 
@@ -69,12 +84,18 @@ public class StaticHtmlController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "novelHome",method = RequestMethod.GET)
+    public JsonData staticNovelHomeHtml(HttpServletRequest request){
+        staticHtmlService.staticNovelHomeHtml(UtilConfig.picturePageFile);
+        return  JsonData.success(null);
+    }
+
+    @ResponseBody
     @RequestMapping(value = "novelPage",method = RequestMethod.GET)
     public JsonData staticNovelPageHtml(HttpServletRequest request, NovelCondition condition){
         staticHtmlService.staticNovelPageHtml(UtilConfig.picturePageFile,condition);
         return  JsonData.success(null);
     }
-
 
 
     @ResponseBody

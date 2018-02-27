@@ -91,6 +91,91 @@ public class StaticHtmlService {
     }
 
     /**
+     * 静态化电影首页
+     * @param path
+     */
+    public void staticVodHome(String path){
+        FilmCondition condition = null;
+        List<Film> films = null;
+        Map<String, Object> map = Maps.newHashMap();
+        try {
+            condition = new FilmCondition();
+            condition.setPageSize(8);
+            films = filmDao.selectFilmTypeOrName(condition);
+            map.put("wntj",films);
+            //亚洲
+            condition.setFilmType(UtilConfig.FilmType.YZQS.toString());
+            condition.setPageSize(12);
+            condition.setClickFlag("Y");
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(UtilConfig.FilmType.YZQS.toString(), films);
+            //推荐榜
+            condition.setFilmType(UtilConfig.FilmType.YZQS.toString());
+            condition.setPageSize(14);
+            condition.setClickFlag("N");
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put("yzqstj", films);
+            //制服
+            condition.setFilmType(UtilConfig.FilmType.ZFSW.toString());
+            condition.setPageSize(12);
+            condition.setClickFlag("Y");
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(UtilConfig.FilmType.ZFSW.toString(), films);
+            //推荐榜
+            condition.setFilmType(UtilConfig.FilmType.ZFSW.toString());
+            condition.setPageSize(14);
+            condition.setClickFlag("N");
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put("zfswtj", films);
+            //欧美
+            condition.setFilmType(UtilConfig.FilmType.OMXA.toString());
+            condition.setPageSize(12);
+            condition.setClickFlag("Y");
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(UtilConfig.FilmType.OMXA.toString(), films);
+            //推荐
+            condition.setFilmType(UtilConfig.FilmType.OMXA.toString());
+            condition.setPageSize(14);
+            condition.setClickFlag("N");
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put("omxatj".toString(), films);
+            //偷偷
+            condition.setFilmType(UtilConfig.FilmType.WYZP.toString());
+            condition.setPageSize(12);
+            condition.setClickFlag("Y");
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put(UtilConfig.FilmType.WYZP.toString(), films);
+            //推荐
+            condition.setFilmType(UtilConfig.FilmType.WYZP.toString());
+            condition.setPageSize(14);
+            condition.setClickFlag("N");
+            films = filmDao.selectFilmTypeOrName(condition);
+            if (films != null)
+                map.put("wyzptj", films);
+            map.put("count", filmDao.countByFilm(new  FilmCondition()));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ServiceException.create("FILM.SEARCH.FAIL");
+        }
+
+        StaticTemplateView view = new StaticTemplateView();
+        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+        view.setFltName("film_home.ftl");
+        view.setDestPath(path + File.separator + "app" + File.separator + "vod");
+        view.setDestName("index.html");
+        view.setData(map);
+        FreemakerUtil.freemakerProcess(view);
+
+    }
+
+    /**
      * 静态化电影分页
      *
      * @param path
@@ -133,6 +218,47 @@ public class StaticHtmlService {
         FreemakerUtil.freemakerProcess(view);
     }
 
+    /**
+     * 静态化图片首页
+     * @param path
+     */
+    public void  staticPictureHomeHtml(String path){
+        PictureCondition condition =new PictureCondition();
+        Map<String, Object> map = Maps.newHashMap();
+        try{
+            condition.setPageSize(10);
+            condition.setType(UtilConfig.PictureType.TPZP.toString());
+            map.put(UtilConfig.PictureType.TPZP.toString(),pictureDao.queryPicture(condition));
+            //亚洲
+            condition.setType(UtilConfig.PictureType.YZST.toString());
+            map.put(UtilConfig.PictureType.YZST.toString(),pictureDao.queryPicture(condition));
+            //丝袜
+            condition.setType(UtilConfig.PictureType.SWMT.toString());
+            map.put(UtilConfig.PictureType.SWMT.toString(),pictureDao.queryPicture(condition));
+            //欧美
+            condition.setType(UtilConfig.PictureType.OMXA.toString());
+            map.put(UtilConfig.PictureType.OMXA.toString(),pictureDao.queryPicture(condition));
+            //明星
+            condition.setType(UtilConfig.PictureType.QJMX.toString());
+            map.put(UtilConfig.PictureType.QJMX.toString(),pictureDao.queryPicture(condition));
+            //清纯
+            condition.setType(UtilConfig.PictureType.QCWM.toString());
+            map.put(UtilConfig.PictureType.QCWM.toString(),pictureDao.queryPicture(condition));
+            //动漫
+            condition.setType(UtilConfig.PictureType.CRDM.toString());
+            map.put(UtilConfig.PictureType.CRDM.toString(),pictureDao.queryPicture(condition));
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw ServiceException.create("PICTURE.SEARCH.FAIL");
+        }
+        StaticTemplateView view = new StaticTemplateView();
+        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+        view.setFltName("picture_home.ftl");
+        view.setDestPath(UtilConfig.picturePageFile + File.separator + "app" + File.separator + "picture");
+        view.setDestName("index.html");
+        view.setData(map);
+        FreemakerUtil.freemakerProcess(view);
+    }
 
     /**
      * 静态化图片页面
@@ -159,13 +285,14 @@ public class StaticHtmlService {
                 }
             }
         }
+        String picturePath=picture.getTypeCode()+ File.separator+DateUtil.format(picture.getCreateDate(),"yyyy-MM-dd").split("-")[0]+File.separator+DateUtil.format(picture.getCreateDate(),"yyyy-MM-dd").split("-")[1]+DateUtil.format(picture.getCreateDate(),"yyyy-MM-dd").split("-")[2];
         picture.setCodeValue(UtilConfig.PictureType.valueOf(picture.getTypeCode()).getValue());
         picture.setImgs(picture.getImg().split(";"));
         map.put("picture", picture);
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("picture.ftl");
-        view.setDestPath(path + File.separator + "app" + File.separator + "picture" + File.separator + picture.getTypeCode());
+        view.setDestPath(path + File.separator + "app" + File.separator + "picture" + File.separator + picturePath);
         view.setDestName(id + ".html");
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);
@@ -231,6 +358,7 @@ public class StaticHtmlService {
         if (novel == null) {
             throw ServiceException.create("NOVEL.THE.ENTITY.IS.NOT.FOUND");
         }
+        String novelPath=novel.getTypeCode()+ File.separator+DateUtil.format(novel.getCreateDate(),"yyyy-MM-dd").split("-")[0]+File.separator+DateUtil.format(novel.getCreateDate(),"yyyy-MM-dd").split("-")[1]+DateUtil.format(novel.getCreateDate(),"yyyy-MM-dd").split("-")[2];
         NovelCondition condition = new NovelCondition();
         condition.setNovelId(id);
         List<Novel> novelList = novelDao.searchNovelUpAndDown(condition);
@@ -257,11 +385,55 @@ public class StaticHtmlService {
             StaticTemplateView view = new StaticTemplateView();
             view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
             view.setFltName("novel.ftl");
-            view.setDestPath(path + File.separator + "app" + File.separator + "novel" + File.separator + novel.getTypeCode());
+            view.setDestPath(path + File.separator + "app" + File.separator + "novel" + File.separator + novelPath);
             view.setDestName(id + (novelPage.getPage() == 1 ? "" : "_" + novelPage.getPage()) + ".html");
             view.setData(map);
             FreemakerUtil.freemakerProcess(view);
         }
+    }
+
+    /**
+     * 静态化小说首页
+     * @param path
+     */
+    public  void  staticNovelHomeHtml(String path){
+        NovelCondition condition =new NovelCondition();
+        Map<String, Object> map = Maps.newHashMap();
+        try {
+            condition.setPageSize(10);
+            condition.setType(UtilConfig.NovelType.JQWX.toString());
+            map.put(UtilConfig.NovelType.JQWX.toString(),novelDao.searchNovel(condition));
+
+            condition.setPageSize(10);
+            condition.setType(UtilConfig.NovelType.LLWX.toString());
+            map.put(UtilConfig.NovelType.LLWX.toString(),novelDao.searchNovel(condition));
+
+            condition.setPageSize(10);
+            condition.setType(UtilConfig.NovelType.MXXY.toString());
+            map.put(UtilConfig.NovelType.MXXY.toString(),novelDao.searchNovel(condition));
+
+            condition.setPageSize(10);
+            condition.setType(UtilConfig.NovelType.WXGD.toString());
+            map.put(UtilConfig.NovelType.WXGD.toString(),novelDao.searchNovel(condition));
+
+            condition.setPageSize(10);
+            condition.setType(UtilConfig.NovelType.HSXH.toString());
+            map.put(UtilConfig.NovelType.HSXH.toString(),novelDao.searchNovel(condition));
+
+            condition.setPageSize(10);
+            condition.setType(UtilConfig.NovelType.XAJQ.toString());
+            map.put(UtilConfig.NovelType.XAJQ.toString(),novelDao.searchNovel(condition));
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw ServiceException.create("NOVEL.SEARCH.FAIL");
+        }
+        StaticTemplateView view = new StaticTemplateView();
+        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+        view.setFltName("novel_home.ftl");
+        view.setDestPath(path + File.separator + "app" + File.separator + "novel");
+        view.setDestName("index.html");
+        view.setData(map);
+        FreemakerUtil.freemakerProcess(view);
     }
 
     /**
@@ -358,7 +530,7 @@ public class StaticHtmlService {
         }
         //小说
         NovelCondition novelCondition=new NovelCondition();
-        pictureCondition.setPageSize(999999);
+        novelCondition.setPageSize(999999);
         List<Novel> novelList=novelDao.searchNovel(novelCondition);
         for (Novel novel : novelList){
             this.staticNovelHtml(path,novel.getNovelId());
