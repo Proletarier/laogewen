@@ -57,12 +57,13 @@ public class StaticHtmlService {
         filmCondition.setEndDate(DateUtil.format(new Date(), "yyyy-MM-dd"));
         map.putAll(this.searchFilmHome());
         map.putAll(this.searcPriturehHome());
+        map.putAll(this.searchNovelHome());
         map.put(UtilConfig.FilmType.GXSL.name(), filmDao.countByFilm(filmCondition));
         map.put("count", filmDao.countByFilm(new FilmCondition()));
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("index.ftl");
-        view.setDestPath(path + File.separator + "app" + File.separator + "main");
+        view.setDestPath(path + File.separator + "app");
         view.setDestName("index.html");
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);
@@ -212,7 +213,7 @@ public class StaticHtmlService {
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("film_list.ftl");
-        view.setDestPath(UtilConfig.picturePageFile + File.separator + "app" + File.separator + "vod" + File.separator + condition.getFilmType());
+        view.setDestPath(path + File.separator + "app" + File.separator + "vod" + File.separator + condition.getFilmType());
         view.setDestName("index_" + condition.getPageNum() + ".html");
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);
@@ -254,7 +255,7 @@ public class StaticHtmlService {
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("picture_home.ftl");
-        view.setDestPath(UtilConfig.picturePageFile + File.separator + "app" + File.separator + "picture");
+        view.setDestPath(path + File.separator + "app" + File.separator + "picture");
         view.setDestName("index.html");
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);
@@ -339,7 +340,7 @@ public class StaticHtmlService {
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("picture_list.ftl");
-        view.setDestPath(UtilConfig.picturePageFile + File.separator + "app" + File.separator + "picture" + File.separator + condition.getType());
+        view.setDestPath(path + File.separator + "app" + File.separator + "picture" + File.separator + condition.getType());
         view.setDestName("index_" + condition.getPageNum() + ".html");
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);
@@ -475,7 +476,7 @@ public class StaticHtmlService {
         StaticTemplateView view = new StaticTemplateView();
         view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
         view.setFltName("novel_list.ftl");
-        view.setDestPath(UtilConfig.picturePageFile + File.separator + "app" + File.separator + "novel" + File.separator + condition.getType());
+        view.setDestPath(path + File.separator + "app" + File.separator + "novel" + File.separator + condition.getType());
         view.setDestName("index_" + condition.getPageNum() + ".html");
         view.setData(map);
         FreemakerUtil.freemakerProcess(view);
@@ -548,6 +549,10 @@ public class StaticHtmlService {
                 this.staticNovelPageHtml(path,condition);
             }
         }
+        this.staticIndexHtml(path);
+        this.staticPictureHomeHtml(path);
+        this.staticVodHome(path);
+        this.staticNovelHomeHtml(path);
     }
 
 
@@ -631,6 +636,19 @@ public class StaticHtmlService {
         }
 
         return map;
+    }
+
+    public Map<String, List<Novel>> searchNovelHome() {
+        NovelCondition condition = new NovelCondition();
+        Map<String, List<Novel>> map = Maps.newHashMap();
+        try{
+            condition.setPageSize(14);
+            map.put("novels",this.novelDao.searchNovel(condition));
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw ServiceException.create("NOVEL.SEARCH.FAIL");
+        }
+        return  map;
     }
 
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by wenheng on 2018/2/19.
  */
 @Controller
+@RequestMapping("/resource/lookup")
 public class LookValueController {
 
     @Autowired

@@ -1,0 +1,106 @@
+.wrap_in, .container {
+    width: 940px;
+    margin: 0 auto;
+}
+
+.art_box h2 {
+    height: 38px;
+    line-height: 38px;
+    background: url(../image/wzbg.png) repeat-x;
+    padding: 0 10px;
+    color: #8e8e8e;
+    font-size: 14px;
+}
+
+.article-title {
+    width: 722px;
+    margin-top: 40px;
+    margin-bottom: 17px;
+}
+
+
+.article-body {
+    width: 900px;
+    font-size: 16px;
+    line-height: 29px;
+    border-top: 1px solid #e0e0e0;
+    padding: 28px 0;
+}
+.article-page {
+    background: #f5f5f5;
+    overflow: hidden;
+    text-align: center;
+}
+
+.article-body p {
+     margin-left: 40px;
+}
+
+
+.main{
+    border: 1px solid #2e6da4;
+}
+.pn_news {
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 70px;
+}
+.pn_news ul li {
+    height: 30px;
+    line-height: 30px;
+    border-top-width: 1px;
+    border-top-style: dotted;
+    border-top-color: #cccccc;
+    font-size: 14px;
+}
+.art_box .art ul li {
+    height: 40px;
+    line-height: 40px;
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
+    border-bottom-color: #e6e6e6;
+    background-image: url(//wx1.sinaimg.cn/small/005Z6lBIjw1eod3tp7j7rg300g00g062.gif);
+    background-repeat: no-repeat;
+    background-position: 8px 14px;
+    padding-left: 32px;
+    font-size: 13px;
+}
+
+.art_box .art ul li a {
+    float: left;
+}
+.art_box .art ul li span {
+    float: right;
+    margin-right: 20px;
+}
+
+.article-body #pages {
+    height: 40px;
+    padding-top: 5px;
+}
+#pages {
+    height: 24px;
+    padding: 0px;
+    padding-top: 0px;
+    padding-top: 0px;
+    clear: both;
+    text-align: center;
+}
+
+#pages a, #pages a:visited, #pages a:hover, #pages span, .pages a, .pages a:visited, .pages span {
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #333;
+    margin: 0 3px;
+    background: #FFFFFF;
+    border: 1px solid #dedede;
+    padding: 0 8px;
+}
+
+#pages a:hover, #pages a.curr, #pages a.curr:visited, .pages a:hover {
+    border: 1px solid #0196da;
+    background: #0196da;
+    color: #fff;
+}

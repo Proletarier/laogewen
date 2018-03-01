@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created by wenheng on 2017/7/5.
  */
@@ -49,7 +45,7 @@ public class FilmController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    @RequestMapping(value = "search",method = RequestMethod.GET)
     public JsonData selectFilmTypeOrName(FilmCondition filmCondition){
         return  JsonData.success(filmService.selectFilmTypeOrName(filmCondition));
     }

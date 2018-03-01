@@ -7,11 +7,11 @@
     <meta name="description" content="戒撸是不可能戒撸的，这辈子是不可能戒撸的，找小姐又不会，只有靠撸管才能维持的了生活。
     来老哥稳就像回家一样，里面个个都是人才，说话又好听，超喜欢在里面的。">
     <link href="/app/public/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/app/main/css/main.css" rel="stylesheet">
-    <link href="/app/vod/css/vod_details.css" rel="stylesheet"/>
+    <link href="/app/public/css/main.css" rel="stylesheet">
+    <link href="/app/public/css/vod_details.css" rel="stylesheet"/>
     <script src="/app/public/js/jquery-1.12.0.min.js"></script>
     <script src="/app/public/js/bootstrap.min.js"></script>
-    <script src="/app/main/js/main.js"></script>
+    <script src="/app/public/js/main.js"></script>
 </head>
 <body>
 <div class="container" id="header">
