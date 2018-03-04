@@ -58,8 +58,8 @@ public class SpiderService {
         } else {
             list = (List<T>) object;
         }
-        seeds=new  String[]{"https://555av.vip/html/article/jiqing/"};
-        validate=new  String[]{"https://555av.vip/html/article/jiqing/","https://555av.vip/html/article/wuxia/","https://555av.vip/html/article/mingxing/","https://555av.vip/html/article/jiating/"};
+        //seeds=new  String[]{"https://555av.vip/html/article/jiqing/"};
+        //validate=new  String[]{"https://555av.vip/html/article/jiqing/","https://555av.vip/html/article/wuxia/","https://555av.vip/html/article/mingxing/","https://555av.vip/html/article/jiating/"};
         spider.crewling(list, t, filter, seeds, validate);
         cacheCache.put(key, list);
     }
