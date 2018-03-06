@@ -21,10 +21,11 @@ public class Spider {
 
     }
 
-    public synchronized <T> void crewling(List<T> lists, Class<T> c, LinkFilter filter, String[] seeds, String[] validate) {
+    public synchronized <T> void crewling(List<T> lists, Class<T> c, LinkFilter filter, String[] seeds, String[] validate,int size) {
         SpiderQueue spiderQueue = new SpiderQueue();
         initCreawlerWithSeds(seeds, spiderQueue);
-        while (!spiderQueue.unVisitedUrisEmpty() && lists.size() <= 100) {
+        while (!spiderQueue.unVisitedUrisEmpty() && lists.size() <= size) {
+            System.out.println(lists.size());
             String visitUrl = spiderQueue.unVisitedUrlDeQueue();
             if (visitUrl == null) {
                 continue;

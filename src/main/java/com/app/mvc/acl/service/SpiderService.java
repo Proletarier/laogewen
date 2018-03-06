@@ -1,7 +1,9 @@
 package com.app.mvc.acl.service;
 
 import com.app.mvc.acl.config.UtilConfig;
+import com.app.mvc.acl.po.Film;
 import com.app.mvc.acl.po.Novel;
+import com.app.mvc.acl.po.Picture;
 import com.app.mvc.cache.EhCacheCacheImpl;
 import com.app.mvc.common.LinkFilter;
 import com.app.mvc.exception.ServiceException;
@@ -25,6 +27,12 @@ public class SpiderService {
     private NovelService novelService;
 
     @Autowired
+    private FilmService filmService;
+
+    @Autowired
+    private PictureService pictureService;
+
+    @Autowired
     private EhCacheCacheImpl cacheCache;
 
     /**
@@ -35,7 +43,7 @@ public class SpiderService {
      * @param validate
      * @param <T>
      */
-    public <T> void captureDate(String key, Class<T> t, String[] seeds, String[] validate) {
+    public <T> void captureDate(String key, Class<T> t, String[] seeds, String[] validate,int size) {
 
         List<T> list;
         LinkFilter filter = new LinkFilter() {
@@ -58,9 +66,9 @@ public class SpiderService {
         } else {
             list = (List<T>) object;
         }
-        //seeds=new  String[]{"https://555av.vip/html/article/jiqing/"};
-        //validate=new  String[]{"https://555av.vip/html/article/jiqing/","https://555av.vip/html/article/wuxia/","https://555av.vip/html/article/mingxing/","https://555av.vip/html/article/jiating/"};
-        spider.crewling(list, t, filter, seeds, validate);
+        seeds=new  String[]{"https://666lu.vip/html/article/jiqing/index.html","https://666lu.vip/html/article/jiating/index.html","https://666lu.vip/html/article/mingxing/index.html","https://666lu.vip/html/article/wuxia/index.html","https://666lu.vip/html/article/xiaohua/index.html","https://666lu.vip/html/article/xingai/index.html"};
+        validate=new  String[]{"https://666lu.vip/html/article/"};
+        spider.crewling(list, t, filter, seeds, validate,size);
         cacheCache.put(key, list);
     }
 
@@ -74,6 +82,7 @@ public class SpiderService {
         }
         List<Novel> novelList = (List<Novel>) object;
         for (Novel novel : novelList){
+            if(novel.getTypeCode()==null) continue;
             for (UtilConfig.NovelType type : UtilConfig.NovelType.values()){
                 if(type.getValue().equals(novel.getTypeCode()))
                     novel.setTypeCode(type.name());
@@ -82,4 +91,37 @@ public class SpiderService {
         }
         cacheCache.remove(UtilConfig.CACH_NOVEL_KEY);
     }
+
+    /**
+     * 刷新电影到数据库
+     */
+    public void flushVodToDatabase(){
+        Object object = cacheCache.get(UtilConfig.CACHE_FILM_KEY);
+        if(object==null){
+            throw ServiceException.create("NOVEL.IS.NULL");
+        }
+        List<Film> filmList = (List<Film>) object;
+        for (Film film : filmList){
+            if(film.getFilmType()==null)continue;
+            filmService.saveFilm(film);
+        }
+        cacheCache.remove(UtilConfig.CACHE_FILM_KEY);
+    }
+
+    /**
+     * 刷新图片到数据库
+     */
+    public void flushPictureToDatabase(){
+        Object object = cacheCache.get(UtilConfig.CACHE_PICTURE_KEY);
+        if(object==null){
+            throw ServiceException.create("NOVEL.IS.NULL");
+        }
+        List<Picture> pictureLists = (List<Picture>) object;
+        for (Picture picture :pictureLists){
+             pictureService.savePicture(picture);
+        }
+        cacheCache.remove(UtilConfig.CACHE_PICTURE_KEY);
+    }
+
+
 }

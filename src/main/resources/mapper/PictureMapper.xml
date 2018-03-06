@@ -16,9 +16,8 @@
     </sql>
 
     <insert id="savePicture" parameterType="Picture" useGeneratedKeys="true" keyColumn="pictureId">
-        insert into lgw_picture(name,type_code,img,resource_id,create_date)
-        values(#{pictureId},#{name},#{typeCode},#{resourceId},#{createDate});
-
+        insert into lgw_picture(name,type_code,img,create_date)
+        values(#{name},#{typeCode},#{img},#{createDate});
         <selectKey resultType="int" keyProperty="pictureId" order="AFTER">
             SELECT  LAST_INSERT_ID() AS pictureId
         </selectKey>

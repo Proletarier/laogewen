@@ -63,7 +63,12 @@ public class SpiderPicture {
         if(matcher.find()){
             return  true;
         }else {
-            return false;
+            pattern=Pattern.compile("/tupian/.+?/2018");
+            matcher=pattern.matcher(url);
+            if(matcher.find())
+                return  true;
+            else
+                return  false;
         }
     }
 

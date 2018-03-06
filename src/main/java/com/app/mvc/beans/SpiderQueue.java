@@ -2,6 +2,7 @@ package com.app.mvc.beans;
 
 import com.app.mvc.config.RegexConfig;
 import com.app.mvc.exception.ServiceException;
+import com.app.mvc.util.SignUtil;
 import com.google.common.collect.Lists;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -62,7 +63,7 @@ public class SpiderQueue extends SpiderBloom {
         Matcher matcher= pattern.matcher(url);
         if(matcher.find()){
             String removeUrl= matcher.group();
-            return DigestUtils.md5Hex(url.replaceAll(removeUrl,""));
+            return DigestUtils.md5Hex(SignUtil.getContentBytes(url.replaceAll(removeUrl,""),"UTF-8"));
         }else {
            throw ServiceException.create("error");
         }

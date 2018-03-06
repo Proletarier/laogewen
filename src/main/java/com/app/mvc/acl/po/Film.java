@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Film  implements java.io.Serializable{
 
-    private  Integer filmID;
+    private  Integer filmId;
     //电影类型
     private  String filmType;
     //电影名称

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +27,8 @@ public class FilmService {
 
 
     public void saveFilm(Film film) {
+        film.setClickAmount(0);
+        film.setCreateDate(new Date());
         try {
             filmDao.saveFilm(film);
         } catch (Exception e) {

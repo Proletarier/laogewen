@@ -25,23 +25,23 @@ public class SpiderController {
 
     @ResponseBody
     @RequestMapping(value = "vod",method = RequestMethod.GET)
-    public JsonData spiderVod(String[] seeds, String[] validate){
-        spiderService.captureDate(UtilConfig.CACHE_FILM_KEY, SpiderFilm.class,seeds, validate);
+    public JsonData spiderVod(String[] seeds, String[] validate,Integer size){
+        spiderService.captureDate(UtilConfig.CACHE_FILM_KEY, SpiderFilm.class,seeds, validate,size);
         return JsonData.success(null);
     }
 
 
     @ResponseBody
     @RequestMapping(value = "picture",method = RequestMethod.GET)
-    public JsonData spiderPicture(String[] seeds, String[] validate){
-        spiderService.captureDate(UtilConfig.CACHE_PICTURE_KEY, SpiderPicture.class,seeds, validate);
+    public JsonData spiderPicture(String[] seeds, String[] validate,Integer size){
+        spiderService.captureDate(UtilConfig.CACHE_PICTURE_KEY, SpiderPicture.class,seeds, validate,size);
         return JsonData.success(null);
     }
 
     @ResponseBody
     @RequestMapping(value = "novel",method = RequestMethod.GET)
-    public JsonData spiderNovel(String[] seeds, String[] validate){
-        spiderService.captureDate(UtilConfig.CACH_NOVEL_KEY, SpiderNovel.class,seeds, validate);
+    public JsonData spiderNovel(String[] seeds, String[] validate,Integer size){
+        spiderService.captureDate(UtilConfig.CACH_NOVEL_KEY, SpiderNovel.class,seeds, validate,size);
         return JsonData.success(null);
     }
 
@@ -49,14 +49,14 @@ public class SpiderController {
     @ResponseBody
     @RequestMapping(value = "saveVod",method = RequestMethod.PUT)
     public  JsonData flushVod(){
-        spiderService.flushNovelToDatabase();
+        spiderService.flushVodToDatabase();
         return JsonData.success(null);
     }
 
     @ResponseBody
     @RequestMapping(value = "savePicture",method = RequestMethod.PUT)
     public  JsonData flushPicture(){
-        spiderService.flushNovelToDatabase();
+        spiderService.flushPictureToDatabase();
         return JsonData.success(null);
     }
 

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public class PictureService {
 
     public void savePicture(Picture picture) {
         try {
+            picture.setCreateDate(new Date());
             pictureDao.savePicture(picture);
         } catch (Exception e) {
             log.error(e.getMessage());

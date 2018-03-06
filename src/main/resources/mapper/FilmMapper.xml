@@ -24,10 +24,8 @@
     </sql>
 
     <insert id="saveFilm" parameterType="Film" useGeneratedKeys="true" keyColumn="filmId">
-        INSERT INTO lgw_film(film_type,film_name,title_img,content_img,xfplay,http,ed2k,thunder,qqdl,
-        flashget,resource_id,click_amount,create_date)
-        VALUES (#{filmType},#{filmName},#{titleImg},#{contentImg},#{xfplay},#{http},#{ed2k},#{thunder},
-        #{qqdl},#{flashget},#{resourceId},#{clickAmount},${createDate})
+        INSERT INTO lgw_film(film_type,film_name,title_img,content_img,xfplay,http,ed2k,thunder,qqdl,flashget,click_amount,create_date)
+        VALUES (#{filmType},#{filmName},#{titleImg},#{contentImg},#{xfplay},#{http},#{ed2k},#{thunder},#{qqdl},#{flashGet},#{clickAmount},#{createDate})
         <selectKey resultType="int" order="AFTER" keyProperty="filmId">
             SELECT LAST_INSERT_ID() AS filmId
         </selectKey>
@@ -45,8 +43,7 @@
         thunder=#{thunder},
         qqdl=#{qqdl},
         flashget=#{flashGet},
-        resourceid=#{resourceId},
-        clickamount=#${clickAmount}
+        clickamount=#{clickAmount}
         WHERE film_id=#{filmId}
     </update>
 

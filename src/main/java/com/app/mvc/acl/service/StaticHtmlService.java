@@ -494,7 +494,7 @@ public class StaticHtmlService {
         //电影
         List<Film> filmList = filmDao.selectFilmTypeOrName(filmCondition);
         for (Film film : filmList) {
-            this.staticVodHtml(path, film.getFilmID());
+            this.staticVodHtml(path, film.getFilmId());
         }
         LookValueCondition lookValueCondition = new LookValueCondition();
         lookValueCondition.setLookType("FILM_TYPE");
