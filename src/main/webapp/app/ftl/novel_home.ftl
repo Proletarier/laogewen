@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>小说-老哥稳</title>
-    <meta name="kryword" content="三五瓶，逼两拳，老哥还会军体拳">
+    <meta name="keyword" content="三五瓶，逼两拳，老哥还会军体拳">
     <meta name="referrer" content="never">
     <meta name="description" content="戒撸是不可能戒撸的，这辈子是不可能戒撸的，找小姐又不会，只有靠撸管才能维持的了生活。
     来老哥稳就像回家一样，里面个个都是人才，说话又好听，超喜欢在里面的。">
