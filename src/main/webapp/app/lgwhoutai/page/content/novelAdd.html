@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>电影添加--老哥稳后台管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+</head>
+<body class="childrenBody">
+<form class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">小说标题</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入电影名称">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">小说类型</label>
+        <div class="layui-input-inline">
+            <select name="browseLook" class="newsLook" lay-filter="browseLook">
+                <option value="0">亚洲</option>
+                <option value="1">欧美</option>
+                <option value="1">偷拍</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">小说内容</label>
+        <div class="layui-form">
+            <table id="novelPage"></table>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-lnline" style="width: 47%;">
+            <button class="layui-btn layui-btn-sm layui-btn-normal" style="float: right;" >添加</button>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="addNews">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detail">浏览</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript" src="novelAdd.js"></script>
+</body>
+</html>

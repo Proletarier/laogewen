@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>老哥稳后台管理</title>
+	<link rel="icon" href="images/favicon.ico">
+	<link rel="stylesheet" href="layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body class="main_body">
+<div class="layui-layout layui-layout-admin">
+	<!-- 顶部 -->
+	<div class="layui-header header">
+		<div class="layui-main">
+			<a href="javascript:;" class="logo">老哥稳后台管理</a>
+			<!-- 显示/隐藏菜单 -->
+			<a href="javascript:;" class="iconfont hideMenu icon-menu1"></a>
+			<!-- 顶部左侧菜单 -->
+			<div class="weather" pc>
+				<div id="tp-weather-widget"></div>
+				<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
+				<script>tpwidget("init", {
+                    "flavor": "slim",
+                    "location": "WX4FBXXFKE4F",
+                    "geolocation": "enabled",
+                    "language": "zh-chs",
+                    "unit": "c",
+                    "theme": "chameleon",
+                    "container": "tp-weather-widget",
+                    "bubble": "disabled",
+                    "alarmType": "badge",
+                    "color": "#FFFFFF",
+                    "uid": "U9EC08A15F",
+                    "hash": "039da28f5581f4bcb5c799fb4cdfb673"
+                });
+                tpwidget("show");</script>
+			</div>
+			<!-- 顶部右侧菜单 -->
+			<ul class="layui-nav  top_menu">
+				<li class="layui-nav-item showNotice" id="showNotice">
+					<a href="javascript:;"><i class="iconfont icon-gonggao"></i><cite>系统公告</cite></a>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;"><i class="iconfont icon-lock1"></i><cite>锁屏</cite></a>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;">
+						<img src="images/admin.jpg" class="layui-circle" width="35" height="35" >
+						<cite>admin</cite>
+					</a>
+					<dl class="layui-nav-child">
+						<dd><a href="javascript:;" data-url=""><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"><cite>个人资料</cite></i></a></dd>
+						<dd><a href="javascript:;" data-url=""><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"><cite>修改密码</cite></i></a></dd>
+						<dd><a href="javascript:;" ><i class="iconfont icon-huanfu"></i><cite>更换皮肤</cite></a></dd>
+						<dd><a href="page/login/login.html" data-url=""><i class="iconfont icon-loginout" ><cite>退出</cite></i></a></dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- 左侧菜单 -->
+	<div class="layui-side layui-bg-black">
+		<div class="user-photo">
+			<a class="img" title="我的头像" ><img src="images/admin.jpg"></a>
+			<p>你好！<span class="userName">admin</span>, 欢迎登录</p>
+		</div>
+		<div class="navBar layui-side-scroll"></div>
+	</div>
+	<!-- 右侧内容 -->
+	<div class="layui-body layui-form">
+		<div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
+			<ul class="layui-tab-title top_tab" id="top_tabs">
+				<li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+			</ul>
+			<ul class="layui-nav closeBox">
+				<li class="layui-nav-item">
+					<a href="javascript:;"><i class="iconfont icon-caozuo"></i> 页面操作</a>
+					<dl class="layui-nav-child">
+						<dd><a href="javascript:;" class="refresh refreshThis"><i class="layui-icon">&#x1002;</i> 刷新当前</a></dd>
+						<dd><a href="javascript:;" class="closePageOther"><i class="iconfont icon-prohibit"></i> 关闭其他</a></dd>
+						<dd><a href="javascript:;" class="closePageAll"><i class="iconfont icon-guanbi"></i> 关闭全部</a></dd>
+					</dl>
+				</li>
+			</ul>
+			<div class="layui-tab-content clildFrame">
+			<div class="layui-tab-item layui-show">
+				<iframe src="page/main.html"></iframe>
+			</div>
+			</div>
+		</div>
+	</div>
+	<!-- 底部区域 -->
+	<div class="layui-footer">
+		<p>copyright @2017 老哥穩</p>
+	</div>
+</div>
+<script type="text/javascript" src="layui/layui.js"></script>
+<script type="text/javascript" src="js/leftNav.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

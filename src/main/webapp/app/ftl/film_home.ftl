@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>老哥稳影院</title>
+    <meta name="referrer" content="never">
     <meta name="kryword" content="三五瓶，逼两拳，老哥还会军体拳">
     <meta name="description" content="戒撸是不可能戒撸的，这辈子是不可能戒撸的，找小姐又不会，只有靠撸管才能维持的了生活。
     来老哥稳就像回家一样，里面个个都是人才，说话又好听，超喜欢在里面的。">
@@ -40,13 +41,13 @@
             <ul class="img-list">
 			<#list (wntj) as film>
                 <li>
-                    <a class="play-img" title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html"
+                    <a class="play-img" title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html"
                        target="_blank">
                         <img alt="${film.filmName}" src="${film.titleImg}">
                         <em>${film.codeValue}</em>
                     </a>
                     <b>
-                        <a title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html" target="_blank">
+                        <a title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html" target="_blank">
                              ${film.filmName}
                         </a>
                     </b>
@@ -63,13 +64,13 @@
                     <ul class="img-list dis clearfix">
 					 <#list (YZQS) as film>
                         <li>
-                            <a class="play-img" title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html"
+                            <a class="play-img" title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html"
                                target="_blank">
                                 <img alt=" ${film.filmName}" src="${film.titleImg}">
                                 <em>${film.createDate?string("MM-dd")}</em>
                             </a>
                             <b>
-                                <a title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html" target="_blank">
+                                <a title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html" target="_blank">
                                      ${film.filmName}
                                 </a>
                             </b>
@@ -90,7 +91,7 @@
 						<#list (yzqstj) as film>
                             <li>
                                 <i class="n">${film_index+1}</i>
-                                <a href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html" title="${film.filmName}" target="_blank">${film.filmName}</a>
+                                <a href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html" title="${film.filmName}" target="_blank">${film.filmName}</a>
                             </li>
 						</#list>
                         </ul>
@@ -106,13 +107,13 @@
                     <ul class="img-list dis clearfix">
 					<#list (ZFSW) as film>
                           <li>
-                            <a class="play-img" title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html"
+                            <a class="play-img" title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html"
                                target="_blank">
                                 <img alt=" ${film.filmName}" src="${film.titleImg}">
                                 <em>${film.createDate?string("MM-dd")}</em>
                             </a>
                             <b>
-                                <a title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html" target="_blank">
+                                <a title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html" target="_blank">
                                      ${film.filmName}
                                 </a>
                             </b>
@@ -133,7 +134,7 @@
 						<#list (zfswtj) as film>
                             <li>
                                 <i class="n">${film_index+1}</i>
-                                <a href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html" title="${film.filmName}" target="_blank">${film.filmName}</a>
+                                <a href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html" title="${film.filmName}" target="_blank">${film.filmName}</a>
                             </li>
 						</#list>
                         </ul>
@@ -150,13 +151,13 @@
                     <ul class="img-list dis clearfix">
 					<#list (OMXA) as film>
                           <li>
-                            <a class="play-img" title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html"
+                            <a class="play-img" title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html"
                                target="_blank">
                                 <img alt=" ${film.filmName}" src="${film.titleImg}">
                                 <em>${film.createDate?string("MM-dd")}</em>
                             </a>
                             <b>
-                                <a title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html" target="_blank">
+                                <a title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html" target="_blank">
                                      ${film.filmName}
                                 </a>
                             </b>
@@ -177,7 +178,7 @@
 						<#list (omxatj) as film>
                             <li>
                                 <i class="n">${film_index+1}</i>
-                                <a href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html" title="${film.filmName}" target="_blank">${film.filmName}</a>
+                                <a href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html" title="${film.filmName}" target="_blank">${film.filmName}</a>
                             </li>
 						</#list>
                         </ul>
@@ -194,13 +195,13 @@
                     <ul class="img-list dis clearfix">
 					<#list (WYZP) as film>
                           <li>
-                            <a class="play-img" title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html"
+                            <a class="play-img" title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html"
                                target="_blank">
                                 <img alt=" ${film.filmName}" src="${film.titleImg}">
                                 <em>${film.createDate?string("MM-dd")}</em>
                             </a>
                             <b>
-                                <a title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html" target="_blank">
+                                <a title="${film.filmName}" href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html" target="_blank">
                                      ${film.filmName}
                                 </a>
                             </b>
@@ -221,7 +222,7 @@
 						<#list (wyzptj) as film>
                             <li>
                                 <i class="n">${film_index+1}</i>
-                                <a href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmID)?c}.html" title="${film.filmName}" target="_blank">${film.filmName}</a>
+                                <a href="/app/vod/${film.filmType}/${film.createDate?string("yyyy/MMdd")}/${(film.filmId)?c}.html" title="${film.filmName}" target="_blank">${film.filmName}</a>
                             </li>
 						</#list>
                         </ul>

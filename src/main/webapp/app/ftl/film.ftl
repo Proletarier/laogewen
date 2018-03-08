@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>${film.filmName}-老哥稳影院</title>
+    <meta name="referrer" content="never">
     <meta name="kryword" content="三五瓶，逼两拳，老哥还会军体拳">
     <meta name="description" content="戒撸是不可能戒撸的，这辈子是不可能戒撸的，找小姐又不会，只有靠撸管才能维持的了生活。
     来老哥稳就像回家一样，里面个个都是人才，说话又好听，超喜欢在里面的。">
@@ -194,6 +195,7 @@
                     <a href="/app/help/help.html" rel="nofollow" target="_blank">帮助</a>
                 </div>
             </div>
+            <#if film.ed2k?? && film.ed2k!="" && film.ed2k!="null" >
             <div class="mox">
                 <div class="title">
                      <span>
@@ -212,6 +214,7 @@
                     </div>
                 </div>
             </div>
+            </#if>
             <div class="mox">
                 <a id="down"></a>
                 <div class="title">
@@ -228,26 +231,34 @@
                         <li>
                             <p></p>
                             <span>
+                            <#if film.thunder?? && film.thunder!="" && film.thunder!="null" >
                              <a class="d1"
                                 href="${film.thunder}"
                                 target="_blank">
                                  迅雷下载
                              </a>
+                            </#if>
+                            <#if film.qqdl?? && film.qqdl!="" && film.qqdl!="null" >
                              <a class="d2"
                                 href="${film.qqdl}"
                                 target="_blank">
                                  旋风下载
                              </a>
+                            </#if>
+                            <#if film.flashGet?? && film.flashGet!="" && film.flashGet!="null" >
                              <a class="d3"
                                 href="${film.flashGet}"
                                 target="_blank">
                                  快车下载
                              </a>
+                            </#if>
+                             <#if film.ed2k?? && film.ed2k!="" && film.ed2k!="null" >
                              <a class="d4"
                                 href="${film.ed2k}"
                                 target="_blank">
                                  电驴下载
                              </a>
+                            </#if>
                              </span>
                         </li>
                     </ul>

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>小撸怡情，大撸伤身，强撸灰飞烟灭</title>
+    <meta name="referrer" content="never">
     <meta name="kryword" content="三五瓶，逼两拳，老哥还会军体拳">
     <meta name="description" content="戒撸是不可能戒撸的，这辈子是不可能戒撸的，找小姐又不会，只有靠撸管才能维持的了生活。
     来老哥稳就像回家一样，里面个个都是人才，说话又好听，超喜欢在里面的。">
@@ -44,7 +45,7 @@
                     <#list  JRGX as val>
                         <li>
                             <i class="n">${val_index+1}</i>
-                            <a href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html" title="${val.filmName}"
+                            <a href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html" title="${val.filmName}"
                                target="_blank">
                                 <#if val.filmName?length gt 15>
                               ${val.filmName?substring(0,15)}  
@@ -67,13 +68,13 @@
                     <ul class="img-list dis clearfix">
                     <#list BZRB as val>
                         <li>
-                            <a class="play-img" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                            <a class="play-img" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                                title="${val.filmName}" target="_blank">
                                 <img alt="${val.filmName}" src="${val.titleImg}"/>
                                 <em>${val.codeValue}</em>
                             </a>
                             <b>
-                                <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                                <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                                    target="_blank">
                                     <#if val.filmName?length gt 9>
                                       ${val.filmName?substring(0,9)}  
@@ -99,13 +100,13 @@
             <ul class="img-list">
             <#list CNXH as val>
                 <li>
-                    <a class="play-img" title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                    <a class="play-img" title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                        target="_blank">
                         <img alt="${val.filmName}" src="${val.titleImg}">
                         <em>${val.codeValue}</em>
                     </a>
                     <b>
-                        <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html" target="_blank">
+                        <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html" target="_blank">
                             <#if val.filmName?length gt 9>
                                ${val.filmName?substring(0,9)}
                              <#else>${val.filmName!}
@@ -252,12 +253,12 @@
                     <ul class="txt-list">
                     <#list YZQS as val>
                         <li>
-                            <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                            <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                                target="_blank">
                                 <img class="img-rounded" src="${val.titleImg}" alt="${val.filmName}">
                             </a>
                             <p>
-                                <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                                <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                                    target="_blank">
                                     <#if val.filmName?length gt 9>
                                ${val.filmName?substring(0,9)}
@@ -300,12 +301,12 @@
                     <ul class="txt-list">
                     <#list ZFSW as val>
                         <li>
-                            <a title=${val.filmName}"" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                            <a title=${val.filmName}"" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                                target="_blank">
                                 <img class="img-rounded" src="${val.titleImg}" alt="${val.filmName}">
                             </a>
                             <p>
-                                <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                                <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                                    target="_blank">
                                     <#if val.filmName?length gt 9>
                                ${val.filmName?substring(0,9)}
@@ -348,12 +349,12 @@
                     <ul class="txt-list">
                     <#list OMXA as val>
                         <li>
-                            <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                            <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                                target="_blank">
                                 <img class="img-rounded" src="${val.titleImg}" alt="${val.filmName}">
                             </a>
                             <p>
-                                <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                                <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                                    target="_blank">
                                     <#if val.filmName?length gt 9>
                                ${val.filmName?substring(0,9)}
@@ -396,12 +397,12 @@
                     <ul class="txt-list">
                     <#list WYZP as val>
                         <li>
-                            <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                            <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                                target="_blank">
                                 <img class="img-rounded" src="${val.titleImg}" alt="${val.filmName}">
                             </a>
                             <p>
-                                <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmID)?c}.html"
+                                <a title="${val.filmName}" href="/app/vod/${val.filmType}/${val.createDate?string("yyyy/MMdd")}/${(val.filmId)?c}.html"
                                    target="_blank">
                                     <#if val.filmName?length gt 9>
                                ${val.filmName?substring(0,9)}

@@ -1,0 +1,95 @@
+[{
+	"title" : "后台首页",
+	"icon" : "icon-computer",
+	"href" : "page/main.html",
+	"spread" : false
+},{
+	"title": "广告系统",
+	"icon": "&#xe609;",
+	"href": "page/user/user.html",
+	"spread": false
+},{
+	"title": "用户管理",
+	"icon": "&#xe612;",
+	"href": "page/user/user.html",
+	"spread": false
+}, {
+	"title": "内容管理",
+	"icon": "&#xe705;",
+	"href": "",
+	"spread": false,
+	"children": [{
+		"title": "电影管理",
+		"icon": "&#xe6ed;",
+		"href": "page/content/movie.html",
+		"spread": false
+	},{
+			"title": "图片管理",
+			"icon": "&#xe60d;",
+			"href": "page/content/picture.html",
+			"spread": false
+	},{
+			"title": "小说管理",
+			"icon": "&#xe63c;",
+			"href": "page/content/novel.html",
+			"spread": false
+	}]
+}, {
+	"title": "爬虫系统",
+	"icon": "&#xe60e;",
+	"href": "",
+	"spread": false,
+	"children": [{
+		"title": "电影爬取",
+		"icon": "&#xe6ed;",
+		"href": "page/spider/movie.html",
+		"spread": false
+	},{
+			"title": "图片爬取",
+			"icon": "&#xe60d;",
+			"href": "page/spider/picture.html",
+			"spread": false
+	},{
+			"title": "小说爬取",
+			"icon": "&#xe63c;",
+			"href": "page/spider/novel.html",
+			"spread": false
+	}]
+}, {
+	"title": "正则管理",
+	"icon": "&#xe6b2;",
+	"href": "",
+	"spread": false,
+	"children": [{
+		"title": "电影正则",
+		"icon": "&#xe6ed;",
+		"href": "page/regx/movie.html",
+		"spread": false
+	},{
+			"title": "图片正则",
+			"icon": "&#xe60d;",
+			"href": "page/regx/picture.html",
+			"spread": false
+	},{
+			"title": "小说正则",
+			"icon": "&#xe63c;",
+			"href": "page/regx/novel.html",
+			"spread": false
+	}]
+},{
+	"title": "",
+	"icon": "&#xe65f;",
+	"href": "",
+	"spread": false,
+	"children": [{
+		"title": "菜单配置",
+		"icon": "&#xe620;",
+		"href": "",
+		"spread": false
+	 },{
+		"title": "页面静态化",
+		"icon": "&#xe64b;",
+		"href": "",
+		"spread": false
+	}]
+}]

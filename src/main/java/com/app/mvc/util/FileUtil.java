@@ -34,7 +34,7 @@ public class FileUtil {
 
 
     public static void createFile(File file, String filePath) {
-        int potPos = filePath.lastIndexOf("\\") + 1;
+        int potPos = filePath.lastIndexOf('\\') + 1;
         String folderPath = filePath.substring(0, potPos);
         createFolder(folderPath);
         FileOutputStream outputStream = null;
@@ -49,6 +49,7 @@ public class FileUtil {
             }
 
         } catch (IOException e) {
+
             e.printStackTrace();
         } finally {
             try {
