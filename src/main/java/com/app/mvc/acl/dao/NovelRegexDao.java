@@ -17,7 +17,9 @@ public interface NovelRegexDao {
 
     void updateNovelRegex(NovelRegex novelRegex);
 
-    void  findById(@Param("novelRegexId") Integer novelRegexId);
+    NovelRegex  findById(@Param("novelRegexId") Integer novelRegexId);
 
     List<NovelRegex>  searchNovelRegex(@Param("condition") NovelRegexCondition condition);
+
+    int countByNovelRegex(@Param("condition") NovelRegexCondition condition);
 }

@@ -24,4 +24,5 @@ public interface NovelPageDao {
 
     List<NovelPage> searchNovelPage(@Param("condition") NovelCondition condition);
 
+
 }

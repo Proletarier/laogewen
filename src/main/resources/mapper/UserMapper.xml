@@ -48,6 +48,12 @@
         limit #{condition.offset},#{condition.pageSize}
     </select>
 
+    <select id="countByUser"  parameterType="UserCondition" resultType="int">
+        SELECT COUNT(1)
+        FROM lgw_user
+    </select>
+
+
     <sql id="queryConditions">
         <where>
             <if test="condition.userName!=null and condition.userName!=''">

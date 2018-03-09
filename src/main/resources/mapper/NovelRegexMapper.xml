@@ -48,4 +48,9 @@
         limit #{condition.offset},#{condition.pageSize}
     </select>
 
+    <select id="countByNovelRegex"  parameterType="NovelRegexCondition" resultType="int">
+        SELECT COUNT(1)
+        FROM lgw_novel_regex
+    </select>
+
 </mapper>

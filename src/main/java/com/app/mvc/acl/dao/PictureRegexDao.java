@@ -5,6 +5,8 @@ import com.app.mvc.acl.po.PictureRegex;
 import com.app.mvc.common.DBRepository;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * Created by wenheng on 2018/1/6.
  */
@@ -15,9 +17,10 @@ public interface PictureRegexDao {
 
     void  updatePictureRegex(PictureRegex pictureRegex);
 
-    PictureRegex searchPictureRegex(@Param("condition")PictureRegexCondition  condition);
+    List<PictureRegex>  searchPictureRegex(@Param("condition")PictureRegexCondition  condition);
 
     PictureRegex findById(@Param("pictureRegexId") Integer pictureRegexId);
 
+    int countByPictureRegex(@Param("condition") PictureRegexCondition condition);
 
 }

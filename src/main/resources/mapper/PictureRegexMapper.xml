@@ -45,4 +45,10 @@
         ORDER BY CREATION_DATE DESC
         limit #{condition.offset},#{condition.pageSize}
     </select>
+
+    <select id="countByPictureRegex"  parameterType="PictureRegexCondition" resultType="int">
+        SELECT COUNT(1)
+        FROM lgw_picture_regex
+    </select>
+
 </mapper>
