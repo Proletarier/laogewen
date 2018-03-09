@@ -5,9 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by wenheng on 2018/1/13.
+ * Created by Administrator on 2018/3/9.
  */
+
 @Getter
 @Setter
-public class FilmRegexCondition extends PageQuery {
+public class UserCondition  extends PageQuery {
+
+    private  String userName;
 }

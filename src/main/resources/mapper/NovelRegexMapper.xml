@@ -4,4 +4,48 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.app.mvc.acl.dao.NovelRegexDao">
+
+    <sql id="novelRegexColumns">
+        NOVEL_REGEX_ID as novelRegexId,
+        TITLE_REGEX as titleRegex,
+        TYPE_REGEX as typeRegex,
+        CONTENT_REGEX as contentRegex,
+        INDEX_REGEX as indexRegex,
+        DESCRIPTION,
+        CREATION_DATE as creationDate,
+    </sql>
+
+    <insert id="saveNovelRegex" parameterType="NovelRegex"  useGeneratedKeys="true" keyColumn="novelRegexId" >
+        INSERT  INTO  lgw_novel_regex(TITLE_REGEX,TITLE_REGEX,TYPE_REGEX,CONTENT_REGEX,INDEX_REGEX,DESCRIPTION,CREATION_DATE)
+        VALUES(#{titleRegex},#{typeRegex},#{contentRegex},#{indexRegex},#{description},#{creationDate})
+        <selectKey resultType="int" order="AFTER" keyProperty="novelRegexId">
+            SELECT  LAST_INSERT_ID() AS novelRegexId
+        </selectKey>
+    </insert>
+
+    <update id="updateNovelRegex" parameterType="NovelRegex">
+        UPDATE lgw_novel_regex
+        SET TITLE_REGEX=#{titleRegex}
+        ,TYPE_REGEX=#{typeRegex}
+        ,CONTENT_REGEX=#{contentRegex}
+        ,INDEX_REGEX=#{indexRegex}
+        ,DESCRIPTION=#{description}
+        WHERE NOVEL_REGEX_ID=#{novelRegexId}
+    </update>
+
+    <select id="findById" parameterType="int" resultType="NovelRegex">
+        SELECT
+        <include refid="novelRegexColumns"/>
+        FROM lgw_novel_regex
+        WHERE NOVEL_REGEX_ID=#{novelRegexId}
+    </select>
+
+    <select id="searchNovelRegex"  parameterType="NovelRegexCondition" resultType="NovelRegex">
+        SELECT
+        <include refid="novelRegexColumns"/>
+        FROM lgw_novel_regex
+        ORDER BY CREATION_DATE DESC
+        limit #{condition.offset},#{condition.pageSize}
+    </select>
+
 </mapper>

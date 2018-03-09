@@ -4,4 +4,45 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.app.mvc.acl.dao.PictureRegexDao">
+
+     <sql id="pictureRegexColumns">
+         PICTURE_REGEX_ID as pictureRegexId,
+         NAME_REGEX as nameRegex,
+         TYPE_REGEX as typeRegex,
+         IMG_REGEX as imgRegex,
+         DESCRIPTION,
+         CREATION_DATE as creationDate
+     </sql>
+
+    <insert id="savePictureRegex" parameterType="PictureRegex" useGeneratedKeys="true" keyColumn="pictureRegexId">
+        INSERT INTO lgw_picture_regex(NAME_REGEX,TYPE_REGEX,IMG_REGEX,DESCRIPTION,CREATION_DATE)
+        VALUES (#{nameRegex},#{typeRegex},#{imgRegex},#{description},#{creationDate})
+        <selectKey  resultType="int" order="AFTER" keyProperty="pictureRegexId">
+            SELECT  LAST_INSERT_ID() as pictureRegexId
+        </selectKey>
+    </insert>
+
+     <update id="updatePictureRegex" parameterType="PictureRegex">
+         UPDATE lgw_picture_regex
+         SET NAME_REGEX=#{nameRegex}
+         ,TYPE_REGEX=#{typeRegex}
+         ,IMG_REGEX=#{imgRegex}
+         ,DESCRIPTION=#{description}
+         WHERE PICTURE_REGEX_ID=#{pictureRegexId}
+     </update>
+
+    <select id="findById" parameterType="int" resultType="PictureRegex">
+        SELECT
+        <include refid="pictureRegexColumns"/>
+        FROM lgw_picture_regex
+        WHERE PICTURE_REGEX_ID=#{pictureRegexId}
+    </select>
+
+    <select id="searchPictureRegex" parameterType="PictureRegexCondition" resultType="PictureRegex">
+        SELECT
+        <include refid="pictureRegexColumns"/>
+        FROM lgw_picture_regex
+        ORDER BY CREATION_DATE DESC
+        limit #{condition.offset},#{condition.pageSize}
+    </select>
 </mapper>

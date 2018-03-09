@@ -23,11 +23,17 @@
         <typeAlias alias="Novel" type="com.app.mvc.acl.po.Novel"/>
         <typeAlias alias="NovelPage" type="com.app.mvc.acl.po.NovelPage"/>
         <typeAlias alias="Picture" type="com.app.mvc.acl.po.Picture"/>
+        <typeAlias alias="FilmRegex" type="com.app.mvc.acl.po.FilmRegex"/>
+        <typeAlias alias="NovelRegex" type="com.app.mvc.acl.po.NovelRegex"/>
+        <typeAlias alias="NovelRegex" type="com.app.mvc.acl.po.PictureRegex"/>
         <typeAlias alias="LookValue" type="com.app.mvc.acl.po.LookValue"/>
         <!-- condition -->
         <typeAlias alias="FilmCondition" type="com.app.mvc.acl.condition.FilmCondition"/>
         <typeAlias alias="PictureCondition" type="com.app.mvc.acl.condition.PictureCondition"/>
         <typeAlias alias="NovelCondition" type="com.app.mvc.acl.condition.NovelCondition"/>
+        <typeAlias alias="PictureRegexCondition" type="com.app.mvc.acl.condition.PictureRegexCondition"/>
+        <typeAlias alias="FilmRegexCondition" type="com.app.mvc.acl.condition.FilmRegexCondition"/>
+        <typeAlias alias="NovelRegexCondition" type="com.app.mvc.acl.condition.NovelRegexCondition"/>
         <typeAlias alias="LookValueCondition" type="com.app.mvc.acl.condition.LookValueCondition"/>
     </typeAliases>
 

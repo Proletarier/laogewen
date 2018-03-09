@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.mvc.acl.dao.PictureRegexDao">
+
+    <sql id="userColumns">
+        USER_ID as userId,
+        USER_NAME as userName,
+        ENCRYPTED_FOUNDATION_PASSWORD as encryptedFoundationPassword,
+        ENCRYPTED_USER_PASSWORD as encryptedUserPassword,
+        DESCRIPTION as description,
+        CREATION_DATE as creationDate,
+        LAST_LOGON_DATE as lastLoginDate
+    </sql>
+    
+    <insert id="saveUser" parameterType="User"  useGeneratedKeys="true" keyColumn="userId">
+        INSERT INTO lgw_user(USER_NAME,ENCRYPTED_FOUNDATION_PASSWORD,ENCRYPTED_USER_PASSWORD,DESCRIPTION,CREATION_DATE,LAST_LOGON_DATE)
+        VALUES (#{userName},#{encryptedFoundationPassword},#{encryptedUserPassword},#{description},#{creationDate},#{lastLoginDate})
+        <selectKey resultType="int" order="AFTER" keyProperty="userId">
+            SELECT  LAST_INSERT_ID() as userId
+        </selectKey>
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        UPDATE lgw_user
+        SET
+        ,ENCRYPTED_FOUNDATION_PASSWORD=#{encryptedFoundationPassword}
+        ,ENCRYPTED_USER_PASSWORD=#{encryptedUserPassword}
+        ,DESCRIPTION=#{description}
+        ,LAST_LOGON_DATE=#{lastLoginDate}
+        WHERE  USER_ID=#{userId}
+    </update>
+
+    <select id="findById" parameterType="int" resultType="User">
+        SELECT
+          <include refid="userColumns"/>
+        WHERE  USER_ID=#{userId}
+    </select>
+
+    <select id="searchUser" resultType="User" parameterType="UserCondition">
+        SELECT
+        <include refid="userColumns" />
+        FROM  lgw_user
+        <include refid="queryConditions"/>
+        ORDER BY CREATION_DATE DESC
+        limit #{condition.offset},#{condition.pageSize}
+    </select>
+
+    <sql id="queryConditions">
+        <where>
+            <if test="condition.userName!=null and condition.userName!=''">
+                USER_NAME LIKE '%' || #{condition.userName} || '%'
+            </if>
+        </where>
+    </sql>
+</mapper>

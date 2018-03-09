@@ -25,5 +25,5 @@ public class PictureRegex implements java.io.Serializable {
 
     private String description;
 
-    private Date createDate;
+    private Date creationDate;
 }
