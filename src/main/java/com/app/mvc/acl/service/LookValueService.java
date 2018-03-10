@@ -9,6 +9,7 @@ import com.app.mvc.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,21 +24,24 @@ public class LookValueService {
     @Autowired
     private LookValueDao lookValueDao;
 
+
+    @Transactional
     public void saveLookValue(LookValue lookValue) {
         try {
             lookValueDao.saveLookValue(lookValue);
         } catch (Exception e) {
             log.error(e.getMessage());
-            ServiceException.create("");
+            ServiceException.create("LOOK.ADD.FALL");
         }
     }
 
+    @Transactional
     public void updateLookValue(LookValue lookValue) {
         try {
             lookValueDao.updateLookValue(lookValue);
         } catch (Exception e) {
             log.error(e.getMessage());
-            ServiceException.create("");
+            ServiceException.create("LOOK.UPDATE.FAIL");
         }
     }
 
@@ -50,7 +54,7 @@ public class LookValueService {
             }
         } catch (Exception e) {
             log.error(e.getMessage());
-            ServiceException.create("");
+            ServiceException.create("LOOK.SEARCH.FAIL");
         }
         return page;
     }
@@ -61,7 +65,7 @@ public class LookValueService {
             lookValues = lookValueDao.searchLookValue(condition);
         } catch (Exception e) {
             log.error(e.getMessage());
-            ServiceException.create("");
+            ServiceException.create("LOOK.SEARCH.FAIL");
         }
         return lookValues;
     }
@@ -69,17 +73,17 @@ public class LookValueService {
     public LookValue findLookValue(LookValueCondition condition) {
 
         if (condition.getLookType() == null || condition.getLookCode() == null) {
-            ServiceException.create("");
+            ServiceException.create("LOOK.IS.NULL");
         }
         List<LookValue> lookValues = null;
         try {
             lookValues = lookValueDao.searchLookValue(condition);
         } catch (Exception e) {
             log.error(e.getMessage());
-            ServiceException.create("");
+            ServiceException.create("LOOK.FIND.IS.FALL");
         }
         if (lookValues.size() == 0 || lookValues.size() > 1) {
-            ServiceException.create("");
+            ServiceException.create("LOOK.THE.ENTITY.IS.NOT.FOUND");
         }
         return lookValues.get(0);
     }

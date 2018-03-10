@@ -8,6 +8,7 @@ import com.app.mvc.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,7 @@ public class PictureService {
     private PictureDao pictureDao;
 
 
+    @Transactional
     public void savePicture(Picture picture) {
         try {
             picture.setCreateDate(new Date());
@@ -34,6 +36,7 @@ public class PictureService {
         }
     }
 
+    @Transactional
     public void updatePicture(Picture picture) {
         try {
             pictureDao.updatePicture(picture);

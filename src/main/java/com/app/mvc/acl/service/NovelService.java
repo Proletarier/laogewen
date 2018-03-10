@@ -29,6 +29,7 @@ public class NovelService {
     @Autowired
     private NovelPageDao novelPageDao;
 
+    @Transactional
     public void saveNovel(Novel novel) {
         novel.setCreateDate(new Date());
         try {
@@ -45,6 +46,7 @@ public class NovelService {
     }
 
 
+    @Transactional
     public void updateNovel(Novel novel) {
         try {
             novelDao.updateNovel(novel);

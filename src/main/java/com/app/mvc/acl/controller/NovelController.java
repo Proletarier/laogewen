@@ -32,7 +32,7 @@ public class NovelController {
     @ResponseBody
     @RequestMapping(method = RequestMethod.PUT)
     public JsonData updateNovel(@RequestBody Novel novel){
-        novelService.saveNovel(novel);
+        novelService.updateNovel(novel);
         return  JsonData.success(novel);
     }
 

@@ -8,6 +8,7 @@ import com.app.mvc.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class PictureRegexService {
     @Autowired
     PictureRegexDao regexDao;
 
+
+    @Transactional
     public  void savePictureRegex(PictureRegex regex){
         try{
             regexDao.savePictureRegex(regex);
@@ -30,6 +33,7 @@ public class PictureRegexService {
         }
     }
 
+    @Transactional
     public  void  updatePictureRegex(PictureRegex regex){
         try{
             regexDao.updatePictureRegex(regex);

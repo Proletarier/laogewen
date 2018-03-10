@@ -8,6 +8,7 @@ public class ServiceException extends  RuntimeException {
     private static final long serialVersionUID = 1L;
     private  String resultCode;
     private  String message;
+    private  Object[] additionalMessage;
 
     protected  ServiceException(){
         super();
@@ -18,9 +19,25 @@ public class ServiceException extends  RuntimeException {
          this.message=message;
     }
 
-    public static ServiceException create(String resultCode){
-         return new ServiceException(resultCode,"");
+    public ServiceException(String resultCode,String message, Object[] additionalMessage){
+        this.resultCode=resultCode;
+        this.message=message;
+        this.additionalMessage=additionalMessage;
     }
+
+    /**
+     * 根据结果码创建异常
+     * @param resultCode
+     * @return
+     */
+    public static ServiceException create(String resultCode){
+        return new ServiceException(resultCode,"");
+    }
+
+    public static  ServiceException create(String resultCode,String message,Object[] additionalMessage){
+       return new ServiceException(resultCode,"",additionalMessage);
+    }
+
 
     public String getResultCode() {
         return resultCode;
@@ -33,6 +50,19 @@ public class ServiceException extends  RuntimeException {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+
+    public void setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+    }
+
+    public Object[] getAdditionalMessage() {
+        return additionalMessage;
+    }
+
+    public void setAdditionalMessage(Object[] additionalMessage) {
+        this.additionalMessage = additionalMessage;
     }
 }
 

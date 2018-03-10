@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 /**
  * Created by wenheng on 2017/7/14.
  */
@@ -31,4 +33,9 @@ public class applicationContextHelper implements ApplicationContextAware {
             return null;
         return applicationContext.getBean(name, clazz);
     }
+
+    public  static String getMessage(String code,String...args){
+        return applicationContext.getMessage(code,args, Locale.CHINA);
+    }
+
 }

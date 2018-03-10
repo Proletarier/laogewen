@@ -8,6 +8,7 @@ import com.app.mvc.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,7 @@ public class FilmRegexService {
     @Autowired
     FilmRegexDao regexDao;
 
+    @Transactional
     public  void  saveFilmRegex(FilmRegex regex){
         regex.setCreationDate(new Date());
         try{
@@ -32,12 +34,13 @@ public class FilmRegexService {
         }
     }
 
+    @Transactional
     public  void updateFilmRegex(FilmRegex regex){
         try{
             regexDao.updateFilmRegex(regex);
         }catch (Exception e){
             log.error(e.getMessage());
-            throw ServiceException.create("REGEX.UPDATE.FALL");
+            throw ServiceException.create("REGEX.UPDATE.FAIL");
         }
     }
 
@@ -47,7 +50,7 @@ public class FilmRegexService {
             regex=regexDao.findById(id);
         }catch (Exception e){
             log.error(e.getMessage());
-            throw ServiceException.create("REGEX.FIND.FALL");
+            throw ServiceException.create("REGEX.FIND.IS.FALL");
         }
         return  regex;
     }

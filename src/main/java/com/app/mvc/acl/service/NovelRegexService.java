@@ -9,6 +9,7 @@ import com.app.mvc.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,21 +23,23 @@ public class NovelRegexService {
     @Autowired
     NovelRegexDao regexDao;
 
+    @Transactional
     public  void  saveNovelRegex(NovelRegex regex){
         try{
             regexDao.saveNovelRegex(regex);
         }catch (Exception e){
             log.error(e.getMessage());
-            throw ServiceException.create("REGEX.ADD.FALL");
+            throw ServiceException.create("REGEX.ADD.FAIL");
         }
     }
 
+    @Transactional
     public  void updateNovelRegex(NovelRegex regex){
         try{
             regexDao.updateNovelRegex(regex);
         }catch (Exception e){
             log.error(e.getMessage());
-            throw ServiceException.create("REGEX.UPDATE.FALL");
+            throw ServiceException.create("REGEX.UPDATE.FAIL");
         }
     }
 

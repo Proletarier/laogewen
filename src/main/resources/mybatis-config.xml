@@ -25,8 +25,9 @@
         <typeAlias alias="Picture" type="com.app.mvc.acl.po.Picture"/>
         <typeAlias alias="FilmRegex" type="com.app.mvc.acl.po.FilmRegex"/>
         <typeAlias alias="NovelRegex" type="com.app.mvc.acl.po.NovelRegex"/>
-        <typeAlias alias="NovelRegex" type="com.app.mvc.acl.po.PictureRegex"/>
+        <typeAlias alias="PictureRegex" type="com.app.mvc.acl.po.PictureRegex"/>
         <typeAlias alias="LookValue" type="com.app.mvc.acl.po.LookValue"/>
+        <typeAlias alias="User" type="com.app.mvc.acl.po.User"/>
         <!-- condition -->
         <typeAlias alias="FilmCondition" type="com.app.mvc.acl.condition.FilmCondition"/>
         <typeAlias alias="PictureCondition" type="com.app.mvc.acl.condition.PictureCondition"/>
@@ -35,6 +36,7 @@
         <typeAlias alias="FilmRegexCondition" type="com.app.mvc.acl.condition.FilmRegexCondition"/>
         <typeAlias alias="NovelRegexCondition" type="com.app.mvc.acl.condition.NovelRegexCondition"/>
         <typeAlias alias="LookValueCondition" type="com.app.mvc.acl.condition.LookValueCondition"/>
+        <typeAlias alias="UserCondition" type="com.app.mvc.acl.condition.UserCondition"/>
     </typeAliases>
 
 </configuration>

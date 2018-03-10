@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class UserService {
     @Autowired
     UserDao userDao;
 
+    @Transactional
     public void saveUser(User user){
         user.setCreationDate(new Date());
         try {
@@ -32,6 +35,7 @@ public class UserService {
         }
     }
 
+    @Transactional
     public  void updateUser(User user){
         try {
             userDao.updateUser(user);

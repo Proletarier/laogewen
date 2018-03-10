@@ -23,14 +23,14 @@ public class FilmController {
     FilmService filmService;
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.PUT)
     public JsonData saveFilm(@RequestBody Film film){
         filmService.saveFilm(film);
         return JsonData.success(film);
     }
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public JsonData updateFilm(@RequestBody Film film){
         filmService.updateFilm(film);
         return JsonData.success(film);

@@ -8,6 +8,7 @@ import com.app.mvc.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -22,10 +23,8 @@ public class FilmService {
     @Autowired
     FilmDao filmDao;
 
-    @Autowired
-    PictureService pictureService;
 
-
+    @Transactional
     public void saveFilm(Film film) {
         film.setClickAmount(0);
         film.setCreateDate(new Date());
@@ -37,6 +36,7 @@ public class FilmService {
         }
     }
 
+    @Transactional
     public void updateFilm(Film film) {
         try {
             filmDao.updateFilm(film);
