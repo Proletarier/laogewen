@@ -20,12 +20,13 @@
       title_resource_id as titleResourceId,
       content_resource_id as contentReourceId,
       click_amount as clickAmount,
-      create_date as createDate
+      create_date as createDate,
+      ENABLE_FLAG as enableFlag
     </sql>
 
     <insert id="saveFilm" parameterType="Film" useGeneratedKeys="true" keyColumn="filmId">
-        INSERT INTO lgw_film(film_type,film_name,title_img,content_img,xfplay,http,ed2k,thunder,qqdl,flashget,click_amount,create_date)
-        VALUES (#{filmType},#{filmName},#{titleImg},#{contentImg},#{xfplay},#{http},#{ed2k},#{thunder},#{qqdl},#{flashGet},#{clickAmount},#{createDate})
+        INSERT INTO lgw_film(film_type,film_name,title_img,content_img,xfplay,http,ed2k,thunder,qqdl,flashget,click_amount,create_date,ENABLE_FLAG)
+        VALUES (#{filmType},#{filmName},#{titleImg},#{contentImg},#{xfplay},#{http},#{ed2k},#{thunder},#{qqdl},#{flashGet},#{clickAmount},#{createDate},#{enableFlag})
         <selectKey resultType="int" order="AFTER" keyProperty="filmId">
             SELECT LAST_INSERT_ID() AS filmId
         </selectKey>
@@ -43,7 +44,8 @@
         thunder=#{thunder},
         qqdl=#{qqdl},
         flashget=#{flashGet},
-        clickamount=#{clickAmount}
+        clickamount=#{clickAmount},
+        ENABLE_FLAG=#{enableFlag}
         WHERE film_id=#{filmId}
     </update>
 
