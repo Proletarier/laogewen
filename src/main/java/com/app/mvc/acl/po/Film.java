@@ -50,4 +50,6 @@ public class Film  implements java.io.Serializable{
 
     private String codeValue;
 
+    private String enableFlag;
+
 }

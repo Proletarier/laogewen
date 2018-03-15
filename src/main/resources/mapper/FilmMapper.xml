@@ -70,7 +70,7 @@
         limit #{filmCondition.offset},#{filmCondition.pageSize}
     </select>
 
-    <select id="countByFilm" resultType="int" parameterType="String">
+    <select id="countByFilm" resultType="int" parameterType="FilmCondition">
         SELECT COUNT(1)
         FROM lgw_film
         <include refid="queryConditions"/>
@@ -79,7 +79,7 @@
     <sql id="queryConditions">
         <where>
             <if test="filmCondition.filmName!=null and filmCondition.filmName!=''">
-              AND   film_name LIKE '%' || #{filmCondition.filmName} || '%'
+              AND   film_name LIKE  CONCAT('%',#{filmCondition.filmName},'%')
             </if>
             <if test="filmCondition.filmType!=null and filmCondition.filmType!=''">
               AND  film_Type=#{filmCondition.filmType}

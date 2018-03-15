@@ -10,16 +10,11 @@ public class JsonData implements Serializable{
     private static final long serialVersionUID = -6317348280525129379L;
 
     private int status;
-    private boolean ret;
-    private String resultCode;
     private String msg;
     private Object data;
+    private Integer total;
+    private String resultCode;
     private Object[] additionalMessage;
-
-
-    public JsonData(boolean ret) {
-        this.ret = ret;
-    }
 
     /**
      *    状态码
@@ -31,22 +26,33 @@ public class JsonData implements Serializable{
      * 6：请求失效,可能是因为超时或者重复提交
      * 7：签名错误
      */
-    private JsonData(int status,String resultCode,String message,Object data,boolean ret,Object[] additionalMessage){
+    private JsonData(int status,String resultCode,String message,Object data,Object[] additionalMessage){
         this.status=status;
-        this.resultCode=resultCode;
         this.msg=message;
-        this.ret=ret;
         this.data=data;
+        this.resultCode=resultCode;
         this.additionalMessage=additionalMessage;
     }
 
+    private JsonData(int status,String message,Object data,Integer total){
+        this.status=status;
+        this.msg=message;
+        this.data=data;
+        this.total=total;
+    }
+
     public static  JsonData success(){
-        return  new JsonData(1,"0","成功",null,true,null);
+        return  new JsonData(1,"0","成功",null,null);
     }
 
     public static JsonData success(Object data) {
-        return  new JsonData(1,"0","",data,true,null);
+        return  new JsonData(1,"0","成功",data,null);
     }
+
+    public static JsonData success(Object data,Integer total) {
+        return  new JsonData(1,"",data,total);
+    }
+
 
 
     public static JsonData createSignError() {
@@ -71,24 +77,15 @@ public class JsonData implements Serializable{
 
 
     public static JsonData error(String resultCode,Object[] additionalMessage){
-        return   new JsonData(2,resultCode,null,null,false,additionalMessage);
+        return   new JsonData(2,resultCode,null,null,additionalMessage);
     }
 
     public static  JsonData error(int status,String resultCode){
-        return   new JsonData(status,resultCode,null,null,false,null);
+        return   new JsonData(status,resultCode,null,null,null);
     }
 
 
 
-
-
-    public String getResultCode() {
-        return resultCode;
-    }
-
-    public boolean getRet() {
-        return ret;
-    }
 
     public String getMsg() {
         return msg;
@@ -98,15 +95,31 @@ public class JsonData implements Serializable{
         return data;
     }
 
-    public Object[] getAdditionalMessage() {
-        return additionalMessage;
-    }
-
     public int getStatus() {
         return status;
     }
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public String getResultCode() {
+        return resultCode;
+    }
+
+    public void setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+    }
+
+    public Object[] getAdditionalMessage() {
+        return additionalMessage;
+    }
+
+    public void setAdditionalMessage(Object[] additionalMessage) {
+        this.additionalMessage = additionalMessage;
     }
 }

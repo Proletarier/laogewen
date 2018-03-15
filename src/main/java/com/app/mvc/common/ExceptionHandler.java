@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.Charset;
-import java.rmi.ServerException;
 
 
 /**
@@ -50,7 +49,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 
 
     private  void setMessage(JsonData jsonData){
-        String resultCode = jsonData.getResultCode();
+        String resultCode = "";//jsonData.getResultCode();
         String message;
         try {
             message=applicationContextHelper.getMessage(resultCode);

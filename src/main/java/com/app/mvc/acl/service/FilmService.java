@@ -61,9 +61,7 @@ public class FilmService {
     public Page<Film> selectFilmTypeOrName(FilmCondition filmCondition) {
         Page<Film> page = null;
         try {
-            FilmCondition sl = new FilmCondition();
-            sl.setFilmType(filmCondition.getFilmType());
-            int count = filmDao.countByFilm(sl);
+            int count = filmDao.countByFilm(filmCondition);
             if (count > 0) {
                 List<Film> films = filmDao.selectFilmTypeOrName(filmCondition);
                 page = Page.<Film>builder().total(count).pageNum(filmCondition.getPageNum()).data(films).build();

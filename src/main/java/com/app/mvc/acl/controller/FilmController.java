@@ -4,6 +4,7 @@ import com.app.mvc.acl.condition.FilmCondition;
 import com.app.mvc.acl.po.Film;
 import com.app.mvc.acl.service.FilmService;
 import com.app.mvc.beans.JsonData;
+import com.app.mvc.beans.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +48,8 @@ public class FilmController {
     @ResponseBody
     @RequestMapping(value = "search",method = RequestMethod.GET)
     public JsonData selectFilmTypeOrName(FilmCondition filmCondition){
-        return  JsonData.success(filmService.selectFilmTypeOrName(filmCondition));
+        Page<Film> page=filmService.selectFilmTypeOrName(filmCondition);
+        return  JsonData.success(page.getData(),page.getTotal());
     }
 
 
