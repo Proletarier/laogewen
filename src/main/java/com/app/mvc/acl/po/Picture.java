@@ -28,6 +28,10 @@ public class Picture implements java.io.Serializable{
     //创建时间
     private Date createDate;
 
+    private String enableFlag;
+
+    private String createdBy;
+
     private Integer locationId;
 
     private String codeValue;

@@ -49,7 +49,7 @@ public class Film  implements java.io.Serializable{
     private  String[] img;
 
     private String codeValue;
-
+    private String createdBy;
     private String enableFlag;
 
 }

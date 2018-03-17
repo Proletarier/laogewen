@@ -31,6 +31,10 @@ public class Novel implements java.io.Serializable {
 
     private  String typeCodeMeaning;
 
+    private String enableFlag;
+
+    private String createdBy;
+
     private List<NovelPage> novelPages= Lists.newArrayList();
 
 

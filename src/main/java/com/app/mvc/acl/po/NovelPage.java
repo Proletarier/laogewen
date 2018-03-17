@@ -20,5 +20,6 @@ public class NovelPage implements java.io.Serializable {
     private  Integer page;
     private  String  content;
     private  Date    createDate;
+    private String createdBy;
 
 }

@@ -18,11 +18,15 @@ public class User  implements  java.io.Serializable{
 
     private Integer userId;
     private String userName;
+    private String password;
     private String encryptedFoundationPassword;
     private String encryptedUserPassword;
     private String description;
     private Date creationDate;
     private Date lastLoginDate;
+    private String createdBy;
+
+
 
 
 }

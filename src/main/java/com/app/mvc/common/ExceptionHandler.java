@@ -49,7 +49,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 
 
     private  void setMessage(JsonData jsonData){
-        String resultCode = "";//jsonData.getResultCode();
+        String resultCode = jsonData.getResultCode();
         String message;
         try {
             message=applicationContextHelper.getMessage(resultCode);
