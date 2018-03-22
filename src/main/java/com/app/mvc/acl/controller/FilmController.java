@@ -24,14 +24,14 @@ public class FilmController {
     FilmService filmService;
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public JsonData saveFilm(@RequestBody Film film){
         filmService.saveFilm(film);
         return JsonData.success(film);
     }
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.PUT)
     public JsonData updateFilm(@RequestBody Film film){
         filmService.updateFilm(film);
         return JsonData.success(film);
@@ -51,6 +51,8 @@ public class FilmController {
         Page<Film> page=filmService.selectFilmTypeOrName(filmCondition);
         return  JsonData.success(page.getData(),page.getTotal());
     }
+
+
 
 
 }

@@ -10,7 +10,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     table.render({
          skin: 'line' //行边框风格
         ,elem: '#movie'
-        ,id: 'filmReload'
+        ,id: 'filmId'
         ,height: 500
         ,url: '/resource/film/search'
         ,page: true
@@ -40,11 +40,12 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     //日期范围
     laydate.render({
         elem: '#createDate'
-        ,range: true
+        ,range: '~'
     });
 
     //添加电影
     $(window).one("resize",function(){
+
         $(".newsAdd_btn").click(function(){
             var index = layui.layer.open({
                 title : "添加电影",
@@ -63,13 +64,58 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     }).resize();
 
 
+    //监听工具条
+    table.on('tool(vod)', function(obj){
+        var data = obj.data;
+        if(obj.event === 'detail'){
+            layer.msg('ID：'+ data.filmId + ' 的查看操作');
+        } else if(obj.event === 'del'){
+            layer.confirm('真的删除行么', function(index){
+                obj.del();
+                layer.close(index);
+            });
+        } else if(obj.event === 'edit'){
+            $("#filmId").attr("value",data.filmId);
+            var index = layui.layer.open({
+                anim: 1,
+                title : "修改电影",
+                id:data.filmId,
+                type : 2,
+                content : "movieUpdate.html?",
+                success : function(layero, index){
+                    setTimeout(function(){
+                        layui.layer.tips('点击此处返回电影列表', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    },500)
+                }
+            })
+            layui.layer.full(index);
+        }
+    });
+
+
+    //查詢
     $('.search_btn').on('click', function(){
 
-        var filmName = $("#filmName").val();
+
+        var date=$("#createDate").val();
+        var filmName=$("#filmName").val();
+        var filmType=$("#filmType option:selected").val();
+        var startDate;
+        var endDate;
+        if(date.trim()!=""){
+             startDate=date.split('~')[0].trim('+');
+             endDate=date.split('~')[1].trim('+');
+        }
+
         //执行重载
-        table.reload('filmReload', {
+        table.reload('filmId', {
             where: {
-                    filmName:filmName
+                    filmName:filmName,
+                    filmType:filmType,
+                    startDate:startDate,
+                    endDate:endDate
             }
         });
     });

@@ -38,6 +38,10 @@ public class FilmService {
 
     @Transactional
     public void updateFilm(Film film) {
+        Integer filmId=film.getFilmId();
+        Film oldFilm=filmDao.findById(filmId);
+        oldFilm.setTitleImg(film.getTitleImg());
+        oldFilm.setContentImg(film.getContentImg());
         try {
             filmDao.updateFilm(film);
         } catch (Exception e) {
@@ -84,5 +88,27 @@ public class FilmService {
         }
         return count;
     }
+
+    @Transactional
+    public void deleteFilm(Integer filmId) {
+
+    }
+
+    @Transactional
+    public void  updateEnableFlag(Integer filmId,String enableFlag) {
+         Film film=filmDao.findById(filmId);
+         if(film==null){
+             throw ServiceException.create("FILM.UPDATE.FAIL");
+         }
+         try{
+             film.setEnableFlag(enableFlag);
+             filmDao.updateFilm(film);
+         }catch (Exception e){
+             log.error(e.getMessage());
+             throw ServiceException.create("FILM.SEARCH.FAIL");
+         }
+    }
+
+
 
 }
