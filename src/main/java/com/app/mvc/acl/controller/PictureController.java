@@ -4,6 +4,7 @@ import com.app.mvc.acl.condition.PictureCondition;
 import com.app.mvc.acl.po.Picture;
 import com.app.mvc.acl.service.PictureService;
 import com.app.mvc.beans.JsonData;
+import com.app.mvc.beans.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,7 +47,8 @@ public class PictureController {
     @ResponseBody
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public JsonData queryPicture(PictureCondition pictureCondition) {
-        return JsonData.success(pictureService.queryPicture(pictureCondition));
+        Page<Picture> page=pictureService.queryPicture(pictureCondition);
+        return JsonData.success(page.getData(),page.getTotal());
     }
 
     @ResponseBody

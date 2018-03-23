@@ -23,6 +23,8 @@ public interface FilmDao {
 
     int countByFilm(@Param("filmCondition") FilmCondition filmCondition);
 
+    void deleteFilm(@Param("filmId") Integer filmId);
+
 }
 
 

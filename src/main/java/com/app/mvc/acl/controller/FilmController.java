@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 /**
  * Created by wenheng on 2017/7/5.
  */
@@ -52,6 +54,20 @@ public class FilmController {
         return  JsonData.success(page.getData(),page.getTotal());
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "update/enableFlag",method = RequestMethod.PUT)
+    public JsonData updateEnableFlag(@RequestBody Map<String, String> map){
+        filmService.updateEnableFlag(Integer.valueOf(map.get("id")),map.get("enableFlag"));
+        return JsonData.success();
+    }
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.DELETE)
+    public JsonData deleteFilm(@RequestBody Map<String, String> map){
+        filmService.deleteFilm(Integer.valueOf(map.get("id")));
+        return JsonData.success();
+    }
 
 
 

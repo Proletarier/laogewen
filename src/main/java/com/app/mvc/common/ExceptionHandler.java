@@ -26,6 +26,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
         ModelAndView mv;
         JsonData jsonData;
         try{
+            log.error(ex.getMessage(),ex);
             if(ex instanceof ServiceException){
                 ServiceException serviceException=(ServiceException)ex;
                 jsonData=JsonData.error(serviceException.getResultCode(),serviceException.getAdditionalMessage());
@@ -42,7 +43,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
                 response.getOutputStream().write(result.getBytes(Charset.forName("UTF-8")));
             }
         }catch (Exception e){
-            log.error(e.getMessage());
+            log.error(e.getMessage(),e);
         }
         return new ModelAndView();
     }

@@ -12,6 +12,7 @@ layui.config({
     layer.ready(function(){
         $.get("/resource/film",{filmId:parent.$("#filmId").val()},function(data,status,xhr){
             if(status=="success"){
+                $('input[name=filmId]').attr('value',data.data.filmId);
                 $('input[name=filmName]').attr('value',data.data.filmName);
                 $('input[name=titleImg]').attr('value',data.data.titleImg);
                 $('input[name=xfplay]').attr('value',data.data.xfplay);
@@ -26,11 +27,11 @@ layui.config({
         });
     });
 
-    form.on("submit(update)",function(data){
+    form.on("submit(updateVod)",function(data){
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
         $.ajax(
             {
-                type:"POST",
+                type:"PUT",
                 url:"/resource/film",
                 contentType:"application/json",
                 dataType:"json",
@@ -38,12 +39,13 @@ layui.config({
                 success: function (result) {
                     if(result.status==1){
                         setTimeout(function(){
-                            top.layer.close(index);
                             top.layer.msg("电影修改成功！");
+                            top.layer.close(index);
                             layer.closeAll("iframe");
                             parent.location.reload();
                         },2000);
                     }else{
+                        top.layer.close(index);
                         layer.msg(result.msg, {time: 2000});
                     }
                 }

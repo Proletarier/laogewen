@@ -50,7 +50,7 @@ public class JsonData implements Serializable{
     }
 
     public static JsonData success(Object data,Integer total) {
-        return  new JsonData(1,"",data,total);
+        return  new JsonData(1,"成功",data,total);
     }
 
 

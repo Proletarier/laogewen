@@ -12,7 +12,8 @@
          img,
          resource_id as resourceId,
          create_date AS  createDate,
-         location_id as locationId
+         location_id as locationId,
+         ENABLE_FLAG as enableFlag
     </sql>
 
     <insert id="savePicture" parameterType="Picture" useGeneratedKeys="true" keyColumn="pictureId">
@@ -46,7 +47,9 @@
     <select id="queryPicture" resultType="Picture" parameterType="PictureCondition">
         SELECT
         <include refid="pictureColumns"/>
-        FROM  lgw_picture
+        ,lv.CODE_VALUE as codeValue
+        FROM  lgw_picture pic
+        LEFT  JOIN lgw_look_value lv ON lv.LOOK_CODE=pic.type_code AND lv.LOOK_TYPE='PICTURE_TYPE'
         <include refid="queryCondition"/>
         ORDER BY create_date DESC
         limit #{condition.offset},#{condition.pageSize}

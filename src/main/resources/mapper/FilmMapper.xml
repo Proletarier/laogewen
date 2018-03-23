@@ -44,7 +44,7 @@
         thunder=#{thunder},
         qqdl=#{qqdl},
         flashget=#{flashGet},
-        clickamount=#{clickAmount},
+        click_amount=#{clickAmount},
         ENABLE_FLAG=#{enableFlag}
         WHERE film_id=#{filmId}
     </update>

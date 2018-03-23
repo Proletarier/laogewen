@@ -9,9 +9,10 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
 
     table.render({
         skin: 'line' //行边框风格
-        ,elem: '#movie'
+        ,elem: '#picture'
+        ,id: 'pictureId'
         ,height: 500
-        ,data: '/resource/film/search'
+        ,url: '/resource/picture/search'
         ,page: true
         ,request: {
             pageName: 'pageNum' //页码的参数名称，默认：page
@@ -26,15 +27,14 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         }
         ,cols: [[
             {type:'checkbox'}
-            ,{field: 'username',width:'25%' , title: '图片名称'}
-            ,{field: 'city', title: '图片类型' }
-            ,{field: 'sign', title: '图片地址'}
-            ,{field: 'sign', title: '文件地址'}
-            ,{field: 'classify', title: '创建时间'}
+            ,{field: 'name', width:'30%',title: '图片名称', }
+            ,{field: 'codeValue', width:'15%',title: '图片类型' }
+            ,{field: 'createDate', width:'15%',title: '创建时间',templet: '<div>{{layui.util.toDateString(d.createDate,"yyyy-MM-dd") }}</div>'}
             ,{field: 'enableFlag', width:'14%',title:'是否启用', templet: '#checkboxTpl' ,align:'center' }
-            ,{fixed: 'right', align:'center', toolbar: '#barDemo'}
+            ,{fixed: 'right' ,width:'20%', toolbar: '#barDemo'}
         ]]
     });
+
 
     form.render();
 

@@ -31,7 +31,7 @@ public class FilmService {
         try {
             filmDao.saveFilm(film);
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(),e);
             throw ServiceException.create("FILM.ADD.FALL");
         }
     }
@@ -40,12 +40,19 @@ public class FilmService {
     public void updateFilm(Film film) {
         Integer filmId=film.getFilmId();
         Film oldFilm=filmDao.findById(filmId);
+        oldFilm.setFilmName(film.getFilmName());
         oldFilm.setTitleImg(film.getTitleImg());
         oldFilm.setContentImg(film.getContentImg());
+        oldFilm.setXfplay(film.getXfplay());
+        oldFilm.setEd2k(film.getEd2k());
+        oldFilm.setFlashGet(film.getFlashGet());
+        oldFilm.setQqdl(film.getQqdl());
+        oldFilm.setThunder(film.getThunder());
+        oldFilm.setFilmType(film.getFilmType());
         try {
-            filmDao.updateFilm(film);
+            filmDao.updateFilm(oldFilm);
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(),e);
             throw ServiceException.create("FILM.UPDATE.FAIL");
         }
 
@@ -91,7 +98,12 @@ public class FilmService {
 
     @Transactional
     public void deleteFilm(Integer filmId) {
-
+        try{
+            filmDao.deleteFilm(filmId);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw ServiceException.create("FILM.UPDATE.FAIL");
+        }
     }
 
     @Transactional

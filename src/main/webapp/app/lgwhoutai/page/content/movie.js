@@ -63,6 +63,33 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         })
     }).resize();
 
+    //启用禁用
+    form.on('checkbox(lockDemo)', function(obj){
+        var enableFlag;
+        if(obj.elem.checked==true){
+            enableFlag='Y';
+        }else {
+            enableFlag='N';
+        }
+        $.ajax({
+            type:"PUT",
+            url:"/resource/film/update/enableFlag",
+            data: JSON.stringify({"id":this.value,"enableFlag":enableFlag}),
+            contentType:"application/json",
+            dataType:"json",
+            success:function (result) {
+                if(result.status==1){
+                    if (obj.elem.checked==true){
+                        layer.msg("启用成功");
+                    }else {
+                        layer.msg("禁用成功");
+                    }
+                }else {
+                    layer.msg(result.msg);
+                }
+            }});
+
+    });
 
     //监听工具条
     table.on('tool(vod)', function(obj){
@@ -71,8 +98,19 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
             layer.msg('ID：'+ data.filmId + ' 的查看操作');
         } else if(obj.event === 'del'){
             layer.confirm('真的删除行么', function(index){
-                obj.del();
-                layer.close(index);
+                $.ajax({
+                    type:"DELETE",
+                    url:"/resource/film",
+                    data: JSON.stringify({"id":data.filmId}),
+                    contentType:"application/json",
+                    dataType:"json",
+                    success:function (result) {
+                        if(result.status==1){
+                            layer.msg("删除成功");
+                            obj.del();
+                            layer.close(index);
+                        }
+                    }});
             });
         } else if(obj.event === 'edit'){
             $("#filmId").attr("value",data.filmId);
