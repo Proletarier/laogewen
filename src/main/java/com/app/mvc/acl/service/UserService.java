@@ -72,12 +72,4 @@ public class UserService {
     }
 
 
-    public void  login(User user){
-        String userName=user.getUserName();
-        String password=user.getPassword();
-    }
-
-
-
-
 }
