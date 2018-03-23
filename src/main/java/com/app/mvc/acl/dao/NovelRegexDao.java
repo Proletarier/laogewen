@@ -22,4 +22,7 @@ public interface NovelRegexDao {
     List<NovelRegex>  searchNovelRegex(@Param("condition") NovelRegexCondition condition);
 
     int countByNovelRegex(@Param("condition") NovelRegexCondition condition);
+
+    void deleteNovelRegex(@Param("novelRegexId") Integer novelRegexId);
+
 }

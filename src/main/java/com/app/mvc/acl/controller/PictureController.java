@@ -49,5 +49,19 @@ public class PictureController {
         return JsonData.success(pictureService.queryPicture(pictureCondition));
     }
 
+    @ResponseBody
+    @RequestMapping(value = "update/enableFlag",method = RequestMethod.PUT)
+    public JsonData updateEnableFlag(Integer id,String enableFlag) {
+        pictureService.updateEnableFlag(id,enableFlag);
+        return JsonData.success();
+    }
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.DELETE)
+    public JsonData deletePicture(Integer id) {
+        pictureService.deletePicture(id);
+        return JsonData.success();
+    }
+
 
 }

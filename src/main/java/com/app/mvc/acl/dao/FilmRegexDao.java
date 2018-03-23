@@ -23,4 +23,6 @@ public interface FilmRegexDao {
 
     int countByFilmRegex(@Param("filmCondition") FilmRegexCondition condition);
 
+    void  deleteFilmRegex(@Param("filmRegexId") Integer id);
+
 }

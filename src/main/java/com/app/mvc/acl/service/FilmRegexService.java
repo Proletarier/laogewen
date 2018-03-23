@@ -70,4 +70,13 @@ public class FilmRegexService {
         return regexPage;
     }
 
+    public  void  deleteFilmRegex(Integer id){
+        try{
+            regexDao.deleteFilmRegex(id);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw ServiceException.create("REGEX.UPDATE.FAIL");
+        }
+    }
+
 }

@@ -47,6 +47,10 @@
         WHERE FILM_REGEX_ID=#{filmRegexId}
     </update>
 
+    <delete id="deleteFilmRegex" parameterType="int">
+        DELETE  FROM  lgw_film_regex WHERE FILM_REGEX_ID=#{filmRegexId}
+    </delete>
+
     <select id="findById" parameterType="int" resultType="FilmRegex">
         SELECT
         <include refid="FilmRegexColumns"/>

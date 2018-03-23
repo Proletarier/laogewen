@@ -49,6 +49,10 @@
         WHERE film_id=#{filmId}
     </update>
 
+    <delete id="deleteFilm"  parameterType="int">
+        DELETE FROM lgw_film WHERE film_id=#{filmId}
+    </delete>
+
     <select id="findById" resultType="Film" parameterType="int">
         SELECT
         <include refid="filmColumns"/>

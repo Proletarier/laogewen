@@ -24,4 +24,6 @@ public interface NovelDao  {
     List<Novel> searchNovelUpAndDown(@Param("condition") NovelCondition condition);
 
     int countByNovel(@Param("condition") NovelCondition condition);
+
+    void deleteNovel(Integer novelId);
 }

@@ -31,6 +31,10 @@
         WHERE novel_id=#{novelId}
     </update>
 
+    <delete id="deleteNovel" parameterType="int">
+        DELETE  FROM  lgw_novel WHERE novel_id=#{novelId}
+    </delete>
+
     <select id="findById" parameterType="int" resultType="Novel">
         SELECT
         <include refid="novelColumns"/>
