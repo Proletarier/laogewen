@@ -48,5 +48,19 @@ public class NovelController {
         return JsonData.success(novelService.selectNovelTitleOrType(condition));
     }
 
+    @ResponseBody
+    @RequestMapping(value = "update/enableFlag",method = RequestMethod.PUT)
+    public JsonData updateEnableFlag(Integer novelId,String enableFlag){
+        novelService.updateEnableFlag(novelId,enableFlag);
+        return  JsonData.success();
+    }
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.DELETE)
+    public JsonData deleteNovel(Integer novelId){
+        novelService.deleteNovel(novelId);
+        return  JsonData.success();
+    }
+
 
 }

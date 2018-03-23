@@ -54,5 +54,13 @@ public class PictureRegexController {
     }
 
 
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.DELETE)
+    public JsonData deletePictureRegex(Integer id){
+        regexService.deletePictureRegex(id);
+        return JsonData.success();
+    }
+
+
 
 }

@@ -28,6 +28,10 @@
         WHERE NOVEL_PAGE_ID=#{novelPageId}
     </update>
 
+    <delete id="deleteNovelPage">
+        DELETE FROM  lgw_novel_page  WHERE NOVEL_PAGE_ID=#{novelPageId}
+    </delete>
+
     <select id="findById"  parameterType="int" resultType="NovelPage">
         SELECT
         <include refid="novelPageColumns"/>

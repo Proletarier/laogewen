@@ -33,6 +33,10 @@
         WHERE NOVEL_REGEX_ID=#{novelRegexId}
     </update>
 
+    <delete id="deleteNovelRegex" parameterType="int">
+        DELETE  FROM  lgw_novel_regex  WHERE NOVEL_REGEX_ID=#{novelRegexId}
+    </delete>
+
     <select id="findById" parameterType="int" resultType="NovelRegex">
         SELECT
         <include refid="novelRegexColumns"/>

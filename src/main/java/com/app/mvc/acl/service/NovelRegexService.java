@@ -68,4 +68,13 @@ public class NovelRegexService {
         }
         return  novelRegexPage;
     }
+
+    public  void  deleteNovelRegex(Integer id){
+        try{
+            regexDao.deleteNovelRegex(id);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw ServiceException.create("REGEX.UPDATE.FAIL");
+        }
+    }
 }

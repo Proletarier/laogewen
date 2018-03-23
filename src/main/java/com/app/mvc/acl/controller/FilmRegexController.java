@@ -24,14 +24,14 @@ public class FilmRegexController {
 
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public JsonData saveFilmRegex(@RequestBody FilmRegex regex){
         filmRegexService.saveFilmRegex(regex);
         return JsonData.success(regex);
     }
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.PUT)
     public JsonData updateFilmRegex(@RequestBody FilmRegex regex){
         filmRegexService.updateFilmRegex(regex);
         return JsonData.success(regex);
@@ -51,5 +51,14 @@ public class FilmRegexController {
         Page<FilmRegex> page=filmRegexService.searchFilmRregex(condition);
         return  JsonData.success(page);
     }
+
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.DELETE)
+    public JsonData deleteFilmRegex(Integer id){
+        filmRegexService.deleteFilmRegex(id);
+        return JsonData.success();
+    }
+
+
 
 }

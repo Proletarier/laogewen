@@ -69,4 +69,29 @@ public class PictureService {
         return page;
     }
 
+    public void  updateEnableFlag(Integer id,String enableFlag){
+         Picture picture=pictureDao.findById(id);
+         if(picture==null){
+             throw ServiceException.create("PICTURE.FIND.IS.FALL");
+         }
+         try{
+              picture.setEnableFlag(enableFlag);
+              pictureDao.updatePicture(picture);
+         }catch (Exception e){
+             log.error(e.getMessage());
+             throw ServiceException.create("PICTURE.UPDATE.FAIL");
+         }
+    }
+
+    public  void  deletePicture(Integer id){
+
+         try{
+             pictureDao.deletePicture(id);
+         }catch (Exception e){
+             log.error(e.getMessage());
+             throw ServiceException.create("PICTURE.UPDATE.FAIL");
+         }
+
+    }
+
 }

@@ -23,4 +23,6 @@ public interface PictureRegexDao {
 
     int countByPictureRegex(@Param("condition") PictureRegexCondition condition);
 
+    void deletePictureRegex(@Param("pictureRegexId") Integer id);
+
 }

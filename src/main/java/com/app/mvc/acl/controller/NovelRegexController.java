@@ -53,4 +53,11 @@ public class NovelRegexController {
         return JsonData.success(page);
     }
 
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.DELETE)
+    public JsonData deleteNovelRegex(Integer id){
+        novelRegexService.deleteNovelRegex(id);
+        return JsonData.success();
+    }
+
 }

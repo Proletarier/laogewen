@@ -88,4 +88,27 @@ public class NovelService {
             throw ServiceException.create("NOVEL.SEARCH.FAIL");
         }
     }
+
+    public void updateEnableFlag(Integer id,String enableFlag){
+       Novel  novel = this.novelDao.findById(id);
+       if(novel==null){
+           throw ServiceException.create("NOVEL.FIND.IS.FALL");
+       }
+       try{
+           novel.setEnableFlag(enableFlag);
+           novelDao.updateNovel(novel);
+       }catch (Exception e){
+           log.error(e.getMessage());
+           throw ServiceException.create("NOVEL.UPDATE.FAIL");
+       }
+    }
+
+    public  void  deleteNovel(Integer novelId){
+        try{
+            novelDao.deleteNovel(novelId);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw ServiceException.create("NOVEL.UPDATE.FAIL");
+        }
+    }
 }

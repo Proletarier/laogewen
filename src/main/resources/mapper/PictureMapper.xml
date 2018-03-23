@@ -29,7 +29,12 @@
         type_code=#{typeCode},
         img=#{img},
         resource_id=#{resourceId}
+        WHERE picture_id=#{id}
     </update>
+
+    <delete id="deletePicture" parameterType="int">
+        DELETE  FROM  lgw_picture WHERE WHERE picture_id=#{id}
+    </delete>
 
     <select id="findById" resultType="Picture" parameterType="int">
         SELECT

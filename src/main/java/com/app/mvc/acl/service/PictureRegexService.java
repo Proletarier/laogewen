@@ -6,6 +6,7 @@ import com.app.mvc.acl.po.PictureRegex;
 import com.app.mvc.beans.Page;
 import com.app.mvc.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,6 +69,16 @@ public class PictureRegexService {
         }
         return  regexPage;
     }
+
+
+     public void deletePictureRegex(Integer id){
+         try{
+             regexDao.deletePictureRegex(id);
+         }catch (Exception e){
+             log.error(e.getMessage());
+             throw ServiceException.create("REGEX.UPDATE.FAIL");
+         }
+     }
 
 
 }
