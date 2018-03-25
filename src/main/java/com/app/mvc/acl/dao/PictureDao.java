@@ -25,6 +25,6 @@ public interface PictureDao {
 
     int countByPicture(@Param("condition") PictureCondition pictureCondition);
 
-    void deletePicture(Integer id);
+    void deletePicture(@Param("id") Integer id);
 
 }

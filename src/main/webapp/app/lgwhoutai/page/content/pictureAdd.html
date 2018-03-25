@@ -14,23 +14,27 @@
     <div class="layui-form-item">
         <label class="layui-form-label">图片标题</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入电影名称">
+            <input type="text" name="name" class="layui-input" lay-verify="required" placeholder="请输入图片名称">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">图片类型</label>
         <div class="layui-input-inline">
-            <select name="browseLook" class="newsLook" lay-filter="browseLook">
-                <option value="0">亚洲</option>
-                <option value="1">欧美</option>
-                <option value="1">偷拍</option>
+            <select name="typeCode" lay-filter="browseLook">
+                <option value="TPZP">偷拍自拍</option>
+                <option value="YZST">亚洲色图</option>
+                <option value="SWMT">丝袜美腿</option>
+                <option value="OMXA">欧美性爱</option>
+                <option value="QJMX">激情明星</option>
+                <option value="QCWM">清纯唯美</option>
+                <option value="CRDM">成人动漫</option>
             </select>
         </div>
-    </div>
+    </div
     <div class="layui-form-item">
         <label class="layui-form-label">图片地址</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入图片内容地址" class="layui-textarea"></textarea>
+            <textarea name="img"  placeholder="请输入图片内容地址" class="layui-textarea"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
@@ -47,6 +51,6 @@
     </div>
 </form>
 <script type="text/javascript" src="../../layui/layui.js"></script>
-<script type="text/javascript" src="movieAdd.js"></script>
+<script type="text/javascript" src="pictureAdd.js"></script>
 </body>
 </html>

@@ -36,8 +36,19 @@ public class FilmRegexService {
 
     @Transactional
     public  void updateFilmRegex(FilmRegex regex){
+      FilmRegex oldRegex=regexDao.findById(regex.getFilmRegexId());
+      oldRegex.setXfplayRegex(regex.getXfplayRegex());
+      oldRegex.setHttpRegex(regex.getHttpRegex());
+      oldRegex.setContentImgRegex(regex.getContentImgRegex());
+      oldRegex.setDescription(regex.getDescription());
+      oldRegex.setFlashgetRegex(regex.getFlashgetRegex());
+      oldRegex.setEd2kRegex(regex.getEd2kRegex());
+      oldRegex.setQqdlRegex(regex.getQqdlRegex());
+      oldRegex.setTitleImgRegex(regex.getTitleImgRegex());
+      oldRegex.setTitleRegex(regex.getTitleRegex());
+      oldRegex.setTypeRegex(regex.getTypeRegex());
         try{
-            regexDao.updateFilmRegex(regex);
+            regexDao.updateFilmRegex(oldRegex);
         }catch (Exception e){
             log.error(e.getMessage());
             throw ServiceException.create("REGEX.UPDATE.FAIL");

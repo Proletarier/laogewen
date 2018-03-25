@@ -10,4 +10,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FilmRegexCondition extends PageQuery {
+
+
+    private String  description;
+
+    private String  startDate;
+
+    private String  endDate;
+
 }

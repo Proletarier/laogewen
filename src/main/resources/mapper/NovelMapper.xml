@@ -11,7 +11,8 @@
         title,
         file_name as fileName,
         resource_id AS resourceId,
-        create_date as createDate
+        create_date as createDate,
+        ENABLE_FLAG as enableFlag
     </sql>
 
     <insert id="saveNovel" parameterType="Novel" useGeneratedKeys="true" keyColumn="novelId">
@@ -27,6 +28,7 @@
         SET type_code=#{typeCode},
         file_name=#{fileName},
         title=#{title},
+        ENABLE_FLAG=#{enableFlag},
         resource_id=#{resourceId}
         WHERE novel_id=#{novelId}
     </update>
@@ -45,8 +47,10 @@
     <select id="searchNovel" resultType="Novel"  parameterType="NovelCondition">
          SELECT
          <include refid="novelColumns"/>
-         FROM  lgw_novel
-         <include refid="queryCondition"/>
+        ,lv.CODE_VALUE as typeCodeMeaning
+         FROM  lgw_novel ln
+         LEFT  JOIN lgw_look_value lv ON lv.LOOK_CODE=ln.type_code AND lv.LOOK_TYPE='NOVEL_TYPE'
+        <include refid="queryCondition"/>
          ORDER BY create_date DESC
         limit #{condition.offset},#{condition.pageSize}
     </select>
@@ -76,10 +80,16 @@
     <sql id="queryCondition">
         <where>
             <if test="condition.title!=null and condition.title!=''">
-                AND  title=#{condition.title}
+                AND   title LIKE  CONCAT('%',#{condition.title},'%')
             </if>
             <if test="condition.type!=null and condition.type!=''">
                 AND  type_code=#{condition.type}
+            </if>
+            <if test="condition.startDate!=null and condition.startDate!=''">
+                AND  create_date &gt;=#{condition.startDate}
+            </if>
+            <if test="condition.endDate!=null and condition.endDate!=''">
+                AND  create_date &lt;=#{condition.endDate}
             </if>
         </where>
     </sql>

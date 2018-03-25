@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 /**
  * Created by wenheng on 2017/8/17.
  */
@@ -32,7 +34,7 @@ public class PictureController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.PUT)
-    public JsonData updatePicture(Picture picture) {
+    public JsonData updatePicture(@RequestBody Picture picture) {
         pictureService.updatePicture(picture);
         return JsonData.success(picture);
     }
@@ -53,15 +55,15 @@ public class PictureController {
 
     @ResponseBody
     @RequestMapping(value = "update/enableFlag",method = RequestMethod.PUT)
-    public JsonData updateEnableFlag(Integer id,String enableFlag) {
-        pictureService.updateEnableFlag(id,enableFlag);
+    public JsonData updateEnableFlag(@RequestBody Map<String,String> map) {
+        pictureService.updateEnableFlag(Integer.valueOf(map.get("id")),map.get("enableFlag"));
         return JsonData.success();
     }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.DELETE)
-    public JsonData deletePicture(Integer id) {
-        pictureService.deletePicture(id);
+    public JsonData deletePicture(@RequestBody Map<String,String> map) {
+        pictureService.deletePicture(Integer.valueOf(map.get("id")));
         return JsonData.success();
     }
 

@@ -14,16 +14,20 @@
     <div class="layui-form-item">
         <label class="layui-form-label">小说标题</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入电影名称">
+            <input type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入小说标题">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">小说类型</label>
         <div class="layui-input-inline">
-            <select name="browseLook" class="newsLook" lay-filter="browseLook">
-                <option value="0">亚洲</option>
-                <option value="1">欧美</option>
-                <option value="1">偷拍</option>
+            <select id="novelType" lay-verify="required">
+                <option value=""></option>
+                <option value="JQWX">激情小说</option>
+                <option value="LLWX">家庭乱伦</option>
+                <option value="MXXY">明星校园</option>
+                <option value="WXGD">武侠古典</option>
+                <option value="HSXH">黄色笑话</option>
+                <option value="XAJQ">性爱技巧</option>
             </select>
         </div>
     </div>
@@ -34,7 +38,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <div class="layui-input-lnline" style="width: 47%;">
+        <div class="layui-input-lnline" style="width: 45%;">
             <button class="layui-btn layui-btn-sm layui-btn-normal" style="float: right;" >添加</button>
         </div>
     </div>

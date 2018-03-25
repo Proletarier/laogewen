@@ -41,7 +41,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     //日期范围
     laydate.render({
         elem: '#createDate'
-        ,range: true
+        ,range: '~'
     });
 
     //添加图片
@@ -62,5 +62,99 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
             layui.layer.full(index);
         })
     }).resize();
+
+
+    //查詢
+    $('.search_btn').on('click', function(){
+
+        var date=$("#createDate").val();
+        var name=$(".search_input").val();
+        var pictureType=$("#pictureType option:selected").val();
+        var startDate;
+        var endDate;
+        if(date.trim()!=""){
+            startDate=date.split('~')[0].trim('+');
+            endDate=date.split('~')[1].trim('+');
+        }
+
+        //执行重载
+        table.reload('pictureId', {
+            where: {
+                name:name,
+                type:pictureType,
+                startDate:startDate,
+                endDate:endDate
+            }
+        });
+    });
+
+    //启用禁用
+    form.on('checkbox(lockDemo)', function(obj){
+        var enableFlag;
+        if(obj.elem.checked==true){
+            enableFlag='Y';
+        }else {
+            enableFlag='N';
+        }
+        $.ajax({
+            type:"PUT",
+            url:"/resource/picture/update/enableFlag",
+            data: JSON.stringify({"id":this.value,"enableFlag":enableFlag}),
+            contentType:"application/json",
+            dataType:"json",
+            success:function (result) {
+                if(result.status==1){
+                    if (obj.elem.checked==true){
+                        layer.msg("启用成功");
+                    }else {
+                        layer.msg("禁用成功");
+                    }
+                }else {
+                    layer.msg(result.msg);
+                }
+            }});
+
+    });
+
+    //监听工具条
+    table.on('tool(pic)', function(obj){
+        var data = obj.data;
+        if(obj.event === 'detail'){
+            layer.msg('ID：'+ data.pictureId + ' 的查看操作');
+        } else if(obj.event === 'del'){
+            layer.confirm('真的删除行么', function(index){
+                $.ajax({
+                    type:"DELETE",
+                    url:"/resource/picture",
+                    data: JSON.stringify({"id":data.pictureId}),
+                    contentType:"application/json",
+                    dataType:"json",
+                    success:function (result) {
+                        if(result.status==1){
+                            layer.msg("删除成功");
+                            obj.del();
+                            layer.close(index);
+                        }
+                    }});
+            });
+        } else if(obj.event === 'edit'){
+            $("#pictureId").attr("value",data.pictureId);
+            var index = layui.layer.open({
+                anim: 1,
+                title : "修改图片",
+                id:data.pictureId,
+                type : 2,
+                content : "pictureUpdate.html?",
+                success : function(layero, index){
+                    setTimeout(function(){
+                        layui.layer.tips('点击此处返回图片列表', '.layui-layer-setwin .layui-layer-close', {
+                            tips: 3
+                        });
+                    },500)
+                }
+            })
+            layui.layer.full(index);
+        }
+    });
 
 });

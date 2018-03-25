@@ -29,12 +29,13 @@
         SET  name=#{name},
         type_code=#{typeCode},
         img=#{img},
+        ENABLE_FLAG=#{enableFlag},
         resource_id=#{resourceId}
-        WHERE picture_id=#{id}
+        WHERE picture_id=#{pictureId}
     </update>
 
     <delete id="deletePicture" parameterType="int">
-        DELETE  FROM  lgw_picture WHERE WHERE picture_id=#{id}
+        DELETE  FROM  lgw_picture  WHERE picture_id=#{id}
     </delete>
 
     <select id="findById" resultType="Picture" parameterType="int">
@@ -81,10 +82,16 @@
     <sql id="queryCondition">
         <where>
             <if test="condition.name!=null and condition.name!=''">
-                AND name=#{condition.name}
+                AND   name LIKE  CONCAT('%',#{condition.name},'%')
             </if>
             <if test="condition.type!=null and condition.type!=''">
                 AND type_code=#{condition.type}
+            </if>
+            <if test="condition.startDate!=null and condition.startDate!=''">
+                AND  create_date &gt;=#{condition.startDate}
+            </if>
+            <if test="condition.endDate!=null and condition.endDate!=''">
+                AND  create_date &lt;=#{condition.endDate}
             </if>
         </where>
     </sql>

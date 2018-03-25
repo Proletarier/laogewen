@@ -28,6 +28,7 @@ public class PictureService {
     @Transactional
     public void savePicture(Picture picture) {
         try {
+            picture.setEnableFlag("Y");
             picture.setCreateDate(new Date());
             pictureDao.savePicture(picture);
         } catch (Exception e) {
@@ -38,8 +39,13 @@ public class PictureService {
 
     @Transactional
     public void updatePicture(Picture picture) {
+
+        Picture oldPicture=pictureDao.findById(picture.getPictureId());
+        oldPicture.setImg(picture.getImg());
+        oldPicture.setTypeCode(picture.getTypeCode());
+        oldPicture.setName(picture.getName());
         try {
-            pictureDao.updatePicture(picture);
+            pictureDao.updatePicture(oldPicture);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw ServiceException.create("PICTURE.UPDATE.FAIL");
@@ -60,8 +66,9 @@ public class PictureService {
     public Page<Picture> queryPicture(PictureCondition pictureCondition) {
         Page<Picture> page = null;
         try {
+            int count=pictureDao.countByPicture(pictureCondition);
             List<Picture> list = pictureDao.queryPicture(pictureCondition);
-            page = Page.<Picture>builder().data(list).build();
+            page = Page.<Picture>builder().data(list).total(count).build();
         } catch (Exception e) {
             log.error(e.getMessage());
             throw ServiceException.create("PICTURE.SEARCH.FAIL");

@@ -13,8 +13,24 @@
     <div class="layui-inline">
         <label class="layui-form-label">小说名称</label>
         <div class="layui-input-inline">
-            <input type="text" value="" placeholder="请输入电影名称" class="layui-input search_input">
+            <input type="text" value="" placeholder="请输入小说名称" class="layui-input search_input"
+                   id="title">
         </div>
+    </div>
+    <div class="layui-inline">
+        <form class="layui-form" action="">
+            <label class="layui-form-label">小说类型</label>
+            <div class="layui-input-inline">
+                <select id="novelType" lay-verify="required">
+                    <option value="JQWX">激情小说</option>
+                    <option value="LLWX">家庭乱伦</option>
+                    <option value="MXXY">明星校园</option>
+                    <option value="WXGD">武侠古典</option>
+                    <option value="HSXH">黄色笑话</option>
+                    <option value="XAJQ">性爱技巧</option>
+                </select>
+            </div>
+        </form>
     </div>
     <div class="layui-inline">
         <label class="layui-form-label">创建日期</label>
@@ -29,19 +45,10 @@
         <button class="layui-btn layui-btn-normal newsAdd_btn">
             <i class="layui-icon ">&#xe608;</i> 添加
         </button>
-        <button class="layui-btn">
-            <i class="layui-icon">&#xe62f;</i> 导入
-        </button>
-        <button class="layui-btn">
-            <i class="layui-icon">&#xe601;</i> 导出
-        </button>
-        <button class="layui-btn layui-btn-danger">
-            <i class="layui-icon">&#xe640;</i> 批量删除
-        </button>
     </div>
 </blockquote>
 <div class="layui-form">
-    <table id="movie"></table>
+    <table id="novel" lay-filter="novel"></table>
 </div>
 
 <script type="text/html" id="barDemo">
@@ -49,8 +56,10 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-<script type="text/html" id="switchTpl">
-    <input type="checkbox" name="sex" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="sexDemo" {{ d.id == 10003 ? 'checked' : '' }}>
+
+<script type="text/html" id="checkboxTpl">
+    <input type="checkbox" name="lock" value="{{d.novelId}}" title="锁定" lay-filter="lockDemo"
+           {{d.enableFlag== 'Y' ? 'checked' : '' }}>
 </script>
 <script type="text/javascript" src="../../layui/layui.js"></script>
 <script type="text/javascript" src="novel.js"></script>

@@ -19,7 +19,7 @@ public interface FilmRegexDao {
 
     FilmRegex findById(@Param("filmRegexId") Integer id);
 
-    List<FilmRegex> searchFilmRegex(@Param("filmCondition") FilmRegexCondition condition);
+    List<FilmRegex> searchFilmRegex(@Param("condition") FilmRegexCondition condition);
 
     int countByFilmRegex(@Param("filmCondition") FilmRegexCondition condition);
 

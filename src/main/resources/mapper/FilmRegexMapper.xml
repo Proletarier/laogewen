@@ -61,6 +61,7 @@
         SELECT
          <include refid="FilmRegexColumns"/>
         FROM  lgw_film_regex
+        <include refid="queryConditions"/>
         ORDER BY CREATION_DATE DESC
         limit #{condition.offset},#{condition.pageSize}
     </select>
@@ -68,5 +69,23 @@
     <select id="countByFilmRegex"  parameterType="FilmRegexCondition" resultType="int">
         SELECT COUNT(1)
         FROM lgw_film_regex
+        <include refid="queryConditions"/>
     </select>
+
+
+    <sql id="queryConditions">
+        <where>
+            <if test="condition.description!=null and condition.description!=''">
+                AND   description LIKE  CONCAT('%',#{condition.description},'%')
+            </if>
+            <if test="condition.startDate!=null and condition.startDate!=''">
+                AND  create_date &gt;=#{filmCondition.startDate}
+            </if>
+            <if test="condition.endDate!=null and condition.endDate!=''">
+                AND  create_date &lt;=#{filmCondition.endDate}
+            </if>
+        </where>
+    </sql>
+
+
 </mapper>

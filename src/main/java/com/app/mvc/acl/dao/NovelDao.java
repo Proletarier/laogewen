@@ -25,5 +25,5 @@ public interface NovelDao  {
 
     int countByNovel(@Param("condition") NovelCondition condition);
 
-    void deleteNovel(Integer novelId);
+    void deleteNovel(@Param("novelId") Integer novelId);
 }

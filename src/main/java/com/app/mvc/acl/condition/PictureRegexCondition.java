@@ -10,4 +10,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PictureRegexCondition extends PageQuery {
+
+    private String  description;
+
+    private String  startDate;
+
+    private String  endDate;
 }
