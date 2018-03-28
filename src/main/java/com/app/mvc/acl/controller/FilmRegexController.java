@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 /**
  * Created by Administrator on 2018/3/9.
  */
@@ -49,13 +51,13 @@ public class FilmRegexController {
     @RequestMapping(value = "search",method = RequestMethod.GET)
     public  JsonData searchFilmRegex(FilmRegexCondition condition){
         Page<FilmRegex> page=filmRegexService.searchFilmRregex(condition);
-        return  JsonData.success(page);
+        return  JsonData.success(page.getData(),page.getTotal());
     }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.DELETE)
-    public JsonData deleteFilmRegex(Integer id){
-        filmRegexService.deleteFilmRegex(id);
+    public JsonData deleteFilmRegex(@RequestBody Map<String,Integer> map){
+        filmRegexService.deleteFilmRegex(map.get("id"));
         return JsonData.success();
     }
 

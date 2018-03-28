@@ -27,7 +27,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         }
         ,cols: [[
             {type:'checkbox'}
-            ,{field: 'title', width:'30%',title: '小说名称', }
+            ,{field: 'title', width:'30.5%',title: '小说名称', }
             ,{field: 'typeCodeMeaning', width:'15%',title: '小说类型' }
             ,{field: 'createDate', width:'15%',title: '创建时间',templet: '<div>{{layui.util.toDateString(d.createDate,"yyyy-MM-dd") }}</div>'}
             ,{field: 'enableFlag', width:'14%',title:'是否启用', templet: '#checkboxTpl' ,align:'center' }

@@ -10,7 +10,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     table.render({
         skin: 'line' //行边框风格
         ,elem: '#movie'
-        ,id: 'filmId'
+        ,id: 'filmRegexId'
         ,height: 500
         ,url: '/resource/FilmRegex/search'
         ,page: true
@@ -27,11 +27,10 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         }
         ,cols: [[
             {type:'checkbox'}
-            ,{field: 'filmName', width:'20%',title: '电影名称', }
-            ,{field: 'codeValue', width:'15%',title: '电影类型' }
-            ,{field: 'createDate', width:'15%',title: '创建时间',templet: '<div>{{layui.util.toDateString(d.createDate,"yyyy-MM-dd") }}</div>'}
-            ,{field: 'clickAmount', width:'10%',title: '点击数量' , align:'center'}
-            ,{field: 'enableFlag', width:'14%',title:'是否启用', templet: '#checkboxTpl' ,align:'center' }
+            ,{field: 'titleRegex', width:'19.5%',title: '标题', }
+            ,{field: 'typeRegex', width:'20%',title: '类型' }
+            ,{field: 'description', width:'20%',title: '描述' }
+            ,{field: 'creationDate', width:'15%',title: '创建时间',templet: '<div>{{layui.util.toDateString(d.createDate,"yyyy-MM-dd") }}</div>'}
             ,{fixed: 'right' ,width:'20%', toolbar: '#barDemo'}
         ]]
     });
@@ -48,12 +47,12 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
 
         $(".newsAdd_btn").click(function(){
             var index = layui.layer.open({
-                title : "添加电影",
+                title : "添加正则",
                 type : 2,
-                content : "movieAdd.html",
+                content : "movieRegxAdd.html",
                 success : function(layero, index){
                     setTimeout(function(){
-                        layui.layer.tips('点击此处返回电影列表', '.layui-layer-setwin .layui-layer-close', {
+                        layui.layer.tips('点击此处返回正则列表', '.layui-layer-setwin .layui-layer-close', {
                             tips: 3
                         });
                     },500)
@@ -68,13 +67,13 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     table.on('tool(vod)', function(obj){
         var data = obj.data;
         if(obj.event === 'detail'){
-            layer.msg('ID：'+ data.filmId + ' 的查看操作');
+            layer.msg('ID：'+ data.filmRegexId + ' 的查看操作');
         } else if(obj.event === 'del'){
             layer.confirm('真的删除行么', function(index){
                 $.ajax({
                     type:"DELETE",
-                    url:"/resource/film",
-                    data: JSON.stringify({"id":data.filmId}),
+                    url:"/resource/FilmRegex",
+                    data: JSON.stringify({"id":data.filmRegexId}),
                     contentType:"application/json",
                     dataType:"json",
                     success:function (result) {
@@ -86,16 +85,16 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
                     }});
             });
         } else if(obj.event === 'edit'){
-            $("#filmId").attr("value",data.filmId);
+            $("#filmRegexId").attr("value",data.filmRegexId);
             var index = layui.layer.open({
                 anim: 1,
-                title : "修改电影",
+                title : "修改正则",
                 id:data.filmId,
                 type : 2,
-                content : "movieUpdate.html?",
+                content : "movieRegxUpdate.html?",
                 success : function(layero, index){
                     setTimeout(function(){
-                        layui.layer.tips('点击此处返回电影列表', '.layui-layer-setwin .layui-layer-close', {
+                        layui.layer.tips('点击此处返回电影正则列表', '.layui-layer-setwin .layui-layer-close', {
                             tips: 3
                         });
                     },500)
@@ -111,8 +110,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
 
 
         var date=$("#createDate").val();
-        var filmName=$("#filmName").val();
-        var filmType=$("#filmType option:selected").val();
+        var description=$("#description").val();
         var startDate;
         var endDate;
         if(date.trim()!=""){
@@ -121,10 +119,9 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         }
 
         //执行重载
-        table.reload('filmId', {
+        table.reload('filmRegexId', {
             where: {
-                filmName:filmName,
-                filmType:filmType,
+                description:description,
                 startDate:startDate,
                 endDate:endDate
             }

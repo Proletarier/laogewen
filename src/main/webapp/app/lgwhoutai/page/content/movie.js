@@ -27,7 +27,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         }
         ,cols: [[
              {type:'checkbox'}
-            ,{field: 'filmName', width:'20%',title: '电影名称', }
+            ,{field: 'filmName', width:'20.5%',title: '电影名称', }
             ,{field: 'codeValue', width:'15%',title: '电影类型' }
             ,{field: 'createDate', width:'15%',title: '创建时间',templet: '<div>{{layui.util.toDateString(d.createDate,"yyyy-MM-dd") }}</div>'}
             ,{field: 'clickAmount', width:'10%',title: '点击数量' , align:'center'}

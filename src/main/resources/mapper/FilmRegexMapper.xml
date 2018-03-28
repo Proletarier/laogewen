@@ -16,16 +16,16 @@
        ed2k_regex AS ed2kRegex,
        qqdl_regex AS qqdlRegex,
        flashget_regex AS flashgetRegex,
-       THUNDER_REGEX as tunderRegex,
+       THUNDER_REGEX as thunderRegex,
        description,
-       CREATION_DATE AS creationDate
+       CREATE_DATE AS createDate
     </sql>
 
     <insert id="saveFilmRegex" parameterType="FilmRegex"  useGeneratedKeys="true" keyProperty="filmRegexId">
         INSERT INTO lgw_film_regex(TITLE_REGEX,TYPE_REGEX,TITLE_IMG_REGEX,CONTENT_IMG_REGEX,XFPLAY_REGEX,HTTP_REGEX,ED2K_REGEX,QQDL_REGEX
-        ,FLASHGET_REGEX,THUNDER_REGEX,DESCRIPTION,CREATION_DATE)
+        ,FLASHGET_REGEX,THUNDER_REGEX,DESCRIPTION,CREATE_DATE)
         VALUES (#{titleRegex},#{typeRegex},#{titleImgRegex},#{contentImgRegex},#{xfplayRegex},#{httpRegex},#{ed2kRegex},#{qqdlRegex}
-        ,#{flashgetRegex},,#{tunderRegex},#{description},#{creationDate})
+        ,#{flashgetRegex},#{thunderRegex},#{description},#{createDate})
         <selectKey resultType="int" keyProperty="filmRegexId">
             SELECT  LAST_INSERT_ID() as filmRegexId
         </selectKey>
@@ -42,7 +42,7 @@
         ,ED2K_REGEX=#{ed2kRegex}
         ,QQDL_REGEX=#{qqdlRegex}
         ,FLASHGET_REGEX=#{flashgetRegex}
-        ,THUNDER_REGEX=#{tunderRegex}
+        ,THUNDER_REGEX=#{thunderRegex}
         ,description=#{description}
         WHERE FILM_REGEX_ID=#{filmRegexId}
     </update>
@@ -54,6 +54,7 @@
     <select id="findById" parameterType="int" resultType="FilmRegex">
         SELECT
         <include refid="FilmRegexColumns"/>
+        FROM lgw_film_regex
         WHERE FILM_REGEX_ID=#{filmRegexId}
     </select>
 
@@ -62,7 +63,7 @@
          <include refid="FilmRegexColumns"/>
         FROM  lgw_film_regex
         <include refid="queryConditions"/>
-        ORDER BY CREATION_DATE DESC
+        ORDER BY CREATE_DATE DESC
         limit #{condition.offset},#{condition.pageSize}
     </select>
 
@@ -79,10 +80,10 @@
                 AND   description LIKE  CONCAT('%',#{condition.description},'%')
             </if>
             <if test="condition.startDate!=null and condition.startDate!=''">
-                AND  create_date &gt;=#{filmCondition.startDate}
+                AND  create_date &gt;=#{condition.startDate}
             </if>
             <if test="condition.endDate!=null and condition.endDate!=''">
-                AND  create_date &lt;=#{filmCondition.endDate}
+                AND  create_date &lt;=#{condition.endDate}
             </if>
         </where>
     </sql>

@@ -35,7 +35,9 @@ public class FilmRegex implements java.io.Serializable{
 
     private String flashgetRegex;
 
+    private String thunderRegex;
+
     private String description;
 
-    private Date creationDate;
+    private Date createDate;
 }

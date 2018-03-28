@@ -25,7 +25,7 @@ public class FilmRegexService {
 
     @Transactional
     public  void  saveFilmRegex(FilmRegex regex){
-        regex.setCreationDate(new Date());
+        regex.setCreateDate(new Date());
         try{
             regexDao.saveFilmRegex(regex);
         }catch (Exception e){
@@ -43,10 +43,11 @@ public class FilmRegexService {
       oldRegex.setDescription(regex.getDescription());
       oldRegex.setFlashgetRegex(regex.getFlashgetRegex());
       oldRegex.setEd2kRegex(regex.getEd2kRegex());
-      oldRegex.setQqdlRegex(regex.getQqdlRegex());
       oldRegex.setTitleImgRegex(regex.getTitleImgRegex());
       oldRegex.setTitleRegex(regex.getTitleRegex());
       oldRegex.setTypeRegex(regex.getTypeRegex());
+      oldRegex.setQqdlRegex(regex.getQqdlRegex());
+      oldRegex.setThunderRegex(regex.getThunderRegex());
         try{
             regexDao.updateFilmRegex(oldRegex);
         }catch (Exception e){
@@ -70,10 +71,9 @@ public class FilmRegexService {
         Page<FilmRegex> regexPage=null;
         try{
             int count=regexDao.countByFilmRegex(condition);
-            if(count>0){
-                List<FilmRegex> list=regexDao.searchFilmRegex(condition);
-                regexPage=Page.<FilmRegex>builder().total(count).pageNum(condition.getPageNum()).data(list).build();
-            }
+            List<FilmRegex> list=regexDao.searchFilmRegex(condition);
+            regexPage=Page.<FilmRegex>builder().total(count).pageNum(condition.getPageNum()).data(list).build();
+
         }catch (Exception e){
             log.error(e.getMessage());
             throw ServiceException.create("REGEX.SEARCH.FALL");
