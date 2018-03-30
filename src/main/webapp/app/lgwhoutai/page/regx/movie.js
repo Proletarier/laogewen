@@ -30,7 +30,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
             ,{field: 'titleRegex', width:'19.5%',title: '标题', }
             ,{field: 'typeRegex', width:'20%',title: '类型' }
             ,{field: 'description', width:'20%',title: '描述' }
-            ,{field: 'creationDate', width:'15%',title: '创建时间',templet: '<div>{{layui.util.toDateString(d.createDate,"yyyy-MM-dd") }}</div>'}
+            ,{field: 'createDate', width:'15%',title: '创建时间',templet: '<div>{{layui.util.toDateString(d.createDate,"yyyy-MM-dd") }}</div>'}
             ,{fixed: 'right' ,width:'20%', toolbar: '#barDemo'}
         ]]
     });

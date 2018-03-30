@@ -12,71 +12,44 @@
 <body class="childrenBody">
 <form class="layui-form">
     <div class="layui-form-item">
-        <label class="layui-form-label">电影名称</label>
+        <input  name="novelRegexId" hidden="hidden" >
+        <label class="layui-form-label">小说标题</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input newsName" lay-verify="required" placeholder="请输入电影名称">
+            <input type="text" name="titleRegex" class="layui-input " lay-verify="required" placeholder="请输入小说正则">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">电影类型</label>
-        <div class="layui-input-inline">
-            <select name="browseLook" class="newsLook" lay-filter="browseLook">
-                <option value="0">亚洲</option>
-                <option value="1">欧美</option>
-                <option value="1">偷拍</option>
-            </select>
+        <label class="layui-form-label">小说类型</label>
+        <div class="layui-input-block">
+            <input type="text" name="typeRegex" class="layui-input " lay-verify="required" placeholder="请输入小说类型正则">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">标题地址</label>
+        <label class="layui-form-label">小说内容</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" placeholder="请输入图片标题地址">
+            <input type="text" name="contentRegex" class="layui-input" placeholder="请输入小说内容正则">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">内容地址</label>
+        <label class="layui-form-label">页数</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入图片内容地址" class="layui-textarea"></textarea>
+            <input type="text" name="indexRegex" class="layui-input" placeholder="请输入页数正则">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">先锋影音</label>
+        <label class="layui-form-label">描述</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" placeholder="请输入先锋影音下载链接">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">HTTP</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" placeholder="请输入HTTP下载链接">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">旋风下载</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" placeholder="请输入旋风下载链接">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">快车下载</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" placeholder="请输入快车下载链接">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">迅雷下载</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" placeholder="请输入迅雷下载链接">
+            <input type="text" name="description" class="layui-input" placeholder="请输入描述">
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="addNews">立即提交</button>
+            <button class="layui-btn" lay-submit="" lay-filter="updateNovel">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
 <script type="text/javascript" src="../../layui/layui.js"></script>
-<script type="text/javascript" src="movieAdd.js"></script>
+<script type="text/javascript" src="movieRegxAdd.js"></script>
 </body>
 </html>

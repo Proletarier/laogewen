@@ -12,12 +12,12 @@
         CONTENT_REGEX as contentRegex,
         INDEX_REGEX as indexRegex,
         DESCRIPTION,
-        CREATION_DATE as creationDate,
+        create_date as createDate,
     </sql>
 
     <insert id="saveNovelRegex" parameterType="NovelRegex"  useGeneratedKeys="true" keyColumn="novelRegexId" >
         INSERT  INTO  lgw_novel_regex(TITLE_REGEX,TITLE_REGEX,TYPE_REGEX,CONTENT_REGEX,INDEX_REGEX,DESCRIPTION,CREATION_DATE)
-        VALUES(#{titleRegex},#{typeRegex},#{contentRegex},#{indexRegex},#{description},#{creationDate})
+        VALUES(#{titleRegex},#{typeRegex},#{contentRegex},#{indexRegex},#{description},#{createDate})
         <selectKey resultType="int" order="AFTER" keyProperty="novelRegexId">
             SELECT  LAST_INSERT_ID() AS novelRegexId
         </selectKey>
@@ -65,10 +65,10 @@
                 AND   description LIKE  CONCAT('%',#{condition.description},'%')
             </if>
             <if test="condition.startDate!=null and condition.startDate!=''">
-                AND  create_date &gt;=#{filmCondition.startDate}
+                AND  create_date &gt;=#{condition.startDate}
             </if>
             <if test="condition.endDate!=null and condition.endDate!=''">
-                AND  create_date &lt;=#{filmCondition.endDate}
+                AND  create_date &lt;=#{condition.endDate}
             </if>
         </where>
     </sql>

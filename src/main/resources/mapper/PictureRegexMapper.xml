@@ -11,12 +11,12 @@
          TYPE_REGEX as typeRegex,
          IMG_REGEX as imgRegex,
          DESCRIPTION,
-         CREATION_DATE as creationDate
+         create_date as createDate
      </sql>
 
     <insert id="savePictureRegex" parameterType="PictureRegex" useGeneratedKeys="true" keyColumn="pictureRegexId">
-        INSERT INTO lgw_picture_regex(NAME_REGEX,TYPE_REGEX,IMG_REGEX,DESCRIPTION,CREATION_DATE)
-        VALUES (#{nameRegex},#{typeRegex},#{imgRegex},#{description},#{creationDate})
+        INSERT INTO lgw_picture_regex(NAME_REGEX,TYPE_REGEX,IMG_REGEX,DESCRIPTION,create_date)
+        VALUES (#{nameRegex},#{typeRegex},#{imgRegex},#{description},#{createDate})
         <selectKey  resultType="int" order="AFTER" keyProperty="pictureRegexId">
             SELECT  LAST_INSERT_ID() as pictureRegexId
         </selectKey>
@@ -64,10 +64,10 @@
                 AND   description LIKE  CONCAT('%',#{condition.description},'%')
             </if>
             <if test="condition.startDate!=null and condition.startDate!=''">
-                AND  create_date &gt;=#{filmCondition.startDate}
+                AND  create_date &gt;=#{condition.startDate}
             </if>
             <if test="condition.endDate!=null and condition.endDate!=''">
-                AND  create_date &lt;=#{filmCondition.endDate}
+                AND  create_date &lt;=#{condition.endDate}
             </if>
         </where>
     </sql>

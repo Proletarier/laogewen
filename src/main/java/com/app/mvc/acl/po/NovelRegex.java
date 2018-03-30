@@ -27,5 +27,5 @@ public class NovelRegex implements java.io.Serializable{
 
     private String description;
 
-    private Date creationDate;
+    private Date createDate;
 }

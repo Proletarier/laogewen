@@ -36,8 +36,13 @@ public class PictureRegexService {
 
     @Transactional
     public  void  updatePictureRegex(PictureRegex regex){
+         PictureRegex  oldRegex=regexDao.findById(regex.getPictureRegexId());
+         oldRegex.setDescription(regex.getDescription());
+         oldRegex.setImgRegex(regex.getImgRegex());
+         oldRegex.setNameRegex(regex.getNameRegex());
+         oldRegex.setTypeRegex(regex.getTypeRegex());
         try{
-            regexDao.updatePictureRegex(regex);
+            regexDao.updatePictureRegex(oldRegex);
         }catch (Exception e){
             log.error(e.getMessage());
             throw ServiceException.create("REGEX.UPDATE.FALL");

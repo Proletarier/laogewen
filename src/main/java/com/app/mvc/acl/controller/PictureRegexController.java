@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 /**
  * Created by Administrator on 2018/3/10.
  */
@@ -50,14 +52,14 @@ public class PictureRegexController {
     @RequestMapping(value = "search",method =RequestMethod.GET)
     public  JsonData searchPictureRegex(PictureRegexCondition condition){
         Page<PictureRegex> page=regexService.searchPictureRegex(condition);
-        return  JsonData.success(page);
+        return  JsonData.success(page.getData(),page.getTotal());
     }
 
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.DELETE)
-    public JsonData deletePictureRegex(Integer id){
-        regexService.deletePictureRegex(id);
+    public JsonData deletePictureRegex(@RequestBody Map<String,String> map){
+        regexService.deletePictureRegex(Integer.valueOf(map.get("id")));
         return JsonData.success();
     }
 
