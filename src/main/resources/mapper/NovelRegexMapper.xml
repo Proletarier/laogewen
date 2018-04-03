@@ -12,11 +12,11 @@
         CONTENT_REGEX as contentRegex,
         INDEX_REGEX as indexRegex,
         DESCRIPTION,
-        create_date as createDate,
+        create_date as createDate
     </sql>
 
     <insert id="saveNovelRegex" parameterType="NovelRegex"  useGeneratedKeys="true" keyColumn="novelRegexId" >
-        INSERT  INTO  lgw_novel_regex(TITLE_REGEX,TITLE_REGEX,TYPE_REGEX,CONTENT_REGEX,INDEX_REGEX,DESCRIPTION,CREATION_DATE)
+        INSERT  INTO  lgw_novel_regex(TITLE_REGEX,TYPE_REGEX,CONTENT_REGEX,INDEX_REGEX,DESCRIPTION,create_date)
         VALUES(#{titleRegex},#{typeRegex},#{contentRegex},#{indexRegex},#{description},#{createDate})
         <selectKey resultType="int" order="AFTER" keyProperty="novelRegexId">
             SELECT  LAST_INSERT_ID() AS novelRegexId
@@ -49,7 +49,7 @@
         <include refid="novelRegexColumns"/>
         FROM lgw_novel_regex
         <include refid="queryConditions"/>
-        ORDER BY CREATION_DATE DESC
+        ORDER BY create_date DESC
         limit #{condition.offset},#{condition.pageSize}
     </select>
 

@@ -26,14 +26,14 @@ public class PictureRegexController {
 
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public JsonData savePictureRegex(@RequestBody PictureRegex regex){
          regexService.savePictureRegex(regex);
          return  JsonData.success(regex);
     }
 
     @ResponseBody
-    @RequestMapping(method =   RequestMethod.POST)
+    @RequestMapping(method =   RequestMethod.PUT)
     public  JsonData updatePictureRegex(@RequestBody PictureRegex regex){
         regexService.updatePictureRegex(regex);
         return  JsonData.success(regex);

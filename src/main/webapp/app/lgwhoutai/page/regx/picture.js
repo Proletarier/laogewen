@@ -64,7 +64,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
 
 
     //监听工具条
-    table.on('tool(vod)', function(obj){
+    table.on('tool(pic)', function(obj){
         var data = obj.data;
         if(obj.event === 'detail'){
             layer.msg('ID：'+ data.pictureRegexId + ' 的查看操作');
@@ -85,11 +85,11 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
                     }});
             });
         } else if(obj.event === 'edit'){
-            $("#filmRegexId").attr("value",data.pictureRegexId);
+            $("#pictureRegexId").attr("value",data.pictureRegexId);
             var index = layui.layer.open({
                 anim: 1,
                 title : "修改正则",
-                id:data.filmId,
+                id:data.pictureRegexId,
                 type : 2,
                 content : "pictureRegxUpdate.html?",
                 success : function(layero, index){
@@ -119,7 +119,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         }
 
         //执行重载
-        table.reload('novelRegexId', {
+        table.reload('pictureRegexId', {
             where: {
                 description:description,
                 startDate:startDate,

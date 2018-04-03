@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public class NovelRegexService {
 
     @Transactional
     public  void  saveNovelRegex(NovelRegex regex){
+        regex.setCreateDate(new Date());
         try{
             regexDao.saveNovelRegex(regex);
         }catch (Exception e){
@@ -35,8 +37,14 @@ public class NovelRegexService {
 
     @Transactional
     public  void updateNovelRegex(NovelRegex regex){
+       NovelRegex oldRegex=regexDao.findById(regex.getNovelRegexId());
+       oldRegex.setTypeRegex(regex.getTypeRegex());
+       oldRegex.setTitleRegex(regex.getTitleRegex());
+       oldRegex.setContentRegex(regex.getContentRegex());
+       oldRegex.setDescription(regex.getDescription());
+       oldRegex.setIndexRegex(regex.getIndexRegex());
         try{
-            regexDao.updateNovelRegex(regex);
+            regexDao.updateNovelRegex(oldRegex);
         }catch (Exception e){
             log.error(e.getMessage());
             throw ServiceException.create("REGEX.UPDATE.FAIL");
@@ -58,10 +66,8 @@ public class NovelRegexService {
         Page<NovelRegex> novelRegexPage=null;
         try{
             int count=regexDao.countByNovelRegex(condition);
-            if(count>0){
-                List<NovelRegex> list=regexDao.searchNovelRegex(condition);
-                novelRegexPage=Page.<NovelRegex>builder().total(count).pageNum(condition.getPageNum()).data(list).build();
-            }
+            List<NovelRegex> list=regexDao.searchNovelRegex(condition);
+            novelRegexPage=Page.<NovelRegex>builder().total(count).pageNum(condition.getPageNum()).data(list).build();
         }catch (Exception e){
             log.error(e.getMessage());
             throw ServiceException.create("REGEX.SEARCH.FALL");

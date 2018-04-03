@@ -12,10 +12,11 @@ layui.config({
     layer.ready(function(){
         $.get("/resource/NovelRegex",{id:parent.$("#novelRegexId").val()},function(data,status,xhr){
             if(status=="success"){
+                $('input[name=novelRegexId]').attr('value',data.data.novelRegexId);
                 $('input[name=titleRegex]').attr('value',data.data.titleRegex);
                 $('input[name=typeRegex]').attr('value',data.data.typeRegex);
                 $('input[name=contentRegex]').attr('value',data.data.contentRegex);
-                $('input[name=indexRegex]').attr('value',data.data.xfplayRegex);
+                $('input[name=indexRegex]').attr('value',data.data.indexRegex);
                 $('textarea[name=description]').val(data.data.description);
             }
         });

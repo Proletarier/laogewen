@@ -1,12 +1,10 @@
 package com.app.mvc.acl.controller;
 
-import com.app.mvc.acl.condition.NovelCondition;
 import com.app.mvc.acl.condition.NovelRegexCondition;
 import com.app.mvc.acl.po.NovelRegex;
 import com.app.mvc.acl.service.NovelRegexService;
 import com.app.mvc.beans.JsonData;
 import com.app.mvc.beans.Page;
-import org.dom4j.dom.DOMText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +25,7 @@ public class NovelRegexController {
     NovelRegexService novelRegexService;
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public JsonData saveNovelRegex(@RequestBody NovelRegex regex){
          novelRegexService.saveNovelRegex(regex);
          return  JsonData.success(regex);
@@ -35,7 +33,7 @@ public class NovelRegexController {
 
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.PUT)
     public JsonData updateNovelRegex(@RequestBody NovelRegex regex){
         novelRegexService.updateNovelRegex(regex);
         return  JsonData.success(regex);

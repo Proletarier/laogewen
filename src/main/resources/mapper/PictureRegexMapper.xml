@@ -48,7 +48,7 @@
         <include refid="pictureRegexColumns"/>
         FROM lgw_picture_regex
         <include refid="queryConditions"/>
-        ORDER BY CREATION_DATE DESC
+        ORDER BY create_date DESC
         limit #{condition.offset},#{condition.pageSize}
     </select>
 

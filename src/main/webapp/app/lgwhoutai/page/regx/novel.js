@@ -9,7 +9,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
 
     table.render({
         skin: 'line' //行边框风格
-        ,elem: '#novie'
+        ,elem: '#novel'
         ,id: 'novelRegexId'
         ,height: 500
         ,url: '/resource/NovelRegex/search'
@@ -85,13 +85,13 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
                     }});
             });
         } else if(obj.event === 'edit'){
-            $("#filmRegexId").attr("value",data.novelRegexId);
+            $("#novelRegexId").attr("value",data.novelRegexId);
             var index = layui.layer.open({
                 anim: 1,
                 title : "修改正则",
-                id:data.filmId,
+                id:data.novelRegexId,
                 type : 2,
-                content : "novelRegxUpdate.html?",
+                content : "novelRegxUpdate.html",
                 success : function(layero, index){
                     setTimeout(function(){
                         layui.layer.tips('点击此处返回电影正则列表', '.layui-layer-setwin .layui-layer-close', {

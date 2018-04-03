@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +27,7 @@ public class PictureRegexService {
 
     @Transactional
     public  void savePictureRegex(PictureRegex regex){
+        regex.setCreateDate(new Date());
         try{
             regexDao.savePictureRegex(regex);
         }catch (Exception e){
@@ -64,10 +66,9 @@ public class PictureRegexService {
         Page<PictureRegex> regexPage=null;
         try{
             int count=regexDao.countByPictureRegex(condition);
-            if(count>0){
-                List<PictureRegex> list=regexDao.searchPictureRegex(condition);
-                regexPage=Page.<PictureRegex>builder().total(count).pageNum(condition.getPageNum()).data(list).build();
-            }
+            List<PictureRegex> list=regexDao.searchPictureRegex(condition);
+            regexPage=Page.<PictureRegex>builder().total(count).pageNum(condition.getPageNum()).data(list).build();
+
         }catch (Exception e){
             log.error(e.getMessage());
             throw ServiceException.create("REGEX.SEARCH.FALL");

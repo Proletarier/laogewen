@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
-    <title>图片列表--老哥稳后台管理系统</title>
+    <title>小说列表--老哥稳后台管理系统</title>
     <link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
     <link rel="stylesheet" href="../../css/content.css" media="all" />
@@ -11,31 +11,20 @@
 <body class="childrenBody ">
 <blockquote class="layui-elem-quote news_search">
     <div class="layui-inline">
-        <label class="layui-form-label">标题名称</label>
         <div class="layui-input-inline">
-            <input type="text" value="" placeholder="请输入标题名称" class="layui-input search_input">
+            <input type="text" value="" placeholder="请输入电影名称" class="layui-input search_input">
         </div>
-    </div>
-    <div class="layui-inline">
-    </div>
-    <div class="layui-inline">
-        <label class="layui-form-label">创建日期</label>
-        <div class="layui-input-inline">
-            <input type="text" class="layui-input" id="createDate" placeholder=" - ">
-        </div>
-    </div>
-    <div class="layui-inline">
         <a class="layui-btn search_btn">查询</a>
     </div>
     <div class="layui-inline menu_tool">
         <button class="layui-btn layui-btn-normal newsAdd_btn">
-            <i class="layui-icon ">&#xe608;</i> 添加
+            <i class="layui-icon ">&#xe608;</i> 开始爬取
         </button>
         <button class="layui-btn">
-            <i class="layui-icon">&#xe62f;</i> 导入
+            <i class="layui-icon">&#xe62f;</i> 同步到图片
         </button>
         <button class="layui-btn">
-            <i class="layui-icon">&#xe601;</i> 导出
+            <i class="layui-icon">&#xe601;</i> 检查重复
         </button>
         <button class="layui-btn layui-btn-danger">
             <i class="layui-icon">&#xe640;</i> 批量删除
@@ -52,9 +41,9 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script type="text/html" id="switchTpl">
-    <input type="checkbox" name="sex" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="sexDemo" {{ d.id == 10003?'checked' : '' }}>
+    <input type="checkbox" name="sex" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="sexDemo" {{ d.id == 10003 ? 'checked' : '' }}>
 </script>
 <script type="text/javascript" src="../../layui/layui.js"></script>
-<script type="text/javascript" src="picture.js"></script>
+<script type="text/javascript" src="novel.js"></script>
 </body>
 </html>
