@@ -25,9 +25,8 @@ public class Spider {
         SpiderQueue spiderQueue = new SpiderQueue();
         initCreawlerWithSeds(seeds, spiderQueue);
         while (!spiderQueue.unVisitedUrisEmpty() && lists.size() <= size) {
-            System.out.println(lists.size());
             String visitUrl = spiderQueue.unVisitedUrlDeQueue();
-            if (visitUrl == null) {
+            if (visitUrl == null || spiderQueue.mightContain(visitUrl)) {
                 continue;
             }
             Object object = saveSpider(visitUrl, c);
@@ -42,7 +41,6 @@ public class Spider {
                 spiderQueue.addUnVisitedUrl(link);
             }
         }
-        spiderQueue.flush();
     }
 
 
@@ -73,7 +71,7 @@ public class Spider {
 //                "https://8888av.co/list/5.html",
 //                "https://8888av.co/list/6.html",
 //                "https://8888av.co/list/7.html",
-//                "https://8888av.co/list/8.html",}, SpiderFilm.class);
+//                "https://8888av.co/list/8.html",}, SpiderFilmDao.class);
         //crawler.crewling(new String[]{"https://333av.vip/html/article/jiqing/index.html"}, SpiderNovel.class, filter, "https://333av.vip/html/article/jiqing/");
     }
 

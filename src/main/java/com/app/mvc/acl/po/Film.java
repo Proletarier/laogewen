@@ -52,4 +52,7 @@ public class Film  implements java.io.Serializable{
     private String createdBy;
     private String enableFlag;
 
+    private String url;
+    private String md5;
+
 }

@@ -31,8 +31,7 @@ public class SpiderQueue extends SpiderBloom {
     }
 
     public void addUnVisitedUrl(String url) {
-        if (url != null && !url.trim().equals("") &&
-                !mightContain(url) && !unVisitedUrl.contians(url) && !containsUrl(url)) {
+        if (url != null && !url.trim().equals("") && !mightContain(url) && !unVisitedUrl.contians(url) && !containsUrl(url)) {
             unVisitedUrl.enQueue(url);
         }
     }
@@ -60,12 +59,16 @@ public class SpiderQueue extends SpiderBloom {
 
     private String processingUrl(String url) {
         Pattern pattern = Pattern.compile(RegexConfig.URL_REGEX);
-        Matcher matcher= pattern.matcher(url);
-        if(matcher.find()){
-            String removeUrl= matcher.group();
-            return DigestUtils.md5Hex(SignUtil.getContentBytes(url.replaceAll(removeUrl,""),"UTF-8"));
-        }else {
-           throw ServiceException.create("error");
+        Matcher matcher = pattern.matcher(url);
+        if (matcher.find()) {
+            String removeUrl = matcher.group();
+            String newUrl = url.replaceAll(removeUrl, "");
+            if (newUrl.contains("#")) {
+                newUrl = newUrl.split("#")[0];
+            }
+            return DigestUtils.md5Hex(SignUtil.getContentBytes(newUrl, "UTF-8"));
+        } else {
+            throw ServiceException.create("error");
         }
 
     }

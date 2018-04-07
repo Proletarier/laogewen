@@ -42,6 +42,8 @@ public class SpiderFilm {
             film.setImg(listString.toArray(new String[listString.size()]));
             film.setContentImg(Joiner.on(";").join(film.getImg()));
 
+            film.setMd5("");
+            film.setUrl("");
             for (UtilConfig.FilmType type : UtilConfig.FilmType.values()) {
                 if (type.getValue().equals(film.getFilmType()))
                     film.setFilmType(type.name());
@@ -63,10 +65,17 @@ public class SpiderFilm {
         Pattern pattern = Pattern.compile("vod");
         Matcher matcher = pattern.matcher(url);
         if (matcher.find()) {
-            return true;
+            pattern = Pattern.compile("play");
+            matcher = pattern.matcher(url);
+            if (matcher.find()) {
+                return false;
+            } else {
+                return true;
+            }
         } else {
             return false;
         }
+
     }
 
     @Override

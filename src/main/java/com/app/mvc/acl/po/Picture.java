@@ -43,6 +43,9 @@ public class Picture implements java.io.Serializable{
 
     private String resourceMeaning;
 
+    private String url;
+    private String md5;
+
 
 }
 

@@ -43,4 +43,8 @@ public class Novel implements java.io.Serializable {
     //下一页
     private Novel downPage;
 
+
+    private String url;
+    private String md5;
+
 }

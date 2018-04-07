@@ -32,11 +32,6 @@ public class SpiderBloom {
         }
     }
 
-    public void  flush(){
-        ehCacheCache.put("Bloom", bloomFilter);
-    }
-
-
     public void addVisitedUrl(String url) {
         bloomFilter.put(url);
     }

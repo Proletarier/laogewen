@@ -28,6 +28,7 @@
         <typeAlias alias="PictureRegex" type="com.app.mvc.acl.po.PictureRegex"/>
         <typeAlias alias="LookValue" type="com.app.mvc.acl.po.LookValue"/>
         <typeAlias alias="User" type="com.app.mvc.acl.po.User"/>
+        <typeAlias alias="SpiderData" type="com.app.mvc.acl.po.SpiderData"/>
         <!-- condition -->
         <typeAlias alias="FilmCondition" type="com.app.mvc.acl.condition.FilmCondition"/>
         <typeAlias alias="PictureCondition" type="com.app.mvc.acl.condition.PictureCondition"/>
@@ -37,6 +38,7 @@
         <typeAlias alias="NovelRegexCondition" type="com.app.mvc.acl.condition.NovelRegexCondition"/>
         <typeAlias alias="LookValueCondition" type="com.app.mvc.acl.condition.LookValueCondition"/>
         <typeAlias alias="UserCondition" type="com.app.mvc.acl.condition.UserCondition"/>
+        <typeAlias alias="SpiderCondition" type="com.app.mvc.acl.condition.SpiderCondition"/>
     </typeAliases>
 
 </configuration>

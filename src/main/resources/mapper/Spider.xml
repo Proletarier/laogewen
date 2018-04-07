@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.mvc.acl.dao.SpiderDao">
+
+    <sql id="spiderColumns">
+        SPIDER_ID as spiderId,
+        SPIDER_URL as spiderUrl,
+        SPIDER_MD5 as spiderMd5,
+        SPIDER_LOCATION as spiderLocation,
+        SPIDER_TYPE as spiderType,
+        CREATE_DATE as createDate
+   </sql>
+
+    <insert id="insertSpider" parameterType="SpiderData"  useGeneratedKeys="true" keyColumn="spiderId">
+        INSERT INTO lgw_user(SPIDER_URL,SPIDER_MD5,SPIDER_LOCATION,SPIDER_TYPE,CREATE_DATE)
+        VALUES (#{spiderUrl},#{spiderMd5},#{encryptedUserPassword},#{spiderLocation},#{spiderType},#{createDate})
+        <selectKey resultType="int" order="AFTER" keyProperty="spiderId">
+            SELECT  LAST_INSERT_ID() as spiderId
+        </selectKey>
+    </insert>
+
+
+    <select id="searchSpider" resultType="String" parameterType="SpiderCondition">
+        SELECT
+        SPIDER_MD5
+        FROM  lgw_user
+        <include refid="queryConditions"/>
+        ORDER BY CREATE_DATE DESC
+    </select>
+
+
+    <sql id="queryConditions">
+        <where>
+            <if test="condition.spiderType!=null and condition.spiderType!=''">
+                 AND SPIDER_TYPE = #{condition.spiderType}
+            </if>
+            <if test="condition.spiderLocation!=null and condition.spiderLocation!=''">
+                 AND SPIDER_LOCATION = #{condition.spiderType}
+            </if>
+        </where>
+    </sql>
+</mapper>
