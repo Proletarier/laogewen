@@ -1,22 +1,28 @@
 package com.app.mvc.acl.service;
 
+import com.app.mvc.acl.condition.FilmCondition;
+import com.app.mvc.acl.condition.SpiderCondition;
 import com.app.mvc.acl.config.UtilConfig;
+import com.app.mvc.acl.dao.SpiderDao;
 import com.app.mvc.acl.dao.SpiderFilmDao;
 import com.app.mvc.acl.dao.SpiderNovelDao;
 import com.app.mvc.acl.dao.SpiderPicDao;
 import com.app.mvc.acl.po.Film;
 import com.app.mvc.acl.po.Novel;
 import com.app.mvc.acl.po.Picture;
+import com.app.mvc.acl.po.SpiderData;
 import com.app.mvc.cache.EhCacheCacheImpl;
 import com.app.mvc.common.LinkFilter;
 import com.app.mvc.exception.ServiceException;
 import com.app.mvc.spider.Spider;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by wenheng on 2018/1/6.
@@ -49,6 +55,9 @@ public class SpiderService {
     @Autowired
     private EhCacheCacheImpl cacheCache;
 
+    @Autowired
+    private SpiderDao spiderDao;
+
     /**
      * 开始爬取
      *
@@ -60,7 +69,6 @@ public class SpiderService {
      */
     public <T> void captureDate(String key, Class<T> t, String[] seeds, String[] validate, int size) {
 
-        List<T> list;
         LinkFilter filter = new LinkFilter() {
             @Override
             public boolean accept(String url, String... filters) {
@@ -75,18 +83,34 @@ public class SpiderService {
 
         };
 
-        Object object = cacheCache.get(key);
-        if (object == null) {
-            list = Lists.newArrayList();
-        } else {
-            list = (List<T>) object;
-        }
         seeds = new String[]{"https://888av.vip/list/1-50.html", "https://888av.vip/list/2-40.html", "https://888av.vip/list/3-101.html", "https://888av.vip/list/4-37.html"};
         validate = new String[]{"https://888av.vip/vod/", "https://888av.vip/list"};
-        spider.crewling(list, t, filter, seeds, validate, size);
-        cacheCache.put(key, list);
+
+        SpiderCondition condition = new SpiderCondition();
+        if (key.equals(UtilConfig.CACHE_FILM_KEY)) {
+            condition.setSpiderType("FILM");
+        } else if (key.equals(UtilConfig.CACHE_PICTURE_KEY)) {
+            condition.setSpiderType("PIC");
+        } else if (key.equals(UtilConfig.CACH_NOVEL_KEY)) {
+            condition.setSpiderType("NOVEL");
+        }
+        Set<String> set = spiderDao.searchSpider(condition);
+        List<T> list = spider.crewling(set, t, filter, seeds, validate, size);
+
+        if (key.equals(UtilConfig.CACHE_FILM_KEY)) {
+            flushFilmToSQLite((List<Film>) list);
+        } else if (key.equals(UtilConfig.CACHE_PICTURE_KEY)) {
+            flushPicToSQLite((List<Picture>) list);
+        } else if (key.equals(UtilConfig.CACH_NOVEL_KEY)) {
+            flushNovelToSQLite((List<Novel>) list);
+        }
     }
 
+    /**
+     * 刷新电影到sqlite
+     *
+     * @param films
+     */
     public void flushFilmToSQLite(List<Film> films) {
         try {
             spiderFilmDao.insertFilm(films);
@@ -96,7 +120,11 @@ public class SpiderService {
         }
     }
 
-
+    /**
+     * 刷新图片到sqlite
+     *
+     * @param pictures
+     */
     public void flushPicToSQLite(List<Picture> pictures) {
         try {
             spiderPicDao.insertPicture(pictures);
@@ -106,6 +134,11 @@ public class SpiderService {
         }
     }
 
+    /**
+     * 刷新小说到sqlite
+     *
+     * @param novels
+     */
     public void flushNovelToSQLite(List<Novel> novels) {
         try {
             spiderNovelDao.insertNovel(novels);
@@ -140,16 +173,26 @@ public class SpiderService {
      * 刷新电影到数据库
      */
     public void flushVodToDatabase() {
-        Object object = cacheCache.get(UtilConfig.CACHE_FILM_KEY);
-        if (object == null) {
-            throw ServiceException.create("NOVEL.IS.NULL");
+
+        FilmCondition condition = new FilmCondition();
+        condition.setPageSize(99999);
+        List<Film> filmList = spiderFilmDao.searchFilm(condition);
+
+        if (filmList == null) {
+            throw ServiceException.create("FILM.IS.NULL");
         }
-        List<Film> filmList = (List<Film>) object;
+
         for (Film film : filmList) {
             if (film.getFilmType() == null) continue;
             filmService.saveFilm(film);
         }
-        cacheCache.remove(UtilConfig.CACHE_FILM_KEY);
+
+        try {
+            spiderFilmDao.deleteFilmAll();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw ServiceException.create("FILM.ADD.FALL");
+        }
     }
 
     /**
@@ -165,6 +208,19 @@ public class SpiderService {
             pictureService.savePicture(picture);
         }
         cacheCache.remove(UtilConfig.CACHE_PICTURE_KEY);
+    }
+
+    public void insertSpider(String spiderType, T t) {
+        String url = "";
+        String md5 = "";
+        SpiderData spiderData = SpiderData.builder().spiderUrl(url).spiderMd5(md5).spiderType(spiderType).createDate(new Date());
+        try {
+            spiderDao.insertSpider(spiderData);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw ServiceException.create("FILM.ADD.FALL");
+        }
+
     }
 
 

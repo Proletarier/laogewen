@@ -2,6 +2,7 @@ package com.app.mvc.spider;
 
 import com.app.mvc.beans.SpiderQueue;
 import com.app.mvc.common.LinkFilter;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -21,8 +22,10 @@ public class Spider {
 
     }
 
-    public synchronized <T> void crewling(List<T> lists, Class<T> c, LinkFilter filter, String[] seeds, String[] validate,int size) {
-        SpiderQueue spiderQueue = new SpiderQueue();
+    public synchronized <T> List<T> crewling(Set<String> sets, Class<T> c, LinkFilter filter, String[] seeds, String[] validate,int size) {
+
+        List<T> lists= Lists.newArrayList();
+        SpiderQueue spiderQueue = new SpiderQueue(sets);
         initCreawlerWithSeds(seeds, spiderQueue);
         while (!spiderQueue.unVisitedUrisEmpty() && lists.size() <= size) {
             String visitUrl = spiderQueue.unVisitedUrlDeQueue();
@@ -41,6 +44,7 @@ public class Spider {
                 spiderQueue.addUnVisitedUrl(link);
             }
         }
+        return  lists;
     }
 
 

@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +22,10 @@ public class SpiderQueue extends SpiderBloom {
 
     //待访问url集合
     private Queue unVisitedUrl = new Queue();
+
+    public SpiderQueue(Set<String> bloomFilter) {
+        super(bloomFilter);
+    }
 
     public Queue unVisitedUrl() {
         return unVisitedUrl;

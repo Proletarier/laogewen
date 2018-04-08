@@ -111,7 +111,7 @@ public class SpiderFilmDao {
     }
 
     public void deleteFilm(Integer id) throws Exception {
-        String delete = "delete lgw_film  where FILM_ID=?";
+        String delete = "delete FROM lgw_film  where FILM_ID=?";
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -133,6 +133,32 @@ public class SpiderFilmDao {
             JDBCSQLite.colseConnection(null, ps);
         }
     }
+
+    public void deleteFilmAll() throws Exception {
+
+        String delete = "delete FROM lgw_film ";
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = JDBCSQLite.getConnection();
+            conn.setAutoCommit(false);
+            ps = conn.prepareStatement(delete);
+            ps.executeUpdate();
+            conn.commit();
+        } catch (Exception e) {
+            try {
+                conn.rollback();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            throw e;
+        } finally {
+            JDBCSQLite.colseConnection(null, ps);
+        }
+    }
+
+
 
     public Film findById(Integer id) {
 
