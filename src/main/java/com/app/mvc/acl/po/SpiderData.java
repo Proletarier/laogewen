@@ -2,6 +2,8 @@ package com.app.mvc.acl.po;
 
 import lombok.*;
 
+import java.util.Date;
+
 /**
  * Created by wenheng on 2018/4/7.
  */
@@ -19,7 +21,7 @@ public class SpiderData {
     private String spiderMd5;
     private String spiderLocation;
     private String spiderType;
-    private String createDate;
+    private Date createDate;
 
 
 }

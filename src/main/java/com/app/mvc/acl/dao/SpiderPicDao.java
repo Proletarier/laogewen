@@ -152,4 +152,51 @@ public class SpiderPicDao {
 
     }
 
+
+    public int  findByCount(PictureCondition condition){
+        String where = "";
+        if (condition.getName() != null) {
+            where += " and name like '%" + condition.getName() + "%'";
+        }
+        String sql = "select * from lgw_pic where 1=1 " + where;
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int count=0;
+        try {
+            conn = JDBCSQLite.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, condition.getOffset());
+            statement.setInt(2, condition.getPageSize());
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                count=resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCSQLite.colseConnection(resultSet, statement);
+        }
+        return count;
+    }
+
+
+    public  void deletePicAll() throws  Exception{
+        String  deletePic="delete from lgw_pic";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        try{
+            conn=JDBCSQLite.getConnection();
+            conn.setAutoCommit(false);
+            statement=conn.prepareStatement(deletePic);
+            statement.executeUpdate();
+            conn.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            conn.rollback();
+            JDBCSQLite.colseConnection(null,statement);
+        }
+    }
+
 }

@@ -8,7 +8,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer'], function(){
 
     table.render({
         skin: 'line' //行边框风格
-        ,elem: '#movie'
+        ,elem: '#novel'
         ,height: 500
         ,data: arr
         ,page: true
@@ -21,13 +21,11 @@ layui.use(['form','laydate','table','laypage','jquery','layer'], function(){
         }
         ,cols: [[
             {type:'checkbox'}
-            ,{field: 'username', title: '小说名称', }
-            ,{field: 'city', title: '小说类型' }
-            ,{field: 'sign', title: '文件地址'}
-            ,{field: 'classify', title: '创建时间'}
-            ,{field: 'wealth', title: '点击数量',  sort: true}
-            ,{field:'sex', title:'是否展示',  templet: '#switchTpl', unresize: true}
-            ,{fixed: 'right', align:'center', toolbar: '#barDemo'}
+            ,{field: 'title', width:'30.5%',title: '小说名称', }
+            ,{field: 'typeCodeMeaning', width:'15%',title: '小说类型' }
+            ,{field: 'url', title: 'URL'}
+            ,{field: 'md5', title: 'MD5'}
+            ,{fixed: 'right' ,width:'20%', toolbar: '#barDemo'}
         ]]
     });
 
@@ -39,23 +37,18 @@ layui.use(['form','laydate','table','laypage','jquery','layer'], function(){
         ,range: true
     });
 
-    //添加电影
-    $(window).one("resize",function(){
-        $(".newsAdd_btn").click(function(){
-            var index = layui.layer.open({
-                title : "添加小说",
-                type : 2,
-                content : "novelAdd.html",
-                success : function(layero, index){
-                    setTimeout(function(){
-                        layui.layer.tips('点击此处返回小说列表', '.layui-layer-setwin .layui-layer-close', {
-                            tips: 3
-                        });
-                    },500)
-                }
-            })
-            layui.layer.full(index);
-        })
-    }).resize();
+
+    //查詢
+    $('.search_btn').on('click', function(){
+
+        var title=$("#title").val();
+        //执行重载
+        table.reload('novelId', {
+            where: {
+                title:title
+            }
+        });
+    });
+
 
 });

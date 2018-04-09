@@ -3,6 +3,7 @@ package com.app.mvc.spider;
 import com.app.mvc.beans.SpiderQueue;
 import com.app.mvc.common.LinkFilter;
 import com.google.common.collect.Lists;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -22,7 +23,7 @@ public class Spider {
 
     }
 
-    public synchronized <T> List<T> crewling(Set<String> sets, Class<T> c, LinkFilter filter, String[] seeds, String[] validate,int size) {
+    public synchronized <T> List<T> crewling(Set<String> sets, Class<T> c, LinkFilter filter, String[] seeds, String[] validate,int size) throws  Exception {
 
         List<T> lists= Lists.newArrayList();
         SpiderQueue spiderQueue = new SpiderQueue(sets);
@@ -35,6 +36,8 @@ public class Spider {
             Object object = saveSpider(visitUrl, c);
             if (object != null) {
                 lists.add((T) object);
+                BeanUtils.setProperty(object,"md5",spiderQueue.processingUrl(visitUrl));
+                BeanUtils.setProperty(object,"url",visitUrl);
                 spiderQueue.addVisitedUrl(visitUrl);
             } else {
                 spiderQueue.addEntranceUrl(visitUrl);

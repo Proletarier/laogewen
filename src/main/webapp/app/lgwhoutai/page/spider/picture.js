@@ -25,8 +25,8 @@ layui.use(['form','laydate','table','laypage','jquery','layer'], function(){
             ,{field: 'city', title: '图片类型' }
             ,{field: 'sign', title: '图片地址'}
             ,{field: 'sign', title: '文件地址'}
-            ,{field: 'classify', title: '创建时间'}
-            ,{field:'sex', title:'是否展示',  templet: '#switchTpl', unresize: true}
+            ,{field: 'url', title: 'URL'}
+            ,{field: 'md5', title: 'MD5'}
             ,{fixed: 'right', align:'center', toolbar: '#barDemo'}
         ]]
     });
@@ -39,23 +39,16 @@ layui.use(['form','laydate','table','laypage','jquery','layer'], function(){
         ,range: true
     });
 
-    //添加电影
-    $(window).one("resize",function(){
-        $(".newsAdd_btn").click(function(){
-            var index = layui.layer.open({
-                title : "添加图片",
-                type : 2,
-                content : "pictureAdd.html",
-                success : function(layero, index){
-                    setTimeout(function(){
-                        layui.layer.tips('点击此处返回图片列表', '.layui-layer-setwin .layui-layer-close', {
-                            tips: 3
-                        });
-                    },500)
-                }
-            })
-            layui.layer.full(index);
-        })
-    }).resize();
+    //查詢
+    $('.search_btn').on('click', function(){
+
+        var name=$(".search_input").val();
+        //执行重载
+        table.reload('pictureId', {
+            where: {
+                name:name
+            }
+        });
+    });
 
 });

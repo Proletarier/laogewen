@@ -124,4 +124,54 @@ public class SpiderNovelDao {
     }
 
 
+    public  int   findByCount(NovelCondition condition){
+        String where = "";
+        if (condition.getTitle() != null) {
+            where += " and  TITLE  like '%" + condition.getTitle() + "%'";
+        }
+        String sql = "select * from lgw_novel where 1=1 " + where;
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int count=0;
+        try {
+            conn = JDBCSQLite.getConnection();
+            statement = conn.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                count=resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCSQLite.colseConnection(resultSet, statement);
+        }
+        return count;
+    }
+
+    public void deleteNovelAll() throws Exception{
+        String  deleteNovel="delete from lgw_novel";
+        String deleteNovelPage="delete from lgw_novel_page";
+
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try{
+            conn=JDBCSQLite.getConnection();
+            conn.setAutoCommit(false);
+            statement=conn.prepareStatement(deleteNovel);
+            int num=statement.executeUpdate();
+            if(num>0){
+                statement.executeUpdate(deleteNovelPage);
+            }
+            conn.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            conn.rollback();
+            JDBCSQLite.colseConnection(resultSet, statement);
+        }
+    }
+
+
 }

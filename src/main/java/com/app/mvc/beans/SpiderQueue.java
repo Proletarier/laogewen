@@ -62,7 +62,7 @@ public class SpiderQueue extends SpiderBloom {
         return super.mightContain(processingUrl(url));
     }
 
-    private String processingUrl(String url) {
+    public String processingUrl(String url) {
         Pattern pattern = Pattern.compile(RegexConfig.URL_REGEX);
         Matcher matcher = pattern.matcher(url);
         if (matcher.find()) {

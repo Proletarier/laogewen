@@ -238,5 +238,30 @@ public class SpiderFilmDao {
         return list;
     }
 
+    public int  findByCount(FilmCondition condition){
+        String where = "";
+        if (condition.getFilmName() != null) {
+            where += "and film_name like '%" + condition.getFilmName() + "%'";
+        }
+        String sql = "select COUNT(1) from lgw_film WHERE 1=1 " + where ;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet resultSet = null;
+        int count=0;
+        try {
+            conn = JDBCSQLite.getConnection();
+            ps = conn.prepareStatement(sql);
+            resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCSQLite.colseConnection(resultSet, ps);
+        }
+        return count;
+    }
+
 
 }
