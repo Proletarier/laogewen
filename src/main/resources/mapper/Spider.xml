@@ -15,7 +15,7 @@
    </sql>
 
     <insert id="insertSpider" parameterType="SpiderData"  useGeneratedKeys="true" keyColumn="spiderId">
-        INSERT INTO lgw_user(SPIDER_URL,SPIDER_MD5,SPIDER_LOCATION,SPIDER_TYPE,CREATE_DATE)
+        INSERT INTO lgw_spider(SPIDER_URL,SPIDER_MD5,SPIDER_LOCATION,SPIDER_TYPE,CREATE_DATE)
         VALUES (#{spiderUrl},#{spiderMd5},#{encryptedUserPassword},#{spiderLocation},#{spiderType},#{createDate})
         <selectKey resultType="int" order="AFTER" keyProperty="spiderId">
             SELECT  LAST_INSERT_ID() as spiderId
@@ -26,7 +26,7 @@
     <select id="searchSpider" resultType="String" parameterType="SpiderCondition">
         SELECT
         SPIDER_MD5
-        FROM  lgw_user
+        FROM  lgw_spider
         <include refid="queryConditions"/>
         ORDER BY CREATE_DATE DESC
     </select>

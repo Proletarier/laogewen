@@ -103,6 +103,7 @@ public class SpiderService {
             list = spider.crewling(set, t, filter, seeds, validate, size);
         }catch (Exception e){
             e.printStackTrace();
+            ServiceException.create("FILM.ADD.FALL");
         }
 
         if (key.equals(UtilConfig.CACHE_FILM_KEY)) {
@@ -123,8 +124,8 @@ public class SpiderService {
         try {
             spiderFilmDao.insertFilm(films);
         } catch (Exception e) {
-            log.error(e.getMessage());
-            ServiceException.create("FILM.ADD.FALL");
+            log.error(e.getMessage(),e);
+            throw  ServiceException.create("FILM.ADD.FALL");
         }
     }
 
@@ -137,7 +138,7 @@ public class SpiderService {
         try {
             spiderPicDao.insertPicture(pictures);
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(),e);
             ServiceException.create("PIC.ADD.FALL");
         }
     }
@@ -151,7 +152,7 @@ public class SpiderService {
         try {
             spiderNovelDao.insertNovel(novels);
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(),e);
             ServiceException.create("PIC.ADD.FALL");
         }
     }
@@ -179,7 +180,7 @@ public class SpiderService {
         try{
             spiderNovelDao.deleteNovelAll();
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
                 throw ServiceException.create("NOVEL.ADD.FALL");
         }
     }
