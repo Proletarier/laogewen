@@ -18,20 +18,55 @@ public class LoginService {
     private  UserService userService;
 
 
-    public  void  lgoin(User user){
+    public  void  lgoin(User loginUser){
 
 
         UserCondition condition=new UserCondition();
-        condition.setUserName(user.getUserName());
+        condition.setUserName(loginUser.getUserName());
         Page<User> page=userService.searchUser(condition);
         if(page.getData()==null || page.getData().size()==0){
             throw ServiceException.create("USER.USERNAME.IS.NULL");
         }
         User sysUser=page.getData().get(0);
-        if (!sysUser.getEncryptedUserPassword().equalsIgnoreCase(DigestUtils.md5Hex(user.getPassword()))){
+        if (!sysUser.getEncryptedUserPassword().equalsIgnoreCase(DigestUtils.md5Hex(loginUser.getPassword()))){
             throw ServiceException.create("USER.PWD.IS.FAIL");
         }
 
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -34,6 +34,10 @@ public class StringUtil {
         return c == 12288 || c == 32;
     }
 
+    public static String reverse(String encode){
+        return new StringBuffer(encode).reverse().toString();
+    }
+
     public static String rtrim(String str) {
         if (str == null) {
             return null;
