@@ -12,7 +12,6 @@ public class JDBCSQLite {
     static {
         try {
             Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:laogewen.db");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -20,7 +19,7 @@ public class JDBCSQLite {
 
 
     public static Connection getConnection() throws SQLException {
-        if (conn == null) {
+        if (conn == null || conn.isClosed()) {
             conn = DriverManager.getConnection("jdbc:sqlite:laogewen.db");
         }
         return conn;
@@ -31,8 +30,8 @@ public class JDBCSQLite {
         try {
             if (resultSet != null)
                 resultSet.close();
-            if (statement != null) ;
-            statement.close();
+            if (statement != null)
+                statement.close();
             if (conn != null)
                 conn.close();
         } catch (Exception e) {

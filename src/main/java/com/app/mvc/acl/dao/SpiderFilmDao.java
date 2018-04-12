@@ -22,8 +22,8 @@ public class SpiderFilmDao {
     public void insertFilm(List<Film> filmList) throws Exception {
 
         String sql = "insert into lgw_film(" +
-                "FILM_ID,FILM_NAME,FILM_TYPE,TITLE_IMG,CONTENT_IGM,HTTP,XFPLAY,ED2K,THUNDER,QQDL,FLASHGET,URL,MD5)" +
-                "value(NULL,?,?,?,?,?,?,?,?,?,?,?,?)";
+                "FILM_ID,FILM_NAME,FILM_TYPE,TITLE_IMG,CONTENT_IGM,HTTP,XFPLAY,ED2K,THUNDER,QQDL,FLASHGET,URL,MD5) " +
+                " VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -54,12 +54,8 @@ public class SpiderFilmDao {
             ps.executeBatch();
             conn.commit();
         } catch (Exception e) {
-            try {
-                conn.rollback();
-            } catch (Exception ex) {
-                e.printStackTrace();
-            }
-            throw e;
+            conn.rollback();
+            e.printStackTrace();
         } finally {
             JDBCSQLite.colseConnection(null, ps);
         }
@@ -99,12 +95,8 @@ public class SpiderFilmDao {
             ps.executeUpdate();
             conn.commit();
         } catch (Exception e) {
-            try {
-                conn.rollback();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-            throw e;
+            conn.rollback();
+            e.printStackTrace();
         } finally {
             JDBCSQLite.colseConnection(null, ps);
         }
@@ -157,7 +149,6 @@ public class SpiderFilmDao {
             JDBCSQLite.colseConnection(null, ps);
         }
     }
-
 
 
     public Film findById(Integer id) {
@@ -238,16 +229,16 @@ public class SpiderFilmDao {
         return list;
     }
 
-    public int  findByCount(FilmCondition condition){
+    public int findByCount(FilmCondition condition) {
         String where = "";
         if (condition.getFilmName() != null) {
             where += "and film_name like '%" + condition.getFilmName() + "%'";
         }
-        String sql = "select COUNT(1) from lgw_film WHERE 1=1 " + where ;
+        String sql = "select COUNT(1) from lgw_film WHERE 1=1 " + where;
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet resultSet = null;
-        int count=0;
+        int count = 0;
         try {
             conn = JDBCSQLite.getConnection();
             ps = conn.prepareStatement(sql);

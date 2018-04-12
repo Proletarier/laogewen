@@ -111,7 +111,7 @@ public class SpiderController {
 
 
     @ResponseBody
-    @RequestMapping(value = "pic/search",method = RequestMethod.GET)
+    @RequestMapping(value = "novel/search",method = RequestMethod.GET)
     public JsonData searchNovel(NovelCondition condition){
         Page<Novel> page=spiderService.searchNovel(condition);
         return JsonData.success(page.getData(),page.getTotal());
