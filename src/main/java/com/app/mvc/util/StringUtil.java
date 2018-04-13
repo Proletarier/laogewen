@@ -35,7 +35,7 @@ public class StringUtil {
     }
 
     public static String reverse(String encode){
-        return new StringBuffer(encode).reverse().toString();
+        return  encode==null? null:(new StringBuffer(encode)).reverse().toString();
     }
 
     public static String rtrim(String str) {

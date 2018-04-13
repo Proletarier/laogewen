@@ -4,6 +4,7 @@ import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 
 import java.nio.charset.Charset;
+import java.util.TimeZone;
 
 /**
  * Created by wenheng on 2018/4/7.
@@ -15,6 +16,9 @@ public class boom {
 //        bloomFilter.put("90877d52909485f4d39563701ab31aba");
 //        System.out.println(bloomFilter.mightContain("90877d52909485f4d39563701ab31aba"));
 
+
+
+        System.out.println(TimeZone.getDefault());
 
         byte[] bytes=new byte[]{(byte)1100,0100};
 

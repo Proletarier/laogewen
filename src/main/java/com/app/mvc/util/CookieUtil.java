@@ -52,7 +52,7 @@ public class CookieUtil {
     }
 
 
-    public static  void  setCookie(HttpServletRequest request,HttpServletResponse response,int maxAge,String cName,String cValue){
+    public static  void  setCookie(HttpServletRequest request,HttpServletResponse response,String cName,String cValue,int maxAge){
         Cookie cookie=new Cookie(cName,cValue==null? "":cValue);
         cookie.setMaxAge(maxAge);
         cookie.setPath(getPath(request));
