@@ -85,8 +85,8 @@ public class SpiderService {
             }
 
         };
-        Set<String> set=null;
-        List<T> list=null;
+        Set<String> set = null;
+        List<T> list = null;
         seeds = new String[]{"https://888av.vip/list/1-50.html", "https://888av.vip/list/2-40.html", "https://888av.vip/list/3-101.html", "https://888av.vip/list/4-37.html"};
         validate = new String[]{"https://888av.vip/vod/", "https://888av.vip/list"};
 
@@ -98,10 +98,10 @@ public class SpiderService {
         } else if (key.equals(UtilConfig.CACH_NOVEL_KEY)) {
             condition.setSpiderType("NOVEL");
         }
-        try{
+        try {
             set = spiderDao.searchSpider(condition);
             list = spider.crewling(set, t, filter, seeds, validate, size);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             ServiceException.create("FILM.ADD.FALL");
         }
@@ -124,8 +124,8 @@ public class SpiderService {
         try {
             spiderFilmDao.insertFilm(films);
         } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            throw  ServiceException.create("FILM.ADD.FALL");
+            log.error(e.getMessage(), e);
+            throw ServiceException.create("FILM.ADD.FALL");
         }
     }
 
@@ -138,7 +138,7 @@ public class SpiderService {
         try {
             spiderPicDao.insertPicture(pictures);
         } catch (Exception e) {
-            log.error(e.getMessage(),e);
+            log.error(e.getMessage(), e);
             ServiceException.create("PIC.ADD.FALL");
         }
     }
@@ -152,7 +152,7 @@ public class SpiderService {
         try {
             spiderNovelDao.insertNovel(novels);
         } catch (Exception e) {
-            log.error(e.getMessage(),e);
+            log.error(e.getMessage(), e);
             ServiceException.create("PIC.ADD.FALL");
         }
     }
@@ -174,14 +174,14 @@ public class SpiderService {
                     novel.setTypeCode(type.name());
             }
             novelService.saveNovel(novel);
-            insertSpider("NOVEL",novel);
+            insertSpider("NOVEL", novel);
         }
 
-        try{
+        try {
             spiderNovelDao.deleteNovelAll();
-        }catch (Exception e){
-            log.error(e.getMessage(),e);
-                throw ServiceException.create("NOVEL.ADD.FALL");
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw ServiceException.create("NOVEL.ADD.FALL");
         }
     }
 
@@ -201,7 +201,7 @@ public class SpiderService {
         for (Film film : filmList) {
             if (film.getFilmType() == null) continue;
             filmService.saveFilm(film);
-            insertSpider("FILM",film);
+            insertSpider("FILM", film);
         }
 
         try {
@@ -223,11 +223,11 @@ public class SpiderService {
         List<Picture> pictureLists = (List<Picture>) object;
         for (Picture picture : pictureLists) {
             pictureService.savePicture(picture);
-            insertSpider("PIC",picture);
+            insertSpider("PIC", picture);
         }
-        try{
-             spiderPicDao.deletePicAll();
-        }catch (Exception e){
+        try {
+            spiderPicDao.deletePicAll();
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw ServiceException.create("PIC.ADD.FALL");
         }
@@ -237,49 +237,160 @@ public class SpiderService {
 
     /**
      * 获取爬取的电影数据
+     *
      * @param condition
      * @return
      */
-    public Page<Film> searchVod(FilmCondition condition){
+    public Page<Film> searchVod(FilmCondition condition) {
 
         Page<Film> page;
-        try{
-            List<Film> list=spiderFilmDao.searchFilm(condition);
-            int count=spiderFilmDao.findByCount(condition);
-            page=Page.<Film>builder().data(list).total(count).build();
-        }catch (Exception e){
+        try {
+            List<Film> list = spiderFilmDao.searchFilm(condition);
+            int count = spiderFilmDao.findByCount(condition);
+            page = Page.<Film>builder().data(list).total(count).build();
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw ServiceException.create("PIC.SEARCH.FALL");
         }
-        return  page;
+        return page;
     }
 
 
-    public Page<Picture>  searchPic(PictureCondition condition){
+    /**
+     * 修改
+     *
+     * @param film
+     */
+    public void updateFilm(Film film) {
+        try {
+            spiderFilmDao.updateFilm(film);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw ServiceException.create("FILM.UPDATE.FAIL");
+        }
+
+    }
+
+    /**
+     * 删除
+     *
+     * @param filmId
+     */
+    public void deleteFilm(Integer filmId) {
+        try {
+            spiderFilmDao.deleteFilm(filmId);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ServiceException.create("FILM.UPDATE.FAIL");
+        }
+    }
+
+    public  Film findByVod(Integer id){
+        Film film;
+        try {
+            film=spiderFilmDao.findById(id);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ServiceException.create("FILM.FIND.FAIL");
+        }
+        return  film;
+    }
+
+
+    /**
+     * 获取图片
+     *
+     * @param condition
+     * @return
+     */
+    public Page<Picture> searchPic(PictureCondition condition) {
         Page<Picture> page;
-        try{
-            List<Picture> list=spiderPicDao.searchPicture(condition);
-            int count=spiderPicDao.findByCount(condition);
-            page=Page.<Picture>builder().data(list).total(count).build();
-        }catch (Exception e){
+        try {
+            List<Picture> list = spiderPicDao.searchPicture(condition);
+            int count = spiderPicDao.findByCount(condition);
+            page = Page.<Picture>builder().data(list).total(count).build();
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw ServiceException.create("PIC.SEARCH.FALL");
         }
-        return  page;
+        return page;
+    }
+
+    /**
+     * 修改
+     *
+     * @param picture
+     */
+    public void updatePicture(Picture picture) {
+
+        try {
+            spiderPicDao.updatePicture(picture);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ServiceException.create("PICTURE.UPDATE.FAIL");
+        }
     }
 
 
-    public Page<Novel>  searchNovel(NovelCondition condition){
+    /**
+     * 删除
+     * @param id
+     */
+    public void deletePicture(Integer id) {
+
+        try {
+            spiderPicDao.deletePic(id);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ServiceException.create("PICTURE.UPDATE.FAIL");
+        }
+
+    }
+
+    public  Picture findByPic(Integer id){
+        Picture picture;
+        try {
+            picture=spiderPicDao.findById(id);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ServiceException.create("FILM.FIND.FAIL");
+        }
+        return  picture;
+    }
+
+
+
+
+    /**
+     * 获取小说
+     *
+     * @param condition
+     * @return
+     */
+    public Page<Novel> searchNovel(NovelCondition condition) {
         Page<Novel> page;
-        try{
-            List<Novel> list=spiderNovelDao.searchNovel(condition);
-            int count=spiderNovelDao.findByCount(condition);
-            page=Page.<Novel>builder().data(list).total(count).build();
-        }catch (Exception e){
+        try {
+            List<Novel> list = spiderNovelDao.searchNovel(condition);
+            int count = spiderNovelDao.findByCount(condition);
+            page = Page.<Novel>builder().data(list).total(count).build();
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw ServiceException.create("PIC.SEARCH.FALL");
         }
-        return  page;
+        return page;
+    }
+
+    /**
+     * 删除
+     * @param novelId
+     */
+    public void deleteNovel(Integer novelId) {
+        try {
+            spiderNovelDao.deleteNovel(novelId);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw ServiceException.create("NOVEL.UPDATE.FAIL");
+        }
     }
 
 
@@ -287,16 +398,17 @@ public class SpiderService {
 
     /**
      * 添加记录
+     *
      * @param spiderType
      * @param object
      */
-    public  void insertSpider(String spiderType, Object object) {
-        try{
-            String md5=BeanUtils.getProperty(object,"md5");
-            String url=BeanUtils.getProperty(object,"url");
-            SpiderData spiderData= SpiderData.builder().spiderUrl(url).spiderMd5(md5).spiderType(spiderType).createDate(new Date()).build();
+    public void insertSpider(String spiderType, Object object) {
+        try {
+            String md5 = BeanUtils.getProperty(object, "md5");
+            String url = BeanUtils.getProperty(object, "url");
+            SpiderData spiderData = SpiderData.builder().spiderUrl(url).spiderMd5(md5).spiderType(spiderType).createDate(new Date()).build();
             spiderDao.insertSpider(spiderData);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw ServiceException.create("FILM.ADD.FALL");
         }

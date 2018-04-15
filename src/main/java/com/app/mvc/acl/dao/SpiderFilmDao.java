@@ -23,7 +23,7 @@ public class SpiderFilmDao {
 
         String sql = "insert into lgw_film(" +
                 "FILM_ID,FILM_NAME,FILM_TYPE,TITLE_IMG,CONTENT_IGM,HTTP,XFPLAY,ED2K,THUNDER,QQDL,FLASHGET,URL,MD5) " +
-                " VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?);";
+                " VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -169,7 +169,7 @@ public class SpiderFilmDao {
                 film.setFilmName(resultSet.getString("film_name"));
                 film.setFilmType(resultSet.getString("FILM_TYPE"));
                 film.setTitleImg(resultSet.getString("title_img"));
-                film.setContentImg(resultSet.getString("content_img"));
+                film.setContentImg(resultSet.getString("CONTENT_IGM"));
                 film.setHttp(resultSet.getString("http"));
                 film.setXfplay(resultSet.getString("xfplay"));
                 film.setEd2k(resultSet.getString("ed2k"));
@@ -210,7 +210,7 @@ public class SpiderFilmDao {
                 film.setFilmName(resultSet.getString("film_name"));
                 film.setFilmType(resultSet.getString("FILM_TYPE"));
                 film.setTitleImg(resultSet.getString("title_img"));
-                film.setContentImg(resultSet.getString("content_img"));
+                film.setContentImg(resultSet.getString("CONTENT_IGM"));
                 film.setHttp(resultSet.getString("http"));
                 film.setXfplay(resultSet.getString("xfplay"));
                 film.setEd2k(resultSet.getString("ed2k"));

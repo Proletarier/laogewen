@@ -149,6 +149,36 @@ public class SpiderNovelDao {
         return count;
     }
 
+
+    public  void  deleteNovel(Integer id)throws  Exception{
+
+        String  deleteNovel="delete from lgw_novel where NOVEL_ID=?";
+        String deleteNovelPage="delete from lgw_novel_page where NOVEL_ID=?";
+
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try{
+            conn=JDBCSQLite.getConnection();
+            conn.setAutoCommit(false);
+            statement=conn.prepareStatement(deleteNovel);
+            statement.setInt(1,id);
+            int num=statement.executeUpdate();
+            if(num>0){
+                statement=conn.prepareStatement(deleteNovelPage);
+                statement.setInt(1,id);
+                statement.executeUpdate();
+            }
+            conn.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            conn.rollback();
+            JDBCSQLite.colseConnection(resultSet, statement);
+        }
+
+    }
+
     public void deleteNovelAll() throws Exception{
         String  deleteNovel="delete from lgw_novel";
         String deleteNovelPage="delete from lgw_novel_page";

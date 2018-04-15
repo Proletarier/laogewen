@@ -153,7 +153,7 @@ public class SpiderPicDao {
     }
 
 
-    public int  findByCount(PictureCondition condition){
+    public int findByCount(PictureCondition condition) {
         String where = "";
         if (condition.getName() != null) {
             where += " and name like '%" + condition.getName() + "%'";
@@ -162,7 +162,7 @@ public class SpiderPicDao {
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        int count=0;
+        int count = 0;
         try {
             conn = JDBCSQLite.getConnection();
             statement = conn.prepareStatement(sql);
@@ -170,7 +170,7 @@ public class SpiderPicDao {
             statement.setInt(2, condition.getPageSize());
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                count=resultSet.getInt(1);
+                count = resultSet.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,21 +181,41 @@ public class SpiderPicDao {
     }
 
 
-    public  void deletePicAll() throws  Exception{
-        String  deletePic="delete from lgw_pic";
+    public void deletePic(Integer id) throws Exception {
+        String deletePic = "delete from lgw_pic WHERE pic_id=? ";
         Connection conn = null;
         PreparedStatement statement = null;
-        try{
-            conn=JDBCSQLite.getConnection();
+        try {
+            conn = JDBCSQLite.getConnection();
             conn.setAutoCommit(false);
-            statement=conn.prepareStatement(deletePic);
+            statement = conn.prepareStatement(deletePic);
+            statement.setInt(1, id);
             statement.executeUpdate();
             conn.commit();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
+        } catch (Exception e) {
             conn.rollback();
-            JDBCSQLite.colseConnection(null,statement);
+            e.printStackTrace();
+        } finally {
+            JDBCSQLite.colseConnection(null, statement);
+        }
+    }
+
+
+    public void deletePicAll() throws Exception {
+        String deletePic = "delete from lgw_pic";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        try {
+            conn = JDBCSQLite.getConnection();
+            conn.setAutoCommit(false);
+            statement = conn.prepareStatement(deletePic);
+            statement.executeUpdate();
+            conn.commit();
+        } catch (Exception e) {
+            conn.rollback();
+            e.printStackTrace();
+        } finally {
+            JDBCSQLite.colseConnection(null, statement);
         }
     }
 

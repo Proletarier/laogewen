@@ -15,9 +15,12 @@ import com.app.mvc.spider.entity.SpiderNovel;
 import com.app.mvc.spider.entity.SpiderPicture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 /**
  * Created by wenheng on 2018/1/6.
@@ -57,6 +60,27 @@ public class SpiderController {
         return JsonData.success(page.getData(),page.getTotal());
     }
 
+    @ResponseBody
+    @RequestMapping(value = "vod",method = RequestMethod.PUT)
+    public JsonData updateVod(@RequestBody  Film film){
+        spiderService.updateFilm(film);
+        return JsonData.success();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "vod",method = RequestMethod.DELETE)
+    public JsonData deleteVod(@RequestBody Map<String,Integer> map){
+        spiderService.deleteFilm(map.get("id"));
+        return JsonData.success();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "find/vod",method = RequestMethod.GET)
+    public JsonData findByVod(Integer id){
+       Film film=spiderService.findByVod(id);
+        return JsonData.success(film);
+    }
+
 
     /**
      * 图片
@@ -84,6 +108,27 @@ public class SpiderController {
     public JsonData searchPic(PictureCondition condition){
         Page<Picture> page=spiderService.searchPic(condition);
         return JsonData.success(page.getData(),page.getTotal());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "pic",method = RequestMethod.PUT)
+    public JsonData updatePic(@RequestBody  Picture picture){
+        spiderService.updatePicture(picture);
+        return JsonData.success();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "pic/search",method = RequestMethod.DELETE)
+    public JsonData deletePic(@RequestBody Map<String,Integer> map){
+        spiderService.deletePicture(map.get("id"));
+        return JsonData.success();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "find/pic",method = RequestMethod.GET)
+    public JsonData findByPic(Integer id){
+        Picture picture=spiderService.findByPic(id);
+        return JsonData.success(picture);
     }
 
 
@@ -117,9 +162,11 @@ public class SpiderController {
         return JsonData.success(page.getData(),page.getTotal());
     }
 
-
-
-
-
+    @ResponseBody
+    @RequestMapping(value = "novel",method = RequestMethod.DELETE)
+    public JsonData deleteNovel(@RequestBody Map<String,Integer> map){
+        spiderService.deleteNovel(map.get("id"));
+        return JsonData.success();
+    }
 
 }

@@ -20,7 +20,7 @@ public class JDBCSQLite {
 
     public static Connection getConnection() throws SQLException {
         if (conn == null || conn.isClosed()) {
-            conn = DriverManager.getConnection("jdbc:sqlite:laogewen.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\wenheng\\Desktop\\laogewen.db");
         }
         return conn;
     }

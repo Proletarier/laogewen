@@ -24,10 +24,10 @@ public class SQLite {
         String novelPageSQL="create table lge_novel_page" +
                 "(NOVEL_PAGE_ID,NOVEL_ID,PAGE,CONTENT);";
 
-        createTable(filmSQL);
-        createTable(picSQL);
-        createTable(novelSQL);
-        createTable(novelPageSQL);
+       // createTable(filmSQL);
+        //createTable(picSQL);
+       // createTable(novelSQL);
+        createTable("select * from lgw_film");
 
     }
 
@@ -38,7 +38,7 @@ public class SQLite {
             Class.forName("org.sqlite.JDBC");
             conn= DriverManager.getConnection("jdbc:sqlite:laogewen.db");
             stmt=conn.createStatement();
-            stmt.executeUpdate(sql);
+            stmt.executeQuery(sql);
             stmt.close();
             conn.close();
         }catch (Exception e){

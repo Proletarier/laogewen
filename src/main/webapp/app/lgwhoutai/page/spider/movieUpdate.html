@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>电影添加--老哥稳后台管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+</head>
+<body class="childrenBody">
+<form class="layui-form">
+    <div class="layui-form-item">
+        <input  name="filmId" hidden="hidden" >
+        <label class="layui-form-label">电影名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="filmName" class="layui-input newsName" lay-verify="required" placeholder="请输入电影名称">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电影类型</label>
+        <div class="layui-input-inline">
+            <select name="filmType" id="filmType"  lay-filter="browseLook">
+                <option value="YZQS">亚洲情色</option>
+                <option value="ZFSW">制服丝袜</option>
+                <option value="OMXA">欧美性爱</option>
+                <option value="WYZP">网友自拍</option>
+                <option value="JDSJ">经典三级</option>
+                <option value="LLND">乱伦虐待</option>
+                <option value="LLBT">另类变态</option>
+                <option value="CRDM">成人动漫</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">标题地址</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="titleImg" placeholder="请输入图片标题地址">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容地址</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入图片内容地址" id="contentImg" name="contentImg" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">先锋影音</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="xfplay" placeholder="请输入先锋影音下载链接">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">ED2K</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input " name="ed2k" placeholder="请输入ED2K下载链接">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">旋风下载</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="qqdl" placeholder="请输入旋风下载链接">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">快车下载</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="flashGet" placeholder="请输入快车下载链接">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">迅雷下载</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="thunder" placeholder="请输入迅雷下载链接">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="updateVod">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="../../layui/layui.js"></script>
+<script type="text/javascript" src="movieUpdate.js"></script>
+</body>
+</html>
