@@ -3,6 +3,9 @@ package com.app.mvc.acl.controller;
 import com.app.mvc.acl.po.User;
 import com.app.mvc.acl.service.LoginService;
 import com.app.mvc.beans.JsonData;
+import com.app.mvc.util.JacksonUtil;
+import org.apache.poi.util.IOUtils;
+import org.apache.xmlbeans.impl.common.IOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * Created by Administrator on 2018/4/9.
@@ -26,8 +31,15 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
-    public JsonData login(HttpServletRequest request, HttpServletResponse response, @RequestBody User user){
-        User sysUser=loginService.lgoin(request,response,user);
+    public JsonData login(HttpServletRequest request, HttpServletResponse response)throws  Exception{
+        BufferedReader reader=new BufferedReader(new InputStreamReader(request.getInputStream()));
+        String line = null;
+        StringBuilder sb = new StringBuilder();
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        User user=JacksonUtil.readValue(sb.toString(),User.class);
+        User sysUser=loginService.login(request,response,user);
         return JsonData.success(sysUser);
     }
 

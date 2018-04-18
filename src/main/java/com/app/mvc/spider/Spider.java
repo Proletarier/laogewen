@@ -1,6 +1,6 @@
 package com.app.mvc.spider;
 
-import com.app.mvc.beans.SpiderQueue;
+import com.app.mvc.acl.dto.SpiderQueue;
 import com.app.mvc.common.LinkFilter;
 import com.google.common.collect.Lists;
 import org.apache.commons.beanutils.BeanUtils;

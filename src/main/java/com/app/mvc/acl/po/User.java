@@ -26,6 +26,8 @@ public class User  implements  java.io.Serializable{
     private Date lastLoginDate;
     private String createdBy;
 
+    private String code;
+
 
 
 

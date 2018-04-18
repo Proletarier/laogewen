@@ -70,9 +70,12 @@
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
             <list>
-                <value>message.film_msg__zh_CN</value>
-                <value>message.novel_msg_zh_CN.</value>
-                <value>message.picture_msg_zh_CN.</value>
+                <value>message.film_msg</value>
+                <value>message.novel_msg</value>
+                <value>message.picture_msg</value>
+                <value>message.spider_msg</value>
+                <value>message.system_msg</value>
+                <value>message.user_msg</value>
             </list>
         </property>
     </bean>

@@ -15,7 +15,28 @@ layui.use(['form','layer'], function(){
 	//登录按钮事件
 	form.on("submit(login)",function(data){
 
-	})
+        var index = top.layer.msg('正则登录。。。',{icon: 16,time:false,shade:0.8});
+        $.ajax(
+            {
+                type:"POST",
+                url:"/resource/login",
+                contentType:"application/json",
+                dataType:"json",
+                data:JSON.stringify(data.field),
+                success: function (result) {
+                    if(result.status==1){
+                        setTimeout(function(){
+                            top.layer.close(index);
+                            top.layer.msg("登陆成功！");
+
+                        },2000);
+                    }else{
+                        layer.msg(result.msg, {time: 2000});
+                    }
+                }
+            }
+        );
+	});
 
 	//验证码
     $(".code").on("click",function () {

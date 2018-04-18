@@ -1,4 +1,4 @@
-package com.app.mvc.beans;
+package com.app.mvc.acl.dto;
 
 import java.util.Set;
 

@@ -61,6 +61,21 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
+  <!--loginFilter -->
+  <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>com.app.mvc.acl.filter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/app/lgwhoutai/page/content/*</url-pattern>
+    <url-pattern>/app/lgwhoutai/page/regx/*</url-pattern>
+    <url-pattern>/app/lgwhoutai/page/spider/*</url-pattern>
+    <url-pattern>/app/lgwhoutai/page/user/*</url-pattern>
+    <url-pattern>/app/lgwhoutai/index.html</url-pattern>
+    <url-pattern>/app/lgwhoutai/page/main.html</url-pattern>
+  </filter-mapping>
+
 
   <!-- druid
   <servlet>
