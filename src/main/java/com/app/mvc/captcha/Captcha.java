@@ -29,8 +29,7 @@ public class Captcha {
 
     private BufferedImage buffIme=null;
 
-    private char[] codeSequence={'a','b','c','d','e','f','g','h','i','j','k','m','l','n','o','p','q','r','s','t','u','v','w','x','y','z',
-    'Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M','1','2','3','4','5'};
+    private char[] codeSequence={'Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M','1','2','3','4','5','6','7','8','9','0'};
 
 
     private final static String fontStr = "";

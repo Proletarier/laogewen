@@ -1,4 +1,6 @@
-layui.use(['form','layer'], function(){
+layui.config({
+    base : "js/"
+}).use(['form','layer','jquery'], function(){
     var  form=layui.form
         ,layer = parent.layer === undefined ? layui.layer : parent.layer
 	     $ = layui.jquery;
@@ -15,7 +17,7 @@ layui.use(['form','layer'], function(){
 	//登录按钮事件
 	form.on("submit(login)",function(data){
 
-        var index = top.layer.msg('正则登录。。。',{icon: 16,time:false,shade:0.8});
+        var index = top.layer.msg('正在登录。。。',{icon: 16,time:false,shade:0.8});
         $.ajax(
             {
                 type:"POST",
@@ -26,16 +28,20 @@ layui.use(['form','layer'], function(){
                 success: function (result) {
                     if(result.status==1){
                         setTimeout(function(){
-                            top.layer.close(index);
                             top.layer.msg("登陆成功！");
-
+                            top.layer.close(index);
+                            window.location.href = "../../index.html";
+                            return false;
                         },2000);
                     }else{
+                        top.layer.close(index);
                         layer.msg(result.msg, {time: 2000});
+                        $(".code img").attr('src', "/resource/login/captcha?d="+Math.random());
                     }
                 }
             }
         );
+        return false;
 	});
 
 	//验证码

@@ -63,6 +63,27 @@
 .clildFrame.layui-tab-content{ padding-right: 0; }
 .clildFrame.layui-tab-content iframe{ width: 100%; height:100%; border:none; min-width: 320px; position:absolute; }
 
+
+
+/*锁屏*/
+.admin-header-lock{width: 320px; height: 170px; padding: 20px; position: relative; text-align: center;}
+.admin-header-lock-img{width: 60px; height: 60px; margin: 0 auto;}
+.admin-header-lock-img img{width: 60px; height: 60px; border-radius: 100%;}
+.admin-header-lock-name{color: #009688;margin: 8px 0 15px 0;}
+.input_btn{ overflow: hidden; margin-bottom: 10px; }
+.admin-header-lock-input{width: 170px; color: #fff;background-color: #009688; float: left; margin:0 10px 0 40px; border:none;}
+.admin-header-lock-input::-webkit-input-placeholder {color:#fff;}
+.admin-header-lock-input::-moz-placeholder {color:#fff;}
+.admin-header-lock-input::-ms-input-placeholder {color:#fff;}
+.admin-header-lock-input:-moz-placeholder {color:#fff;}
+#unlock{ float: left; }
+#lock-box p{ color:#e60000; }
+
+
+
+
+
+
 /*左侧用户头像*/
 .layui-nav{ background-color:inherit !important; }
 .layui-layout-admin .layui-side{ left:0; }

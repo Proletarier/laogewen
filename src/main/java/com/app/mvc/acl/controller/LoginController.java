@@ -4,11 +4,9 @@ import com.app.mvc.acl.po.User;
 import com.app.mvc.acl.service.LoginService;
 import com.app.mvc.beans.JsonData;
 import com.app.mvc.util.JacksonUtil;
-import org.apache.poi.util.IOUtils;
-import org.apache.xmlbeans.impl.common.IOUtil;
+import com.app.mvc.util.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -41,6 +40,13 @@ public class LoginController {
         User user=JacksonUtil.readValue(sb.toString(),User.class);
         User sysUser=loginService.login(request,response,user);
         return JsonData.success(sysUser);
+    }
+
+    @RequestMapping(value = "logout",method = RequestMethod.GET)
+    public void logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        LoginUtil.logout(request,response);
+        response.sendRedirect("/app/lgwhoutai/page/login/login.html");
+
     }
 
 

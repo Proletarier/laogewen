@@ -111,8 +111,28 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
             ,moveType: 1 //拖拽模式，0或者1
             ,content: ['page/spider/spiderStart.html','no']
             ,yes: function(index, layero){
-                alert(layero.content);
-             //   layer.close(index); //如果设定了yes回调，需进行手工关闭
+
+                var regexId = $("select", layero.find("iframe")[0].contentWindow.document).select().val();
+                var seeds=$(".seed", layero.find("iframe")[0].contentWindow.document).val();
+                var validate=$(".validate", layero.find("iframe")[0].contentWindow.document).val();
+                var size=$(".size", layero.find("iframe")[0].contentWindow.document).val();
+
+                alert(seeds);
+
+                $.ajax(
+                    {
+                        type:"GET",
+                        url:"/resource/spider/vod",
+                        contentType:"application/json",
+                        dataType:"json",
+                        data: {seeds:new Array(seeds.split(";")),validate:new Array(validate.split(";")),size:size},
+                        success: function (result) {
+                        }
+                    }
+                );
+
+
+                layer.close(index);
             }
             ,btn2: function(index, layero){
                 layer.close(index);

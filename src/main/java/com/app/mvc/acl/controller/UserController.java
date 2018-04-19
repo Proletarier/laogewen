@@ -51,12 +51,5 @@ public class UserController {
         return JsonData.success(page);
     }
 
-    @ResponseBody
-    @RequestMapping(value="login",method = RequestMethod.PUT)
-    public JsonData login(@RequestBody User user){
-        return JsonData.success();
-    }
-
-
 
 }

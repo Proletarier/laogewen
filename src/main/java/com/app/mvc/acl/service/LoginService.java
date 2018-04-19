@@ -35,14 +35,14 @@ public class LoginService {
         UserCondition condition=new UserCondition();
         condition.setUserName(loginUser.getUserName());
         Page<User> page=userService.searchUser(condition);
-        if(page.getData()==null || page.getData().size()==0){
+        if(page==null || page.getData()==null || page.getData().size()==0){
             throw ServiceException.create("USER.USERNAME.IS.NULL");
         }
         User sysUser=page.getData().get(0);
         if (!sysUser.getEncryptedUserPassword().equalsIgnoreCase(DigestUtils.md5Hex(loginUser.getPassword()))){
             throw ServiceException.create("USER.PWD.IS.FAIL");
         }
-        LoginUtil.saveUserToCookie(request,response,loginUser);
+        LoginUtil.saveUserToCookie(request,response,sysUser);
         return  sysUser;
     }
 

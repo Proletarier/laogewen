@@ -68,6 +68,7 @@
 
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="defaultEncoding" value="UTF-8"/>
         <property name="basenames">
             <list>
                 <value>message.film_msg</value>

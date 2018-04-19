@@ -36,6 +36,7 @@
 <select id="findById" parameterType="int" resultType="User">
     SELECT
     <include refid="userColumns"/>
+    FROM  lgw_user
     WHERE  USER_ID=#{userId}
 </select>
 
@@ -57,7 +58,7 @@
 <sql id="queryConditions">
     <where>
         <if test="condition.userName!=null and condition.userName!=''">
-            USER_NAME LIKE '%' || #{condition.userName} || '%'
+            USER_NAME LIKE CONCAT('%',#{condition.userName},'%')
         </if>
     </where>
 </sql>
