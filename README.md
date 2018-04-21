@@ -21,11 +21,12 @@
 * 系统监控, 内存、CPU、线程状态、GC情况等
 * 验证码生成，效验
 * 基础的静态页面爬虫
-* sqlite本地数据
 * freemarker模板对整个用户页面生成静态化
 * ehcache持久化缓存到本地
-* 搜索引擎
 * json(jackson)序列化与反序列化
+* sse服务器推送消息
+* sqlite本地数据
+* 搜索引擎
 * nginx实现动静分离
 
   [网站测试](http://laogewen.co/) （滑稽）
