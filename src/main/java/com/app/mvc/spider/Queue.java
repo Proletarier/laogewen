@@ -1,4 +1,4 @@
-package com.app.mvc.beans;
+package com.app.mvc.spider;
 
 import com.google.common.collect.Lists;
 

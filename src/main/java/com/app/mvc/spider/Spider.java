@@ -1,6 +1,5 @@
 package com.app.mvc.spider;
 
-import com.app.mvc.acl.dto.SpiderQueue;
 import com.app.mvc.common.LinkFilter;
 import com.google.common.collect.Lists;
 import org.apache.commons.beanutils.BeanUtils;
@@ -13,7 +12,7 @@ import java.util.Set;
 /**
  * Created by wenheng on 2017/7/16.
  */
-@Component
+
 public class Spider {
 
     private void initCreawlerWithSeds(String[] seeds, SpiderQueue spiderQueue) {
@@ -23,9 +22,8 @@ public class Spider {
 
     }
 
-    public synchronized <T> List<T> crewling(Set<String> sets, Class<T> c, LinkFilter filter, String[] seeds, String[] validate,int size) throws  Exception {
+    public synchronized <T> void  crewling(List<T> lists,Set<String> sets, Class<T> c, LinkFilter filter, String[] seeds, String[] validate,int size) throws  Exception {
 
-        List<T> lists= Lists.newArrayList();
         SpiderQueue spiderQueue = new SpiderQueue(sets);
         initCreawlerWithSeds(seeds, spiderQueue);
         while (!spiderQueue.unVisitedUrisEmpty() && lists.size() <= size) {
@@ -47,7 +45,6 @@ public class Spider {
                 spiderQueue.addUnVisitedUrl(link);
             }
         }
-        return  lists;
     }
 
 

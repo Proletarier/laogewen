@@ -18,6 +18,9 @@ import com.app.mvc.cache.EhCacheCacheImpl;
 import com.app.mvc.common.LinkFilter;
 import com.app.mvc.exception.ServiceException;
 import com.app.mvc.spider.Spider;
+import com.app.mvc.spider.TemporaryData;
+import com.google.common.collect.Lists;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +37,6 @@ import java.util.Set;
 @Service
 public class SpiderService {
 
-    @Autowired
-    private Spider spider;
 
     @Autowired
     private NovelService novelService;
@@ -60,6 +61,9 @@ public class SpiderService {
 
     @Autowired
     private SpiderDao spiderDao;
+
+    private static TemporaryData temporaryData=new TemporaryData();
+
 
     /**
      * 开始爬取
@@ -98,9 +102,10 @@ public class SpiderService {
         } else if (key.equals(UtilConfig.CACH_NOVEL_KEY)) {
             condition.setSpiderType("NOVEL");
         }
+        Spider spider=new Spider();
         try {
             set = spiderDao.searchSpider(condition);
-            list = spider.crewling(set, t, filter, seeds, validate, size);
+            spider.crewling(temporaryData.getList(key),set, t, filter, seeds, validate, size);
         } catch (Exception e) {
             e.printStackTrace();
             ServiceException.create("FILM.ADD.FALL");
@@ -113,7 +118,42 @@ public class SpiderService {
         } else if (key.equals(UtilConfig.CACH_NOVEL_KEY)) {
             flushNovelToSQLite((List<Novel>) list);
         }
+        temporaryData.removeList(key);
     }
+
+
+    public boolean  isSpiderWorking(String key){
+         return  temporaryData.isSpiderWorking(key);
+    }
+
+
+    public String getLastSpiderContent(String key){
+
+        if (!temporaryData.isSpiderWorking(key)){
+            throw  ServiceException.create("SPIDER.IS.NOT.WORK");
+        }
+
+        Integer count=temporaryData.getCondition(key);
+        Integer size=temporaryData.getList(key).size();
+
+        while (1==1){
+            String message="";
+            if(temporaryData.getList(key).size()>size){
+                size=temporaryData.getList(key).size();
+                if (key.equals(UtilConfig.CACHE_FILM_KEY)) {
+                    Film vod= (Film) temporaryData.getList(key).get(size);
+                } else if (key.equals(UtilConfig.CACHE_PICTURE_KEY)) {
+                    Picture pic= (Picture) temporaryData.getList(key).get(size);
+                } else if (key.equals(UtilConfig.CACH_NOVEL_KEY)) {
+                    Novel novel= (Novel) temporaryData.getList(key).get(size);
+                }
+            }
+        }
+
+    }
+
+
+
 
     /**
      * 刷新电影到sqlite

@@ -1,4 +1,4 @@
-package com.app.mvc.acl.dto;
+package com.app.mvc.spider;
 
 import java.util.Set;
 

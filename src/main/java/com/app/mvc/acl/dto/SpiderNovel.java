@@ -1,4 +1,4 @@
-package com.app.mvc.spider.entity;
+package com.app.mvc.acl.dto;
 
 import com.app.mvc.acl.config.UtilConfig;
 import com.app.mvc.acl.po.Novel;

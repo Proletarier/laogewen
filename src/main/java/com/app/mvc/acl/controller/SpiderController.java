@@ -10,9 +10,10 @@ import com.app.mvc.acl.po.Picture;
 import com.app.mvc.acl.service.SpiderService;
 import com.app.mvc.beans.JsonData;
 import com.app.mvc.beans.Page;
-import com.app.mvc.spider.entity.SpiderFilm;
-import com.app.mvc.spider.entity.SpiderNovel;
-import com.app.mvc.spider.entity.SpiderPicture;
+import com.app.mvc.acl.dto.SpiderFilm;
+import com.app.mvc.acl.dto.SpiderNovel;
+import com.app.mvc.acl.dto.SpiderPicture;
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -40,7 +43,7 @@ public class SpiderController {
      */
     @ResponseBody
     @RequestMapping(value = "vod",method = RequestMethod.GET)
-    public JsonData spiderVod(String[] seeds, String[] validate,Integer size){
+    public JsonData spiderVod(Integer regexId,String[] seeds, String[] validate,Integer size){
         spiderService.captureDate(UtilConfig.CACHE_FILM_KEY, SpiderFilm.class,seeds, validate,size);
         return JsonData.success(null);
     }
@@ -80,6 +83,19 @@ public class SpiderController {
        Film film=spiderService.findByVod(id);
         return JsonData.success(film);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/getVod", produces = "text/event-stream;charset=UTF-8")
+    public String getSpiderContent(){
+        return "data:Testing 1,2,3" + "嘤嘤婴" + "\n\n";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "isWork",method = RequestMethod.GET)
+    public boolean  isSpiderWorking(String key){
+        return spiderService.isSpiderWorking(key);
+    }
+
 
 
     /**

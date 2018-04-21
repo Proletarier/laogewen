@@ -52,6 +52,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     });
 
 
+
     //监听工具条
     table.on('tool(vod)', function(obj){
         var data = obj.data;
@@ -94,8 +95,8 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     });
 
     var active = {
-    notice: function(){
-        //示范一个公告层
+    startSpider: function(){
+        //开始爬虫
         layer.open({
             type: 2
             ,title: '爬取数据'
@@ -110,6 +111,19 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
             ,btnAlign: 'c'
             ,moveType: 1 //拖拽模式，0或者1
             ,content: ['page/spider/spiderStart.html','no']
+            ,success:function (layero,index) {
+
+                var select = $("#spiderRegex", layero.find("iframe")[0].contentWindow.document);
+                $.get("/resource/FilmRegex/search",function(data,status,xhr) {
+                    if(status=='success'){
+                        var regexs=data.data;
+                        for (x in  regexs){
+                            select.append('<option value="'+regexs[x].filmRegexId+'">'+regexs[x].description+'</option>');
+                        }
+                        form.render('select');
+                    }
+                })
+            }
             ,yes: function(index, layero){
 
                 var regexId = $("select", layero.find("iframe")[0].contentWindow.document).select().val();
@@ -117,22 +131,42 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
                 var validate=$(".validate", layero.find("iframe")[0].contentWindow.document).val();
                 var size=$(".size", layero.find("iframe")[0].contentWindow.document).val();
 
-                alert(seeds);
-
                 $.ajax(
                     {
                         type:"GET",
                         url:"/resource/spider/vod",
                         contentType:"application/json",
                         dataType:"json",
-                        data: {seeds:new Array(seeds.split(";")),validate:new Array(validate.split(";")),size:size},
+                        data: {seeds:seeds,validate:validate,size:size},
                         success: function (result) {
                         }
                     }
                 );
 
-
                 layer.close(index);
+            }
+            ,btn2: function(index, layero){
+                layer.close(index);
+            }
+        });
+    },
+    stopSPider:function () {
+        layer.open({
+            type: 2
+            ,title: '正在获取数据'
+            ,closeBtn: false
+            ,fixed: true
+            ,anim: 2
+            ,shade: 0.8
+            ,area: ['500px', '400px']
+            ,skin: 'layui-layer-molv'
+            ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+            ,btn: ['结束任务', '返回']
+            ,btnAlign: 'c'
+            ,moveType: 1 //拖拽模式，0或者1
+            ,content: ['page/spider/spiderStop.html','no']
+            ,yes: function(index, layero){
+
             }
             ,btn2: function(index, layero){
                 layer.close(index);
@@ -141,13 +175,27 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     }};
 
 
+
     $('.newsAdd_btn').on('click', function(){
         var othis = $(this), method = othis.data('method');
         active[method] ? active[method].call(this, othis) : '';
     });
 
 
-
+    layer.ready(function(){
+        $.get("/resource/spider/isWork",{key:"FilmKey"},function (data,status,xhr) {
+              if(status=='success'){
+                  if(data==false){
+                      $(".newsAdd_btn").attr("data-method","startSpider");
+                      $(".newsAdd_btn b").innerHTML="开始爬取";
+                  }else{
+                      $(".newsAdd_btn").attr("data-method","stopSPider");
+                      $(".newsAdd_btn").find("b")[0].innerHTML="正在获取";
+                  }
+              }
+        })
+        
+    });
 
 });
 
