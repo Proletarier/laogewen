@@ -11,7 +11,6 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         skin: 'line' //行边框风格
         ,elem: '#movie'
         ,id: 'filmRegexId'
-        ,height: 500
         ,url: '/resource/FilmRegex/search'
         ,page: true
         ,request: {

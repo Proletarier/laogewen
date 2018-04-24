@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.Map;
 
 /**
@@ -86,8 +88,25 @@ public class SpiderController {
 
     @ResponseBody
     @RequestMapping(value = "/getVod", produces = "text/event-stream;charset=UTF-8")
-    public String getSpiderContent(){
-        return "data:Testing 1,2,3" + "嘤嘤婴" + "\n\n";
+    public void getSpiderContent(HttpServletRequest request,HttpServletResponse response){
+
+        String message="";
+        try {
+            response.setHeader("Content-Type", "text/event-stream");
+            response.setHeader("Cache-Control","no-cache");
+            PrintWriter writer=response.getWriter();
+            while (true){
+               String newMessage=spiderService.getLastSpiderContent(UtilConfig.CACHE_FILM_KEY);
+               if(!message.equals(newMessage)){
+                   writer.write(("data:"+newMessage+"\n\n"));
+                   writer.flush();
+                   message=newMessage;
+               }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @ResponseBody

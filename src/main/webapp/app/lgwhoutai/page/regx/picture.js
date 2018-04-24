@@ -11,7 +11,6 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         skin: 'line' //行边框风格
         ,elem: '#picture'
         ,id: 'pictureRegexId'
-        ,height: 500
         ,url: '/resource/PictureRegex/search'
         ,page: true
         ,request: {

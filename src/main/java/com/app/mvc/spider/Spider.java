@@ -36,6 +36,7 @@ public class Spider {
                 lists.add((T) object);
                 BeanUtils.setProperty(object,"md5",spiderQueue.processingUrl(visitUrl));
                 BeanUtils.setProperty(object,"url",visitUrl);
+                System.out.println(visitUrl);
                 spiderQueue.addVisitedUrl(visitUrl);
             } else {
                 spiderQueue.addEntranceUrl(visitUrl);

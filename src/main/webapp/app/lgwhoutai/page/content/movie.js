@@ -11,7 +11,6 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
          skin: 'line' //行边框风格
         ,elem: '#movie'
         ,id: 'filmId'
-        ,height: 500
         ,url: '/resource/film/search'
         ,page: true
         ,request: {

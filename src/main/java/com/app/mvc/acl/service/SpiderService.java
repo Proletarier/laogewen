@@ -19,15 +19,21 @@ import com.app.mvc.common.LinkFilter;
 import com.app.mvc.exception.ServiceException;
 import com.app.mvc.spider.Spider;
 import com.app.mvc.spider.TemporaryData;
+import com.app.mvc.util.JacksonUtil;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -89,10 +95,10 @@ public class SpiderService {
             }
 
         };
-        Set<String> set = null;
-        List<T> list = null;
-        seeds = new String[]{"https://888av.vip/list/1-50.html", "https://888av.vip/list/2-40.html", "https://888av.vip/list/3-101.html", "https://888av.vip/list/4-37.html"};
-        validate = new String[]{"https://888av.vip/vod/", "https://888av.vip/list"};
+        Set<String> set = Sets.newHashSet();
+        List<T> list = Lists.newArrayList();
+        seeds = new String[]{"https://999av.vip/list/1-50.html", "https://999av.vip/list/2-40.html", "https://999av.vip/list/3-101.html", "https://999av.vip/list/4-37.html"};
+        validate = new String[]{"https://999av.vip/vod/", "https://999av.vip/list"};
 
         SpiderCondition condition = new SpiderCondition();
         if (key.equals(UtilConfig.CACHE_FILM_KEY)) {
@@ -104,7 +110,8 @@ public class SpiderService {
         }
         Spider spider=new Spider();
         try {
-            set = spiderDao.searchSpider(condition);
+           // set = spiderDao.searchSpider(condition);
+            temporaryData.createSpider(key,size);
             spider.crewling(temporaryData.getList(key),set, t, filter, seeds, validate, size);
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,22 +140,24 @@ public class SpiderService {
             throw  ServiceException.create("SPIDER.IS.NOT.WORK");
         }
 
+        Map<String,String> messageMap= Maps.newHashMap();
         Integer count=temporaryData.getCondition(key);
-        Integer size=temporaryData.getList(key).size();
+        Integer size=temporaryData.getList(key).size()-1;
 
-        while (1==1){
-            String message="";
-            if(temporaryData.getList(key).size()>size){
-                size=temporaryData.getList(key).size();
-                if (key.equals(UtilConfig.CACHE_FILM_KEY)) {
-                    Film vod= (Film) temporaryData.getList(key).get(size);
-                } else if (key.equals(UtilConfig.CACHE_PICTURE_KEY)) {
-                    Picture pic= (Picture) temporaryData.getList(key).get(size);
-                } else if (key.equals(UtilConfig.CACH_NOVEL_KEY)) {
-                    Novel novel= (Novel) temporaryData.getList(key).get(size);
-                }
-            }
+        if (key.equals(UtilConfig.CACHE_FILM_KEY)) {
+            Film vod= (Film) temporaryData.getList(key).get(size);
+            messageMap.put("message",vod.getFilmName());
+        } else if (key.equals(UtilConfig.CACHE_PICTURE_KEY)) {
+            Picture pic= (Picture) temporaryData.getList(key).get(size);
+            messageMap.put("message",pic.getName());
+        } else if (key.equals(UtilConfig.CACH_NOVEL_KEY)) {
+            Novel novel= (Novel) temporaryData.getList(key).get(size);
+            messageMap.put("message",novel.getTitle());
         }
+        Double percent=(double)size/count*100;
+        messageMap.put("percent",percent.toString());
+
+        return JacksonUtil.toJSon(messageMap);
 
     }
 

@@ -9,7 +9,6 @@ layui.use(['form','laydate','table','laypage','jquery','layer'], function(){
     table.render({
         skin: 'line' //行边框风格
         ,elem: '#movie'
-        ,height: 500
         ,data: arr
         ,page: true
         ,response:{

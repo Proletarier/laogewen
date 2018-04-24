@@ -17,6 +17,7 @@ public class boom {
 //        System.out.println(bloomFilter.mightContain("90877d52909485f4d39563701ab31aba"));
 
 
+        System.out.println((double) 200/10000*100);
 
         System.out.println(TimeZone.getDefault());
 

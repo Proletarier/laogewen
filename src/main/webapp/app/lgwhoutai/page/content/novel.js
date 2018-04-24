@@ -11,7 +11,6 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         skin: 'line' //行边框风格
         ,elem: '#novel'
         ,id: 'novelId'
-        ,height: 500
         ,url: '/resource/novel/search'
         ,page: true
         ,request: {

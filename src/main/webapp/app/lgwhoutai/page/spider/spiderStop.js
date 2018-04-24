@@ -15,6 +15,9 @@ layui.config({
             var source = new EventSource('/resource/spider/getVod');
             s = '';
             source.addEventListener('message', function(e) {
+                 console.log(e);
+                var data=JSON.parse(e.data);
+                flushNameAndProgress(data.message,data.percent);
             });
             source.addEventListener('open', function(e) {
                 console.log("连接打开.");
@@ -31,17 +34,6 @@ layui.config({
             console.log("没有sse");
         }
 
-
-        var n = 0, timer = setInterval(function(){
-            n = n + Math.random()*10|0;
-            if(n>100){
-                n = 100;
-                clearInterval(timer);
-            }
-            flushNameAndProgress ("最新加勒比 030318-615 工作胸部断奶~裁缝编~[深美せ",n);
-        }, 300+Math.random()*1000);
-
-
     });
 
     function flushNameAndProgress (name,size) {
@@ -49,7 +41,7 @@ layui.config({
         if($("#laoge").children().length>10){
             $("#laoge p:first").remove();
         }
-        $(".name").find("p:last").after("<p>"+name+size+"</p>");
+        $(".name").find("p:last").after("<p>"+name+"</p>");
 
         //重新设置进度条
         element.progress('demo', size+'%');

@@ -24,9 +24,9 @@ public class SQLite {
         String novelPageSQL="create table lge_novel_page" +
                 "(NOVEL_PAGE_ID,NOVEL_ID,PAGE,CONTENT);";
 
-       // createTable(filmSQL);
-        //createTable(picSQL);
-       // createTable(novelSQL);
+        createTable(filmSQL);
+        createTable(picSQL);
+        createTable(novelSQL);
         createTable("select * from lgw_film");
 
     }
