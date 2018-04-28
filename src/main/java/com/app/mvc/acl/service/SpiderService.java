@@ -96,9 +96,6 @@ public class SpiderService {
 
         };
         Set<String> set = Sets.newHashSet();
-        List<T> list = Lists.newArrayList();
-        seeds = new String[]{"https://999av.vip/list/1-50.html", "https://999av.vip/list/2-40.html", "https://999av.vip/list/3-101.html", "https://999av.vip/list/4-37.html"};
-        validate = new String[]{"https://999av.vip/vod/", "https://999av.vip/list"};
 
         SpiderCondition condition = new SpiderCondition();
         if (key.equals(UtilConfig.CACHE_FILM_KEY)) {
@@ -119,11 +116,11 @@ public class SpiderService {
         }
 
         if (key.equals(UtilConfig.CACHE_FILM_KEY)) {
-            flushFilmToSQLite((List<Film>) list);
+            flushFilmToSQLite((List<Film>) temporaryData.getList(key));
         } else if (key.equals(UtilConfig.CACHE_PICTURE_KEY)) {
-            flushPicToSQLite((List<Picture>) list);
+            flushPicToSQLite((List<Picture>) temporaryData.getList(key));
         } else if (key.equals(UtilConfig.CACH_NOVEL_KEY)) {
-            flushNovelToSQLite((List<Novel>) list);
+            flushNovelToSQLite((List<Novel>) temporaryData.getList(key));
         }
         temporaryData.removeList(key);
     }
@@ -141,8 +138,10 @@ public class SpiderService {
         }
 
         Map<String,String> messageMap= Maps.newHashMap();
+
         Integer count=temporaryData.getCondition(key);
         Integer size=temporaryData.getList(key).size()-1;
+
 
         if (key.equals(UtilConfig.CACHE_FILM_KEY)) {
             Film vod= (Film) temporaryData.getList(key).get(size);

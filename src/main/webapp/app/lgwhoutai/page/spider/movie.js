@@ -109,19 +109,8 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
             ,btn: ['开始爬取', '返回']
             ,btnAlign: 'c'
             ,moveType: 1 //拖拽模式，0或者1
-            ,content: ['page/spider/spiderStart.html','no']
+            ,content: ['page/spider/spiderStart.html?api=/resource/FilmRegex/search','no']
             ,success:function (layero,index) {
-
-                var select = $("#spiderRegex", layero.find("iframe")[0].contentWindow.document);
-                $.get("/resource/FilmRegex/search",function(data,status,xhr) {
-                    if(status=='success'){
-                        var regexs=data.data;
-                        for (x in  regexs){
-                            select.append('<option value="'+regexs[x].filmRegexId+'">'+regexs[x].description+'</option>');
-                        }
-                        form.render('select');
-                    }
-                })
             }
             ,yes: function(index, layero){
 
@@ -163,7 +152,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
             ,btn: ['结束任务', '返回']
             ,btnAlign: 'c'
             ,moveType: 1 //拖拽模式，0或者1
-            ,content: ['page/spider/spiderStop.html','no']
+            ,content: ['page/spider/spiderStop.html?key=FilmKey','no']
             ,yes: function(index, layero){
 
             }
@@ -180,9 +169,23 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         active[method] ? active[method].call(this, othis) : '';
     });
 
+    $('.flush_btn').on('click', function(){
+        $.ajax(
+            {
+                type:'PUT',
+                url:'/resource/spider/saveVod',
+                dataType:'json',
+                contentType:'application/json',
+                success:function (result) {
+
+                }
+            }
+        )
+    });
+
 
     layer.ready(function(){
-        $.get("/resource/spider/isWork",{key:"FilmKey"},function (data,status,xhr) {
+        $.get("/resource/spider/isWorking",{key:"FilmKey"},function (data,status,xhr) {
               if(status=='success'){
                   if(data==false){
                       $(".newsAdd_btn").attr("data-method","startSpider");

@@ -9,7 +9,7 @@ layui.config({
         $ = layui.jquery;
 
     layer.ready(function(){
-        $.get("/resource/FilmRegex/search",function(data,status,xhr) {
+        $.get(window.location.search.split("=")[1],function(data,status,xhr) {
                 if(status=='success'){
                     var regexs=data.data;
                     for (x in  regexs){

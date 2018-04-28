@@ -1,5 +1,7 @@
 package com.app.mvc.util;
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+
 import java.sql.*;
 
 /**
@@ -9,33 +11,79 @@ public class JDBCSQLite {
 
     static Connection conn = null;
 
+     private static String initializeTable="create table lgw_film \n" +
+             "(\n" +
+             "  FILM_ID   \tINT PRIMARY KEY   NOT NULL,\n" +
+             "  FILM_NAME \tVARCHAR(200)      NOT NULL,\n" +
+             "  FILM_TYPE     VARCHAR(20)       NOT NULL,\n" +
+             "  TITLE_IMG     VARCHAR(100)      NOT NULL,\n" +
+             "  CONTENT_IMG   VARCHAR(255),\n" +
+             "  HTTP          VARCHAR(200),\n" +
+             "  XFPLAY        VARCHAR(200),\n" +
+             "  ED2K          VARCHAR(200),\n" +
+             "  THUNDER       VARCHAR(200),\n" +
+             "  QQDL          VARCHAR(200),\n" +
+             "  FLASHGET      VARCHAR(200),\n" +
+             "  URL \t\t\tVARCHAR(50)\t\t  NOT NULL,\n" +
+             "  MD5 \t\t\tVARCHAR(50)       NOT NULL\n" +
+             ");\n" +
+             "\n" +
+             "create table  lgw_pic\n" +
+             "(\n" +
+             " PIC_ID    INT     PRIMARY KEY   NOT NULL,\n" +
+             " NAME      VARCHAR(100)          NOT NULL,\n" +
+             " TYPE_CODE VARCHAR(100)          NOT NULL,\n" +
+             " IMG       VARCHAR(500)          NOT NULL,\n" +
+             " URL       VARCHAR(100)          NOT NULL,\n" +
+             " MD5       VARCHAR(100)          NOT NULL\n" +
+             ");\n" +
+             "\n" +
+             "create table lgw_novel\n" +
+             "(\n" +
+             "  NOVEL_ID   INT PRIMARY KEY  NOT NULL,\n" +
+             "  TYPE_CODE  VARCHAR(50)      NOT NULL,\n" +
+             "  TITLE      VARCHAR(100),\n" +
+             "  URL        VARCHAR(100)     NOT NULL,\n" +
+             "  MD5        VARCHAR(100)     NOT NULL\n" +
+             ");\n" +
+             "\n" +
+             "create table lgw_novel_page\n" +
+             "(\n" +
+             "  NOVEL_PAGE_ID  INT PRIMARY KEY  NOT NULL,\n" +
+             "  NOVEL_ID       INT  NOT NULL,\n" +
+             "  PAGE           INT  NOT NULL,\n" +
+             "  CONTENT        TEXT NOT NULL\n" +
+             ");";
+
+
+
     static {
-        try {
+        try  {
             Class.forName("org.sqlite.JDBC");
-            initSqlite();
+            initializeDataBase();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-    public  static void   initSqlite(){
-        String filmSQL="create table  lgw_film" +
-                "(FILM_ID,FILM_NAME,FILM_TYPE,TITLE_IMG,CONTENT_IGM,HTTP,XFPLAY,ED2K,THUNDER,QQDL," +
-                "FLASHGET,URL,MD5);";
+    public static void  initializeDataBase(){
+        String  sql="select count(1) from  sqlite_master";
+        int count=0;
+        try(Connection connection=getConnection();
+            Statement stmt=connection.createStatement()){
+            ResultSet resultSet=stmt.executeQuery(sql);
+            if(resultSet.next()){
+                count=resultSet.getInt(1);
+            }
+        }catch (Exception e){
+                e.printStackTrace();
+        }
 
-        String picSQL="create table lgw_pic" +
-                "(PIC_ID,NAME,TYPE_CODE,IMG,URL,MD5);";
+        if(count==0){
+            createTable(initializeTable);
+        }
 
-        String novelSQL="create table lge_novel " +
-                "(NOVEL_ID,TYPE_CODE,TITLE,URL,MD5);";
-
-        String novelPageSQL="create table lge_novel_page" +
-                "(NOVEL_PAGE_ID,NOVEL_ID,PAGE,CONTENT);";
-
-        createTable(filmSQL);
-        createTable(picSQL);
-        createTable(novelSQL);
     }
 
 
@@ -43,7 +91,6 @@ public class JDBCSQLite {
         if (conn == null || conn.isClosed()) {
             conn = DriverManager.getConnection("jdbc:sqlite:laogewen.db");
         }
-
         return conn;
     }
 
@@ -67,10 +114,14 @@ public class JDBCSQLite {
 
         Connection conn=null;
         Statement  stmt=null;
+        String[] batchSql=sql.split(";");
         try{
-            conn= DriverManager.getConnection("jdbc:sqlite:laogewen.db");
+            conn= getConnection();
             stmt=conn.createStatement();
-            stmt.executeQuery(sql);
+            for(int i=0;i<batchSql.length;i++){
+                stmt.addBatch(batchSql[i]);
+            }
+            stmt.executeBatch();
             stmt.close();
             conn.close();
         }catch (Exception e){

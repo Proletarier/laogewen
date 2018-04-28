@@ -12,7 +12,7 @@
 <blockquote class="layui-elem-quote news_search">
     <div class="layui-inline">
         <div class="layui-input-inline">
-            <input type="text" value="" placeholder="请输入电影名称" class="layui-input search_input">
+            <input type="text" value=""  id="title" placeholder="请输入小说名称" class="layui-input search_input">
         </div>
         <a class="layui-btn search_btn">查询</a>
     </div>
@@ -32,7 +32,7 @@
     </div>
 </blockquote>
 <div class="layui-form">
-    <table id="movie"></table>
+    <table id="novel" lay-filter="novel"></table>
 </div>
 
 <script type="text/html" id="barDemo">
@@ -40,6 +40,8 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
+<input id="novelId" hidden="hidden" value=""/>
+
 <script type="text/javascript" src="../../layui/layui.js"></script>
 <script type="text/javascript" src="novel.js"></script>
 </body>

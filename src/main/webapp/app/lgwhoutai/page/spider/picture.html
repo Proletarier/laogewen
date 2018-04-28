@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
-    <title>小说列表--老哥稳后台管理系统</title>
+    <title>图片列表--老哥稳后台管理系统</title>
     <link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
     <link rel="stylesheet" href="../../css/content.css" media="all" />
@@ -12,7 +12,7 @@
 <blockquote class="layui-elem-quote news_search">
     <div class="layui-inline">
         <div class="layui-input-inline">
-            <input type="text" value="" placeholder="请输入电影名称" class="layui-input search_input">
+            <input type="text" value=""  id="picName" placeholder="请输入图片名称" class="layui-input search_input">
         </div>
         <a class="layui-btn search_btn">查询</a>
     </div>
@@ -32,7 +32,7 @@
     </div>
 </blockquote>
 <div class="layui-form">
-    <table id="movie"></table>
+    <table id="picture"   lay-filter="pic"></table>
 </div>
 
 <script type="text/html" id="barDemo">
@@ -40,9 +40,9 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-<script type="text/html" id="switchTpl">
-    <input type="checkbox" name="sex" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="sexDemo" {{ d.id == 10003 ? 'checked' : '' }}>
-</script>
+
+<input id="pictureId" hidden="hidden" value=""/>
+
 <script type="text/javascript" src="../../layui/layui.js"></script>
 <script type="text/javascript" src="novel.js"></script>
 </body>

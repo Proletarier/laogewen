@@ -23,8 +23,9 @@ public  class   TemporaryData<T> {
 
 
     public void  removeList(String key){
-        if(!spiderData.containsKey(key)){
+        if(spiderData.containsKey(key)){
             spiderData.remove(key);
+            spiderSize.remove(key);
         }
     }
 

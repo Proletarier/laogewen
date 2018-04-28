@@ -14,6 +14,7 @@ import com.app.mvc.acl.dto.SpiderFilm;
 import com.app.mvc.acl.dto.SpiderNovel;
 import com.app.mvc.acl.dto.SpiderPicture;
 import org.apache.http.HttpResponse;
+import org.apache.xmlbeans.impl.common.NameUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -87,16 +88,17 @@ public class SpiderController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getVod", produces = "text/event-stream;charset=UTF-8")
-    public void getSpiderContent(HttpServletRequest request,HttpServletResponse response){
+    @RequestMapping(value = "/getSpider",method = RequestMethod.GET)
+    public void getSpiderContent(HttpServletRequest request,HttpServletResponse response,String key){
 
         String message="";
+        PrintWriter writer= null;
         try {
             response.setHeader("Content-Type", "text/event-stream");
             response.setHeader("Cache-Control","no-cache");
-            PrintWriter writer=response.getWriter();
+             writer=response.getWriter();
             while (true){
-               String newMessage=spiderService.getLastSpiderContent(UtilConfig.CACHE_FILM_KEY);
+               String newMessage=spiderService.getLastSpiderContent(key);
                if(!message.equals(newMessage)){
                    writer.write(("data:"+newMessage+"\n\n"));
                    writer.flush();
@@ -104,13 +106,16 @@ public class SpiderController {
                }
             }
         }catch (Exception e){
+            if(writer!=null){
+                writer.close();
+            }
             e.printStackTrace();
         }
 
     }
 
     @ResponseBody
-    @RequestMapping(value = "isWork",method = RequestMethod.GET)
+    @RequestMapping(value = "isWorking",method = RequestMethod.GET)
     public boolean  isSpiderWorking(String key){
         return spiderService.isSpiderWorking(key);
     }
@@ -153,7 +158,7 @@ public class SpiderController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "pic/search",method = RequestMethod.DELETE)
+    @RequestMapping(value = "pic",method = RequestMethod.DELETE)
     public JsonData deletePic(@RequestBody Map<String,Integer> map){
         spiderService.deletePicture(map.get("id"));
         return JsonData.success();

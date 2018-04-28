@@ -10,9 +10,8 @@ layui.config({
         $ = layui.jquery;
 
     layer.ready(function(){
-
         if (!!window.EventSource) {
-            var source = new EventSource('/resource/spider/getVod');
+            var source = new EventSource('/resource/spider/getSpider?key='+window.location.search.split("=")[1]);
             s = '';
             source.addEventListener('message', function(e) {
                  console.log(e);
