@@ -86,10 +86,5 @@
 		"icon": "&#xe620;",
 		"href": "",
 		"spread": false
-	 },{
-		"title": "页面静态化",
-		"icon": "&#xe64b;",
-		"href": "",
-		"spread": false
-	}]
+	 }]
 }]

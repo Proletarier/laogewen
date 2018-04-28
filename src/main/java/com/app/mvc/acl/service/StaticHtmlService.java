@@ -75,20 +75,23 @@ public class StaticHtmlService {
      * @param path
      * @param id
      */
-    public void staticVodHtml(String path, Integer id) {
-        Map<String, Object> map = Maps.newHashMap();
-        Film film = filmDao.findById(id);
-        film.setCodeValue(UtilConfig.FilmType.valueOf(film.getFilmType()).getValue());
-        film.setImg(film.getContentImg().split(";"));
-        String filmPath=film.getFilmType()+ File.separator+DateUtil.format(film.getCreateDate(),"yyyy-MM-dd").split("-")[0]+File.separator+DateUtil.format(film.getCreateDate(),"yyyy-MM-dd").split("-")[1]+DateUtil.format(film.getCreateDate(),"yyyy-MM-dd").split("-")[2];
-        map.put("film", film);
-        StaticTemplateView view = new StaticTemplateView();
-        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
-        view.setFltName("film.ftl");
-        view.setDestPath(path + File.separator + "app" + File.separator + "vod"+File.separator+filmPath);
-        view.setDestName(id + ".html");
-        view.setData(map);
-        FreemakerUtil.freemakerProcess(view);
+    public void staticVodHtml(String path, Integer ... id) {
+
+        for (int i=0;i<id.length;i++){
+            Map<String, Object> map = Maps.newHashMap();
+            Film film = filmDao.findById(id[i]);
+            film.setCodeValue(UtilConfig.FilmType.valueOf(film.getFilmType()).getValue());
+            film.setImg(film.getContentImg().split(";"));
+            String filmPath=film.getFilmType()+ File.separator+DateUtil.format(film.getCreateDate(),"yyyy-MM-dd").split("-")[0]+File.separator+DateUtil.format(film.getCreateDate(),"yyyy-MM-dd").split("-")[1]+DateUtil.format(film.getCreateDate(),"yyyy-MM-dd").split("-")[2];
+            map.put("film", film);
+            StaticTemplateView view = new StaticTemplateView();
+            view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+            view.setFltName("film.ftl");
+            view.setDestPath(path + File.separator + "app" + File.separator + "vod"+File.separator+filmPath);
+            view.setDestName(id[i] + ".html");
+            view.setData(map);
+            FreemakerUtil.freemakerProcess(view);
+        }
     }
 
     /**
@@ -267,36 +270,38 @@ public class StaticHtmlService {
      * @param path
      * @param id
      */
-    public void staticPictureHtml(String path, Integer id) {
-        Picture picture = pictureDao.findById(id);
-        Map<String, Object> map = Maps.newHashMap();
-        if (picture == null) {
-            throw ServiceException.create("PICTURE.THE.ENTITY.IS.NOT.FOUND");
-        }
-        PictureCondition condition = new PictureCondition();
-        condition.setId(id);
-        condition.setType(picture.getTypeCode());
-        List<Picture> list = pictureDao.queryPictureUpAndDown(condition);
-        if (list != null && list.size() > 0) {
-            for (Picture pic : list) {
-                if (pic.getPictureId() > picture.getPictureId()) {
-                    picture.setDownPage(pic);
-                } else if (pic.getPictureId() < picture.getPictureId()) {
-                    picture.setUpPage(pic);
+    public void staticPictureHtml(String path, Integer ... id) {
+        for (int i=0;i<id.length;i++){
+            Picture picture = pictureDao.findById(id[i]);
+            Map<String, Object> map = Maps.newHashMap();
+            if (picture == null) {
+                throw ServiceException.create("PICTURE.THE.ENTITY.IS.NOT.FOUND");
+            }
+            PictureCondition condition = new PictureCondition();
+            condition.setId(id[i]);
+            condition.setType(picture.getTypeCode());
+            List<Picture> list = pictureDao.queryPictureUpAndDown(condition);
+            if (list != null && list.size() > 0) {
+                for (Picture pic : list) {
+                    if (pic.getPictureId() > picture.getPictureId()) {
+                        picture.setDownPage(pic);
+                    } else if (pic.getPictureId() < picture.getPictureId()) {
+                        picture.setUpPage(pic);
+                    }
                 }
             }
+            String picturePath=picture.getTypeCode()+ File.separator+DateUtil.format(picture.getCreateDate(),"yyyy-MM-dd").split("-")[0]+File.separator+DateUtil.format(picture.getCreateDate(),"yyyy-MM-dd").split("-")[1]+DateUtil.format(picture.getCreateDate(),"yyyy-MM-dd").split("-")[2];
+            picture.setCodeValue(UtilConfig.PictureType.valueOf(picture.getTypeCode()).getValue());
+            picture.setImgs(picture.getImg().split(";"));
+            map.put("picture", picture);
+            StaticTemplateView view = new StaticTemplateView();
+            view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+            view.setFltName("picture.ftl");
+            view.setDestPath(path + File.separator + "app" + File.separator + "picture" + File.separator + picturePath);
+            view.setDestName(id[i] + ".html");
+            view.setData(map);
+            FreemakerUtil.freemakerProcess(view);
         }
-        String picturePath=picture.getTypeCode()+ File.separator+DateUtil.format(picture.getCreateDate(),"yyyy-MM-dd").split("-")[0]+File.separator+DateUtil.format(picture.getCreateDate(),"yyyy-MM-dd").split("-")[1]+DateUtil.format(picture.getCreateDate(),"yyyy-MM-dd").split("-")[2];
-        picture.setCodeValue(UtilConfig.PictureType.valueOf(picture.getTypeCode()).getValue());
-        picture.setImgs(picture.getImg().split(";"));
-        map.put("picture", picture);
-        StaticTemplateView view = new StaticTemplateView();
-        view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
-        view.setFltName("picture.ftl");
-        view.setDestPath(path + File.separator + "app" + File.separator + "picture" + File.separator + picturePath);
-        view.setDestName(id + ".html");
-        view.setData(map);
-        FreemakerUtil.freemakerProcess(view);
 
     }
 
@@ -352,44 +357,47 @@ public class StaticHtmlService {
      * @param path
      * @param id
      */
-    public void staticNovelHtml(String path, Integer id) {
-        Novel novel = novelDao.findById(id);
-        novel.setTypeCodeMeaning(UtilConfig.NovelType.valueOf(novel.getTypeCode()).getValue());
-        Map<String, Object> map = Maps.newHashMap();
-        if (novel == null) {
-            throw ServiceException.create("NOVEL.THE.ENTITY.IS.NOT.FOUND");
-        }
-        String novelPath=novel.getTypeCode()+ File.separator+DateUtil.format(novel.getCreateDate(),"yyyy-MM-dd").split("-")[0]+File.separator+DateUtil.format(novel.getCreateDate(),"yyyy-MM-dd").split("-")[1]+DateUtil.format(novel.getCreateDate(),"yyyy-MM-dd").split("-")[2];
-        NovelCondition condition = new NovelCondition();
-        condition.setNovelId(id);
-        List<Novel> novelList = novelDao.searchNovelUpAndDown(condition);
-        List<NovelPage> novelPages = novelPageDao.findByNovelId(id);
-        if (novelList != null && novelList.size() > 0) {
-            for (Novel nov : novelList) {
-                if (nov.getNovelId() > nov.getNovelId()) {
-                    novel.setDownPage(nov);
-                } else if (nov.getNovelId() < nov.getNovelId()) {
-                    novel.setUpPage(nov);
+    public void staticNovelHtml(String path, Integer ... id) {
+
+        for (int i=0;i<id.length;i++){
+            Novel novel = novelDao.findById(id[i]);
+            novel.setTypeCodeMeaning(UtilConfig.NovelType.valueOf(novel.getTypeCode()).getValue());
+            Map<String, Object> map = Maps.newHashMap();
+            if (novel == null) {
+                throw ServiceException.create("NOVEL.THE.ENTITY.IS.NOT.FOUND");
+            }
+            String novelPath=novel.getTypeCode()+ File.separator+DateUtil.format(novel.getCreateDate(),"yyyy-MM-dd").split("-")[0]+File.separator+DateUtil.format(novel.getCreateDate(),"yyyy-MM-dd").split("-")[1]+DateUtil.format(novel.getCreateDate(),"yyyy-MM-dd").split("-")[2];
+            NovelCondition condition = new NovelCondition();
+            condition.setNovelId(id[i]);
+            List<Novel> novelList = novelDao.searchNovelUpAndDown(condition);
+            List<NovelPage> novelPages = novelPageDao.findByNovelId(id[i]);
+            if (novelList != null && novelList.size() > 0) {
+                for (Novel nov : novelList) {
+                    if (nov.getNovelId() > nov.getNovelId()) {
+                        novel.setDownPage(nov);
+                    } else if (nov.getNovelId() < nov.getNovelId()) {
+                        novel.setUpPage(nov);
+                    }
                 }
             }
-        }
-        for (NovelPage novelPage : novelPages) {
-            map.put("novel", novel);
-            map.put("novelPage", novelPage);
-            map.put("totalNum", novelPages.size());
-            if (novelPage.getPage() == 1) {
-                map.put("upPageNum", "");
-            } else {
-                map.put("upPageNum", novelPage.getPage() - 1);
+            for (NovelPage novelPage : novelPages) {
+                map.put("novel", novel);
+                map.put("novelPage", novelPage);
+                map.put("totalNum", novelPages.size());
+                if (novelPage.getPage() == 1) {
+                    map.put("upPageNum", "");
+                } else {
+                    map.put("upPageNum", novelPage.getPage() - 1);
+                }
+                map.put("downPageNum", novelPage.getPage() + 1);
+                StaticTemplateView view = new StaticTemplateView();
+                view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
+                view.setFltName("novel.ftl");
+                view.setDestPath(path + File.separator + "app" + File.separator + "novel" + File.separator + novelPath);
+                view.setDestName(id[i] + (novelPage.getPage() == 1 ? "" : "_" + novelPage.getPage()) + ".html");
+                view.setData(map);
+                FreemakerUtil.freemakerProcess(view);
             }
-            map.put("downPageNum", novelPage.getPage() + 1);
-            StaticTemplateView view = new StaticTemplateView();
-            view.setFtlPath(path + File.separator + "app" + File.separator + "ftl");
-            view.setFltName("novel.ftl");
-            view.setDestPath(path + File.separator + "app" + File.separator + "novel" + File.separator + novelPath);
-            view.setDestName(id + (novelPage.getPage() == 1 ? "" : "_" + novelPage.getPage()) + ".html");
-            view.setData(map);
-            FreemakerUtil.freemakerProcess(view);
         }
     }
 

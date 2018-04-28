@@ -33,7 +33,7 @@ public class StaticHtmlController {
 
     @ResponseBody
     @RequestMapping(value = "film",method = RequestMethod.GET)
-    public JsonData staticVodHtml(HttpServletRequest request,Integer id){
+    public JsonData staticVodHtml(HttpServletRequest request,Integer[] id){
         staticHtmlService.staticVodHtml(request.getSession().getServletContext().getRealPath(""),id);
         return  JsonData.success(null);
     }
