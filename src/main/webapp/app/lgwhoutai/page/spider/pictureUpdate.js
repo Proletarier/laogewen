@@ -26,7 +26,7 @@ layui.config({
         $.ajax(
             {
                 type:"PUT",
-                url:"/resource/picture",
+                url:"/resource/spider/pic",
                 contentType:"application/json",
                 dataType:"json",
                 data:JSON.stringify(data.field),

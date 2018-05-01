@@ -61,7 +61,7 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-  <!--loginFilter
+  <!--loginFilter -->
   <filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>com.app.mvc.acl.filter.LoginFilter</filter-class>
@@ -74,10 +74,10 @@
     <url-pattern>/app/lgwhoutai/page/user/*</url-pattern>
     <url-pattern>/app/lgwhoutai/index.html</url-pattern>
     <url-pattern>/app/lgwhoutai/page/main.html</url-pattern>
-  </filter-mapping> -->
+  </filter-mapping>
 
 
-  <!-- druid
+  <!-- druid-->
   <servlet>
     <servlet-name>DruidStaView</servlet-name>
     <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
@@ -85,7 +85,7 @@
   <servlet-mapping>
     <servlet-name>DruidStaView</servlet-name>
     <url-pattern>/acl/druid/*</url-pattern>
-  </servlet-mapping> -->
+  </servlet-mapping>
   
   <filter>
     <filter-name>DruidWebStatFilter</filter-name>

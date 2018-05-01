@@ -18,7 +18,7 @@ public  class   TemporaryData<T> {
 
 
     public  List<T> getList(String key){
-         return !spiderData.containsKey(key)? spiderData.put(key,Lists.<T>newArrayList()) : spiderData.get(key);
+         return !spiderData.containsKey(key)? null : spiderData.get(key);
     }
 
 

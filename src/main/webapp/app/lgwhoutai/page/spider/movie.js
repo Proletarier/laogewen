@@ -113,7 +113,6 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
             ,success:function (layero,index) {
             }
             ,yes: function(index, layero){
-
                 var regexId = $("select", layero.find("iframe")[0].contentWindow.document).select().val();
                 var seeds=$(".seed", layero.find("iframe")[0].contentWindow.document).val();
                 var validate=$(".validate", layero.find("iframe")[0].contentWindow.document).val();
@@ -170,6 +169,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     });
 
     $('.flush_btn').on('click', function(){
+        var index = top.layer.msg('正在同步',{icon: 16,time:false,shade:0.8});
         $.ajax(
             {
                 type:'PUT',
@@ -177,7 +177,16 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
                 dataType:'json',
                 contentType:'application/json',
                 success:function (result) {
-
+                    if(result.status==1){
+                        setTimeout(function(){
+                            top.layer.msg("同步成功！");
+                            top.layer.close(index);
+                            form.reload();
+                        },2000);
+                    }else{
+                        top.layer.close(index);
+                        layer.msg(result.msg, {time: 2000});
+                    }
                 }
             }
         )

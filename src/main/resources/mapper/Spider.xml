@@ -16,7 +16,7 @@
 
     <insert id="insertSpider" parameterType="SpiderData"  useGeneratedKeys="true" keyColumn="spiderId">
         INSERT INTO lgw_spider(SPIDER_URL,SPIDER_MD5,SPIDER_LOCATION,SPIDER_TYPE,CREATE_DATE)
-        VALUES (#{spiderUrl},#{spiderMd5},#{encryptedUserPassword},#{spiderLocation},#{spiderType},#{createDate})
+        VALUES (#{spiderUrl},#{spiderMd5},#{spiderLocation},#{spiderType},#{createDate})
         <selectKey resultType="int" order="AFTER" keyProperty="spiderId">
             SELECT  LAST_INSERT_ID() as spiderId
         </selectKey>

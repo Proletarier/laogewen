@@ -26,10 +26,10 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
         }
         ,cols: [[
             {type:'checkbox'}
-            ,{field: 'name', width:'20.5%',title: '图片名称', }
-            ,{field: 'typeCode', width:'15%',title: '图片类型' }
-            ,{field: 'url', width:'10%',title: 'url' }
-            ,{field: 'md5', width:'14%',title:'md5' }
+            ,{field: 'name', width:'24.5%',title: '图片名称', }
+            ,{field: 'typeCode', width:'10%',title: '图片类型' }
+            ,{field: 'url', width:'20%',title: 'url' }
+            ,{field: 'md5', width:'20%',title:'md5' }
             ,{fixed: 'right' ,width:'20%', toolbar: '#barDemo'}
         ]]
     });
@@ -79,7 +79,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
                 title : "修改图片",
                 id:data.filmId,
                 type : 2,
-                content : "PictureUpdate.html?",
+                content : "pictureUpdate.html?",
                 success : function(layero, index){
                     setTimeout(function(){
                         layui.layer.tips('点击此处返回图片列表', '.layui-layer-setwin .layui-layer-close', {
@@ -121,7 +121,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
                     $.ajax(
                         {
                             type:"GET",
-                            url:"/resource/spider/getSpider?key=PictureKey",
+                            url:"/resource/spider/picture",
                             contentType:"application/json",
                             dataType:"json",
                             data: {seeds:seeds,validate:validate,size:size},
@@ -152,7 +152,7 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
                 ,btn: ['结束任务', '返回']
                 ,btnAlign: 'c'
                 ,moveType: 1 //拖拽模式，0或者1
-                ,content: ['page/spider/spiderStop.html','no']
+                ,content: ['page/spider/spiderStop.html?key=PictureKey','no']
                 ,yes: function(index, layero){
 
                 }
@@ -167,6 +167,32 @@ layui.use(['form','laydate','table','laypage','jquery','layer','util'], function
     $('.newsAdd_btn').on('click', function(){
         var othis = $(this), method = othis.data('method');
         active[method] ? active[method].call(this, othis) : '';
+    });
+
+
+
+    $('.flush_btn').on('click', function(){
+        var index = top.layer.msg('正在同步',{icon: 16,time:false,shade:0.8});
+        $.ajax(
+            {
+                type:'PUT',
+                url:'/resource/spider/savePicture',
+                dataType:'json',
+                contentType:'application/json',
+                success:function (result) {
+                    if(result.status==1){
+                        setTimeout(function(){
+                            top.layer.msg("同步成功！");
+                            top.layer.close(index);
+                            form.reload();
+                        },2000);
+                    }else{
+                        top.layer.close(index);
+                        layer.msg(result.msg, {time: 2000});
+                    }
+                }
+            }
+        )
     });
 
 

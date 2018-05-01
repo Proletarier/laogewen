@@ -107,7 +107,7 @@ public class SpiderService {
         }
         Spider spider=new Spider();
         try {
-           // set = spiderDao.searchSpider(condition);
+            set = spiderDao.searchSpider(condition);
             temporaryData.createSpider(key,size);
             spider.crewling(temporaryData.getList(key),set, t, filter, seeds, validate, size);
         } catch (Exception e) {
@@ -210,11 +210,14 @@ public class SpiderService {
      * 刷新小说到数据库
      */
     public void flushNovelToDatabase() {
-        Object object = cacheCache.get(UtilConfig.CACH_NOVEL_KEY);
-        if (object == null) {
+        NovelCondition condition = new NovelCondition();
+        condition.setPageSize(99999);
+        List<Novel> novelList = spiderNovelDao.searchNovel(condition);
+
+        if (novelList == null) {
             throw ServiceException.create("NOVEL.IS.NULL");
         }
-        List<Novel> novelList = (List<Novel>) object;
+
         for (Novel novel : novelList) {
             if (novel.getTypeCode() == null) continue;
             for (UtilConfig.NovelType type : UtilConfig.NovelType.values()) {
@@ -264,11 +267,14 @@ public class SpiderService {
      * 刷新图片到数据库
      */
     public void flushPictureToDatabase() {
-        Object object = cacheCache.get(UtilConfig.CACHE_PICTURE_KEY);
-        if (object == null) {
+        PictureCondition condition = new PictureCondition();
+        condition.setPageSize(99999);
+        List<Picture> pictureLists = spiderPicDao.searchPicture(condition);
+
+        if (pictureLists == null) {
             throw ServiceException.create("NOVEL.IS.NULL");
         }
-        List<Picture> pictureLists = (List<Picture>) object;
+
         for (Picture picture : pictureLists) {
             pictureService.savePicture(picture);
             insertSpider("PIC", picture);

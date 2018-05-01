@@ -1,7 +1,5 @@
 package com.app.mvc.util;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-
 import java.sql.*;
 
 /**
@@ -13,10 +11,10 @@ public class JDBCSQLite {
 
      private static String initializeTable="create table lgw_film \n" +
              "(\n" +
-             "  FILM_ID   \tINT PRIMARY KEY   NOT NULL,\n" +
-             "  FILM_NAME \tVARCHAR(200)      NOT NULL,\n" +
-             "  FILM_TYPE     VARCHAR(20)       NOT NULL,\n" +
-             "  TITLE_IMG     VARCHAR(100)      NOT NULL,\n" +
+             "  FILM_ID   \t  INTEGER PRIMARY KEY   ,\n" +
+             "  FILM_NAME \t  VARCHAR(200)      ,\n" +
+             "  FILM_TYPE     VARCHAR(20)       ,\n" +
+             "  TITLE_IMG     VARCHAR(100)      ,\n" +
              "  CONTENT_IMG   VARCHAR(255),\n" +
              "  HTTP          VARCHAR(200),\n" +
              "  XFPLAY        VARCHAR(200),\n" +
@@ -30,18 +28,18 @@ public class JDBCSQLite {
              "\n" +
              "create table  lgw_pic\n" +
              "(\n" +
-             " PIC_ID    INT     PRIMARY KEY   NOT NULL,\n" +
-             " NAME      VARCHAR(100)          NOT NULL,\n" +
-             " TYPE_CODE VARCHAR(100)          NOT NULL,\n" +
-             " IMG       VARCHAR(500)          NOT NULL,\n" +
+             " PIC_ID    INTEGER     PRIMARY KEY   ,\n" +
+             " NAME      VARCHAR(100)          ,\n" +
+             " TYPE_CODE VARCHAR(100)          ,\n" +
+             " IMG       VARCHAR(500)          ,\n" +
              " URL       VARCHAR(100)          NOT NULL,\n" +
              " MD5       VARCHAR(100)          NOT NULL\n" +
              ");\n" +
              "\n" +
              "create table lgw_novel\n" +
              "(\n" +
-             "  NOVEL_ID   INT PRIMARY KEY  NOT NULL,\n" +
-             "  TYPE_CODE  VARCHAR(50)      NOT NULL,\n" +
+             "  NOVEL_ID   INTEGER PRIMARY KEY  ,\n" +
+             "  TYPE_CODE  VARCHAR(50)      ,\n" +
              "  TITLE      VARCHAR(100),\n" +
              "  URL        VARCHAR(100)     NOT NULL,\n" +
              "  MD5        VARCHAR(100)     NOT NULL\n" +
@@ -49,10 +47,10 @@ public class JDBCSQLite {
              "\n" +
              "create table lgw_novel_page\n" +
              "(\n" +
-             "  NOVEL_PAGE_ID  INT PRIMARY KEY  NOT NULL,\n" +
-             "  NOVEL_ID       INT  NOT NULL,\n" +
-             "  PAGE           INT  NOT NULL,\n" +
-             "  CONTENT        TEXT NOT NULL\n" +
+             "  NOVEL_PAGE_ID  INTEGER PRIMARY KEY  ,\n" +
+             "  NOVEL_ID       INT  ,\n" +
+             "  PAGE           INT  ,\n" +
+             "  CONTENT        TEXT \n" +
              ");";
 
 

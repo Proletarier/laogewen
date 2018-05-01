@@ -24,7 +24,7 @@ public class SpiderNovelDao {
         String novelSql = "insert into lgw_novel(NOVEL_ID,TYPE_CODE,TITLE,URL,MD5)" +
                 "values(NULL,?,?,?,?);";
         String novelPageSql = "insert into lgw_novel_page(NOVEL_PAGE_ID,NOVEL_ID,PAGE,CONTENT)" +
-                "values(null,?,?,?,?);";
+                " values(null,?,?,?);";
 
         Connection conn = null;
         PreparedStatement statement = null;
@@ -41,7 +41,7 @@ public class SpiderNovelDao {
                 int sum = statement.executeUpdate();
                 if (sum == 1) {
                     resultSet = statement.getGeneratedKeys();
-                    Integer novelId = resultSet.getInt("novel_id");
+                    Integer novelId = resultSet.getInt(1);
                     for (NovelPage page : novel.getNovelPages()) {
                         statement = conn.prepareStatement(novelPageSql);
                         statement.setInt(1, novelId);
@@ -192,7 +192,7 @@ public class SpiderNovelDao {
             statement=conn.prepareStatement(deleteNovel);
             int num=statement.executeUpdate();
             if(num>0){
-                statement.executeUpdate(deleteNovelPage);
+                conn.prepareStatement(deleteNovelPage).executeUpdate();
             }
             conn.commit();
         }catch (Exception e){

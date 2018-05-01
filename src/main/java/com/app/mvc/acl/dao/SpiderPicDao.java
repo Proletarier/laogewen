@@ -59,7 +59,7 @@ public class SpiderPicDao {
 
 
     public void updatePicture(Picture picture) throws Exception {
-        String sql = "UPDATE lge_pic SET " +
+        String sql = "UPDATE lgw_pic SET " +
                 "NAME=?" +
                 ",TYPE_CODE=?" +
                 ",IMG=?" +
@@ -73,6 +73,7 @@ public class SpiderPicDao {
             statement.setString(1, picture.getName());
             statement.setString(2, picture.getTypeCode());
             statement.setString(3, picture.getImg());
+            statement.setInt(4, picture.getPictureId());
             statement.executeUpdate();
             connection.commit();
         } catch (Exception e) {
@@ -158,7 +159,7 @@ public class SpiderPicDao {
         if (condition.getName() != null) {
             where += " and name like '%" + condition.getName() + "%'";
         }
-        String sql = "select * from lgw_pic where 1=1 " + where;
+        String sql = "select * from lgw_pic where 1=1 " + where+"";
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -166,8 +167,6 @@ public class SpiderPicDao {
         try {
             conn = JDBCSQLite.getConnection();
             statement = conn.prepareStatement(sql);
-            statement.setInt(1, condition.getOffset());
-            statement.setInt(2, condition.getPageSize());
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 count = resultSet.getInt(1);
