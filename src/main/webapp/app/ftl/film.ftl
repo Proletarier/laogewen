@@ -111,7 +111,10 @@
                 </p>
                 <ul>
                     <li>
-                        <img src="//pan.baidu.com/share/qrcode?w=248&h=248&url=https://m.lu.sex/vshow-11985.html">
+                        <img id="qrCode" src="//pan.baidu.com/share/qrcode?w=248&h=248&url=laogewen.co">
+                        <script>
+                            document.getElementById("qrCode").src = "//pan.baidu.com/share/qrcode?w=248&h=248&url="+window.location.href;
+                        </script>
                     </li>
                 </ul>
             </div>

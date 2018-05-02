@@ -45,13 +45,13 @@
             <ul class="nav nav-pills nav-stacked ">
                 <li class="active"><a href="#">分类检索</a></li>
                 <li><a href="/app/vod/YZQS/index_1.html">亚洲情色</a></li>
+                <li><a href="/app/vod/WYZP/index_1.html">网友自拍</a></li>
                 <li><a href="/app/vod/ZFSW/index_1.html">制服丝袜</a></li>
                 <li><a href="/app/vod/OMXA/index_1.html">欧美性爱</a></li>
                 <li><a href="/app/vod/JDSJ/index_1.html">经典三级</a></li>
                 <li><a href="/app/vod/LLND/index_1.html">乱伦虐待</a></li>
                 <li><a href="/app/vod/LLBT/index_1.html">另类变态</a></li>
                 <li><a href="/app/vod/CRDM/index_1.html">成人动漫</a></li>
-                <li><a href="/app/vod/ZXSP/index_1.html">在线视频</a></li>
                 <div class="clear"></div>
             </ul>
         </div>
