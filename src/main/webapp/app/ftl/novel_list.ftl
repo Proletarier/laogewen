@@ -17,7 +17,7 @@
 
 		<script>
         $(document).ready(function () {
-            $initPageList(${count},"${type}");
+            $initPageList(${count?c},"${type}");
         });
 	</script>
 </head>

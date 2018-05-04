@@ -16,7 +16,7 @@
 	<script src="/app/picture/js/picture_list.js"></script>
 	<script>
         $(document).ready(function () {
-            $initPageList(${count},"${type}");
+            $initPageList(${count?c},"${type}");
         });
 	</script>
 </head>

@@ -18,8 +18,8 @@
         $(document).ready(function () {
 		     var loc = window.location.href;
 			 var size = loc.substring(loc.lastIndexOf("/") + 1).replace(/[^0-9]/ig, "");
-		     $("#pages b").html("共"+${count}+"部影片 当前:"+size+"/"+Math.ceil(${count}/14)+"页");
-			 $(".pagination").html($initPage(size,Math.ceil(${count}/14),"${type}"));
+		     $("#pages b").html("共"+${count?c}+"部影片 当前:"+size+"/"+Math.ceil(${count?c}/14)+"页");
+			 $(".pagination").html($initPage(size,Math.ceil(${count?c}/14),"${type}"));
 			 $initPageList();
         });
     </script>
