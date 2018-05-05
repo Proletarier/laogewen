@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>小撸怡情，大撸伤身，强撸灰飞烟灭</title>
     <meta name="referrer" content="never">
-    <meta name="keyword" content="三五瓶，逼两拳，老哥还会军体拳">
+    <meta name="keywords" content="三五瓶，逼两拳，老哥还会军体拳">
     <meta name="description" content="戒撸是不可能戒撸的，这辈子是不可能戒撸的，找小姐又不会，只有靠撸管才能维持的了生活。
     来老哥稳就像回家一样，里面个个都是人才，说话又好听，超喜欢在里面的。">
     <link href="app/public/css/bootstrap.min.css" rel="stylesheet">
