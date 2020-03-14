@@ -26,7 +26,6 @@
 * json(jackson)序列化与反序列化
 * sse服务器推送消息
 * sqlite本地数据
-* 搜索引擎
 * nginx实现动静分离
 
   [网站测试](http://laogewen.co/) （滑稽）
